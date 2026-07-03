@@ -44,4 +44,50 @@
   }, { threshold: 0.2 });
 
   revealTargets.forEach(function (el) { io.observe(el); });
+
+  // -------------------- contact form: validation + envoi (Formspree) --------------------
+  var contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    var successBox = document.getElementById('form-success');
+    var errorBox = document.getElementById('form-error');
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var valid = true;
+
+      contactForm.querySelectorAll('[required]').forEach(function (field) {
+        var errorEl = contactForm.querySelector('[data-error-for="' + field.id + '"]');
+        if (!field.value.trim()) {
+          errorEl.textContent = 'Ce champ est requis.';
+          valid = false;
+        } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
+          errorEl.textContent = 'Merci de renseigner une adresse email valide.';
+          valid = false;
+        } else if (field.type === 'tel' && !/^[\d\s+()-]{8,}$/.test(field.value)) {
+          errorEl.textContent = 'Merci de renseigner un numéro de téléphone valide.';
+          valid = false;
+        } else {
+          errorEl.textContent = '';
+        }
+      });
+
+      if (!valid) return;
+
+      errorBox.hidden = true;
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          contactForm.hidden = true;
+          successBox.hidden = false;
+        } else {
+          errorBox.hidden = false;
+        }
+      }).catch(function () {
+        errorBox.hidden = false;
+      });
+    });
+  }
 })();
