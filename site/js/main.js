@@ -1,6 +1,32 @@
 (function () {
   'use strict';
 
+  // -------------------- hero: entrance animation + scroll parallax --------------------
+  var hero = document.getElementById('hero');
+  var heroImg = hero ? hero.querySelector('.hero__img') : null;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (hero) {
+    requestAnimationFrame(function () { hero.classList.add('is-loaded'); });
+
+    if (heroImg && !prefersReducedMotion) {
+      var ticking = false;
+      function updateParallax() {
+        var offset = window.scrollY;
+        if (offset < hero.offsetHeight) {
+          heroImg.style.transform = 'translateY(' + (offset * 0.4) + 'px)';
+        }
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+  }
+
   // -------------------- header: solid background past 40px scroll --------------------
   var header = document.getElementById('site-header');
   function updateHeaderScroll() {
