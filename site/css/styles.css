@@ -516,6 +516,7 @@ a { color: inherit; }
 }
 
 .why__item {
+  position: relative;
   text-align: center;
   padding: 32px 20px;
   background: #ffffff;
@@ -526,12 +527,25 @@ a { color: inherit; }
   border-color: var(--gold-solid);
   box-shadow: 0 10px 28px rgba(10,10,10,0.08);
 }
+/* le chiffre romain reste un repère secondaire, discret, en coin */
 .why__num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 40px;
-  font-weight: 500;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #b7b7b7;
+}
+.why__icon {
+  display: inline-flex;
   color: var(--gold-solid);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+}
+.why__icon svg {
+  width: 40px;
+  height: 40px;
 }
 .why__title {
   font-family: 'Cormorant Garamond', serif;
@@ -801,6 +815,103 @@ section[data-reveal-variant="fade-up"].is-visible {
   max-width: 720px;
 }
 
+/* -------------------- contact -------------------- */
+
+.contact {
+  background: var(--black);
+  padding: 72px 20px;
+}
+@media (min-width: 901px) {
+  .contact { padding: 140px 40px; }
+}
+.contact .section-head { text-align: center; }
+.contact__subtitle {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #b0b0b0;
+  font-weight: 300;
+  max-width: 560px;
+  margin: 18px auto 0;
+}
+
+.contact__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (min-width: 901px) {
+  .contact__layout { grid-template-columns: 2fr 1fr; gap: 60px; }
+}
+
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-bottom: 8px;
+}
+.form-group label em { color: #6a6a6a; font-style: normal; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #ffffff;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: #6a6a6a; }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold-light);
+}
+.form-group textarea { resize: vertical; }
+.error-message {
+  display: block;
+  color: #e07a5f;
+  font-size: 12px;
+  margin-top: 6px;
+  min-height: 14px;
+}
+
+.contact__success,
+.contact__error {
+  margin-top: 20px;
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.contact__success { border: 1px solid var(--gold-light); color: var(--gold-light); }
+.contact__error { border: 1px solid #e07a5f; color: #e07a5f; }
+
+.contact__direct {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.contact__direct p { margin: 0; font-size: 13.5px; line-height: 1.6; color: #d5d5d5; font-weight: 300; }
+.contact__direct strong {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6a6a6a;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.contact__direct a { color: var(--gold-light); text-decoration: none; }
+.contact__direct a:hover { color: #ffffff; }
+
 /* -------------------- footer -------------------- */
 
 .site-footer {
@@ -898,3 +1009,36 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: #5a5a5a;
   font-weight: 300;
 }
+
+/* -------------------- page légale -------------------- */
+
+.legal {
+  background: var(--gray-bg);
+  padding: 140px 20px 100px;
+}
+.legal__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.legal__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--black);
+  margin: 0 0 40px 0;
+}
+.legal h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--black);
+  margin: 40px 0 14px 0;
+}
+.legal p {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #4a4a4a;
+  font-weight: 300;
+  margin: 0 0 14px 0;
+}
+.legal a { color: var(--gold-solid); }
