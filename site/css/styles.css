@@ -461,6 +461,10 @@ a { color: inherit; }
 .pole__scrim { position: absolute; inset: 0; z-index: 1; }
 .pole__scrim--left { background: linear-gradient(90deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
 .pole__scrim--right { background: linear-gradient(270deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
+/* Photo produits Care : pas de zone "vide" dans le cadrage (flacons + étiquettes
+   sur toute la largeur), le scrim directionnel standard laisse les textes des
+   étiquettes concurrencer le texte du bloc — overlay plus soutenu et plus large. */
+.pole__scrim--strong.pole__scrim--right { background: linear-gradient(270deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.55) 75%); }
 
 .pole__row {
   position: relative;
@@ -625,12 +629,17 @@ section[data-reveal-variant="fade-up"].is-visible {
 /* -------------------- la vision -------------------- */
 
 .vision-teaser {
-  background: var(--black);
+  background-image: linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-mobile.webp');
+  background-size: cover;
+  background-position: center;
   padding: 72px 20px;
   text-align: center;
 }
 @media (min-width: 901px) {
-  .vision-teaser { padding: 140px 40px; }
+  .vision-teaser {
+    background-image: linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-desktop.webp');
+    padding: 140px 40px;
+  }
 }
 .vision-teaser__inner { max-width: 720px; }
 .vision-teaser__text {
