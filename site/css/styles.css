@@ -1026,11 +1026,14 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 901px) {
   .site-footer__bottom { margin-top: 90px; }
 }
-.site-footer__bottom div {
+.site-footer__bottom div,
+.site-footer__bottom a {
   font-size: 11.5px;
   color: #5a5a5a;
   font-weight: 300;
+  text-decoration: none;
 }
+.site-footer__bottom a:hover { color: var(--gold-light); }
 
 /* -------------------- page légale -------------------- */
 
