@@ -87,17 +87,20 @@
       }, { threshold: 0.3 });
       poles.forEach(function (p) { poleObserver.observe(p); });
 
-      var poleImgs = Array.prototype.map.call(poles, function (p) {
-        return p.querySelector('.pole__bg-img');
+      // le parallax cible le wrapper .pole__bg (pas l'image) pour ne pas entrer
+      // en conflit avec les effets propres à l'image (clip-path wipe, scale+flou...)
+      // qui manipulent leurs propres propriétés sur .pole__bg-img
+      var poleBgs = Array.prototype.map.call(poles, function (p) {
+        return p.querySelector('.pole__bg');
       });
       var poleTicking = false;
       function updatePoleParallax() {
         poles.forEach(function (p, i) {
-          var img = poleImgs[i];
-          if (!img) return;
+          var bg = poleBgs[i];
+          if (!bg) return;
           var rect = p.getBoundingClientRect();
           if (rect.bottom > 0 && rect.top < window.innerHeight) {
-            img.style.transform = 'translateY(' + (rect.top * -0.22) + 'px)';
+            bg.style.transform = 'translateY(' + (rect.top * -0.22) + 'px)';
           }
         });
         poleTicking = false;
