@@ -122,6 +122,18 @@
     </div>
   </section>
 
+  <!-- RÉASSURANCE -->
+  <!-- TODO: "Depuis 2015" est une valeur inventée en attendant l'année réelle de création (Badr) -->
+  <section class="reassurance">
+    <div class="reassurance__bar">
+      <span>Sur rendez-vous uniquement</span>
+      <span class="reassurance__sep">|</span>
+      <span>Réseau vérifié</span>
+      <span class="reassurance__sep">|</span>
+      <span>Depuis 2015</span>
+    </div>
+  </section>
+
   <!-- 5 PÔLES — SCROLL IMMERSIF -->
   <div id="poles">
 
@@ -139,7 +151,10 @@
       <div class="pole__scrim pole__scrim--left"></div>
       <div class="pole__row pole__row--start">
         <div class="pole__content">
-          <div class="kicker kicker--gold">🇫🇷🇲🇦🇨🇭 Import &amp; Conciergerie Automobile</div>
+          <div class="kicker kicker--gold kicker--icon">
+            <svg class="kicker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Import &amp; Conciergerie Automobile</span>
+          </div>
           <h3 class="pole__title">L'Excellence Automobile, Sans Frontières.</h3>
           <p class="pole__desc">Grâce à notre réseau de partenaires en France, en Suisse, au Maroc et dans toute l'Europe, nous recherchons pour vous les véhicules les plus exclusifs, où qu'ils se trouvent, et vous les livrons en PACA. Recherche personnalisée, négociation, importation, formalités administratives, accompagnement fiscal et immatriculation : un service clé en main.</p>
           <a href="./Import.html" class="btn btn--outline-gold">Lancer ma recherche personnalisée</a>
@@ -152,7 +167,10 @@
       <div class="pole__scrim pole__scrim--right"></div>
       <div class="pole__row pole__row--end">
         <div class="pole__content">
-          <div class="kicker kicker--gold">🏎️ Prestige Rent &amp; Conciergerie</div>
+          <div class="kicker kicker--gold kicker--icon">
+            <svg class="kicker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14v-5l-1.6-4.8A2 2 0 0 0 15.5 6h-7a2 2 0 0 0-1.9 1.2L5 12v5Z"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="16.5" cy="17" r="1.8"/></svg>
+            <span>Prestige Rent &amp; Conciergerie</span>
+          </div>
           <h3 class="pole__title">L'Art du Déplacement Haut de Gamme.</h3>
           <p class="pole__desc">Une flotte de véhicules d'exception avec ou sans chauffeur, livrés directement à votre hôtel, villa, résidence, aéroport ou héliport, à Cannes, Monaco, Saint-Tropez et sur l'ensemble de la Côte d'Azur.</p>
           <a href="./Prestige-Rent.html" class="btn btn--outline-gold">Réserver mon véhicule</a>
@@ -165,7 +183,10 @@
       <div class="pole__scrim pole__scrim--left"></div>
       <div class="pole__row pole__row--start">
         <div class="pole__content">
-          <div class="kicker kicker--gold">✨ Detailing Studio</div>
+          <div class="kicker kicker--gold kicker--icon">
+            <svg class="kicker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+            <span>Detailing Studio</span>
+          </div>
           <h3 class="pole__title">Sublimer. Préserver. Valoriser.</h3>
           <p class="pole__desc">Chaque véhicule mérite une attention particulière. Notre studio accompagne particuliers et professionnels en PACA dans la préparation esthétique avant livraison ou mise en vente : polish, protection céramique, PPF, covering, rénovation intérieure et entretien premium.</p>
           <a href="./Detailing-Studio.html" class="btn btn--outline-gold">Demander un devis detailing</a>
@@ -178,7 +199,10 @@
       <div class="pole__scrim pole__scrim--right"></div>
       <div class="pole__row pole__row--end">
         <div class="pole__content">
-          <div class="kicker kicker--gold">🧴 Azur Care</div>
+          <div class="kicker kicker--gold kicker--icon">
+            <svg class="kicker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.7s-6 6.6-6 10.6a6 6 0 0 0 12 0c0-4-6-10.6-6-10.6Z"/></svg>
+            <span>Azur Care</span>
+          </div>
           <h3 class="pole__title">L'Excellence Du Detailing Commence Ici.</h3>
           <p class="pole__desc">Développée avec des partenaires internationaux, notre gamme de produits premium allie innovation, efficacité et qualité professionnelle — pensée pour les passionnés comme pour les professionnels.</p>
           <a href="./Care.html" class="btn--tertiary">Découvrir la gamme Care</a>
@@ -187,6 +211,37 @@
     </section>
 
   </div>
+
+  <!-- SÉLECTION DU MOMENT -->
+  <!-- TODO: véhicules, descriptions et liens placeholder, à remplacer par le stock réel -->
+  <section class="fleet" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="kicker kicker--gray">Disponibilités</div>
+        <h2 class="section-title">Sélection du moment</h2>
+      </div>
+      <div class="fleet__grid">
+        <div class="fleet__card">
+          <div class="fleet__image"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE EN VITRINE 1"></div></div>
+          <h3 class="fleet__title">Porsche 911 Turbo S</h3>
+          <p class="fleet__desc">Disponible à l'achat ou à la location courte durée.</p>
+          <a href="./Import.html" class="btn--tertiary">Voir le véhicule</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE EN VITRINE 2"></div></div>
+          <h3 class="fleet__title">Mercedes-AMG GT</h3>
+          <p class="fleet__desc">Sélectionnée par notre réseau de partenaires, livrable en PACA.</p>
+          <a href="./Import.html" class="btn--tertiary">Voir le véhicule</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE EN VITRINE 3"></div></div>
+          <h3 class="fleet__title">Range Rover Autobiography</h3>
+          <p class="fleet__desc">Disponible à la location avec ou sans chauffeur.</p>
+          <a href="./Prestige-Rent.html" class="btn--tertiary">Voir le véhicule</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- POURQUOI AZUR -->
   <section class="why" data-reveal data-reveal-variant="fade-up">
@@ -220,6 +275,59 @@
     </div>
   </section>
 
+  <!-- LA VISION (teaser) -->
+  <!-- TODO: texte fondateur placeholder, à remplacer par le vrai texte de Badr -->
+  <section class="vision-teaser" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner vision-teaser__inner">
+      <div class="kicker kicker--gray">Notre philosophie</div>
+      <h2 class="section-title section-title--light">La Vision</h2>
+      <p class="vision-teaser__text">Azur Auto est né d'une conviction simple : une clientèle exigeante ne devrait pas avoir à multiplier les interlocuteurs pour vendre, louer ou entretenir un véhicule d'exception. Une seule maison, un seul standard.</p>
+      <a href="./La-Vision.html" class="btn--tertiary">En savoir plus</a>
+    </div>
+  </section>
+
+  <!-- PREUVE SOCIALE -->
+  <!-- TODO: témoignages, logos partenaires et chiffres clés sont des placeholders, à remplacer par les vrais éléments -->
+  <section class="social-proof" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="social-proof__testimonials">
+        <blockquote class="social-proof__testimonial">
+          <p>« Un accompagnement sans faille, de la recherche du véhicule à la livraison. Rien n'a été laissé au hasard. »</p>
+          <cite>— M. R.</cite>
+        </blockquote>
+        <blockquote class="social-proof__testimonial">
+          <p>« La discrétion et le sérieux que je recherchais, avec un vrai gain de temps sur toutes les démarches. »</p>
+          <cite>— A. B.</cite>
+        </blockquote>
+        <blockquote class="social-proof__testimonial">
+          <p>« Le studio detailing a rendu à ma voiture son éclat d'origine, en mieux. »</p>
+          <cite>— S. K.</cite>
+        </blockquote>
+      </div>
+
+      <div class="social-proof__partners">
+        <span class="social-proof__partner-tag">Partenaire — France</span>
+        <span class="social-proof__partner-tag">Partenaire — Suisse</span>
+        <span class="social-proof__partner-tag">Partenaire — Maroc</span>
+      </div>
+
+      <div class="social-proof__stats">
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number">150+</span>
+          <span class="social-proof__stat-label">véhicules importés</span>
+        </div>
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number">10+</span>
+          <span class="social-proof__stat-label">ans d'existence</span>
+        </div>
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number">30+</span>
+          <span class="social-proof__stat-label">partenaires en Europe</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CLUB (section fusionnée : teaser + conversion) -->
   <section class="club-teaser" id="club" data-reveal data-reveal-variant="fade-up">
     <div class="club-teaser__inner">
@@ -227,7 +335,10 @@
         <span>AZUR CLUB — TITANE</span>
       </div>
       <div class="club-teaser__text">
-        <div class="kicker kicker--gold">💎 Azur Club Titanium</div>
+        <div class="kicker kicker--gold kicker--icon">
+          <svg class="kicker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg>
+          <span>Azur Club Titanium</span>
+        </div>
         <h2 class="section-title section-title--light">Un cercle, pas une liste de clients</h2>
         <p class="club-teaser__desc">Azur Club Titanium réunit les propriétaires et passionnés qui partagent une même exigence : celle du détail. Accès prioritaire aux véhicules d'exception, événements privés, avantages dédiés sur l'ensemble des pôles Azur — l'appartenance a ses privilèges.</p>
         <div class="club-teaser__avantages">
@@ -245,6 +356,23 @@
           </div>
         </div>
         <a href="./Club.html" class="btn btn--primary">Devenir membre</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZONE DE COUVERTURE -->
+  <section class="coverage" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="kicker kicker--gray">Zone d'intervention</div>
+        <h2 class="section-title section-title--light">Zone de couverture</h2>
+      </div>
+      <div class="coverage__tags">
+        <span class="coverage__tag">Salon-de-Provence</span>
+        <span class="coverage__tag">Aix-en-Provence</span>
+        <span class="coverage__tag">Cannes</span>
+        <span class="coverage__tag">Monaco</span>
+        <span class="coverage__tag">Saint-Tropez</span>
       </div>
     </div>
   </section>

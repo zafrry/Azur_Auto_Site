@@ -38,6 +38,16 @@ a { color: inherit; }
 }
 .kicker--gold { color: var(--gold-light); }
 .kicker--gray { color: #8a8a8a; }
+.kicker--icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.kicker-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
 
 .section-title {
   font-family: 'Cormorant Garamond', serif;
@@ -111,6 +121,14 @@ a { color: inherit; }
 }
 .btn--tertiary:hover {
   color: var(--gold-light);
+}
+/* #9a9a9a passe l'AA sur fond noir (7.04:1) mais pas sur fond clair (2.41:1) ;
+   #6b6b6b (déjà utilisé pour le texte muet sur fond clair ailleurs) passe à 4.56:1. */
+.fleet__card .btn--tertiary {
+  color: #6b6b6b;
+}
+.fleet__card .btn--tertiary:hover {
+  color: var(--gold-solid);
 }
 
 .link-underline {
@@ -332,6 +350,32 @@ a { color: inherit; }
   .hero__cta-group { flex-direction: column; align-items: stretch; }
 }
 
+/* -------------------- réassurance -------------------- */
+
+.reassurance {
+  background: var(--black);
+  padding: 8px 20px 48px;
+}
+.reassurance__bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  font-weight: 300;
+}
+.reassurance__sep { color: #4a4a4a; }
+@media (max-width: 480px) {
+  .reassurance__bar { flex-direction: column; gap: 10px; }
+  .reassurance__sep { display: none; }
+}
+
 /* -------------------- pôles intro -------------------- */
 
 .poles-intro {
@@ -414,6 +458,44 @@ a { color: inherit; }
   transform: scale(1) translateY(0);
 }
 
+/* -------------------- flotte -------------------- */
+
+.fleet {
+  background: var(--gray-bg);
+  padding: 72px 20px;
+}
+@media (min-width: 901px) {
+  .fleet { padding: 140px 40px; }
+}
+.fleet__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 769px) {
+  .fleet__grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+}
+.fleet__image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.fleet__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: var(--black);
+}
+.fleet__desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #6b6b6b;
+  font-weight: 300;
+  margin: 0 0 16px 0;
+}
+
 /* -------------------- pourquoi azur -------------------- */
 
 .why {
@@ -433,7 +515,17 @@ a { color: inherit; }
   .why__grid { grid-template-columns: repeat(4, 1fr); gap: 32px; }
 }
 
-.why__item { text-align: center; padding: 0 12px; }
+.why__item {
+  text-align: center;
+  padding: 32px 20px;
+  background: #ffffff;
+  border: 1px solid rgba(10,10,10,0.08);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.why__item:hover {
+  border-color: var(--gold-solid);
+  box-shadow: 0 10px 28px rgba(10,10,10,0.08);
+}
 .why__num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 40px;
@@ -465,6 +557,110 @@ section[data-reveal-variant="fade-up"] {
 section[data-reveal-variant="fade-up"].is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* -------------------- la vision -------------------- */
+
+.vision-teaser {
+  background: var(--black);
+  padding: 72px 20px;
+  text-align: center;
+}
+@media (min-width: 901px) {
+  .vision-teaser { padding: 140px 40px; }
+}
+.vision-teaser__inner { max-width: 720px; }
+.vision-teaser__text {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: #c9c9c9;
+  font-weight: 300;
+  margin: 0 0 30px 0;
+}
+@media (min-width: 901px) {
+  .vision-teaser__text { font-size: 17px; }
+}
+.vision-teaser .btn--tertiary { color: #9a9a9a; }
+.vision-teaser .btn--tertiary:hover { color: var(--gold-light); }
+
+/* -------------------- preuve sociale -------------------- */
+
+.social-proof {
+  background: var(--gray-bg);
+  padding: 72px 20px;
+}
+@media (min-width: 901px) {
+  .social-proof { padding: 140px 40px; }
+}
+
+.social-proof__testimonials {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+@media (min-width: 769px) {
+  .social-proof__testimonials { grid-template-columns: repeat(3, 1fr); }
+}
+.social-proof__testimonial {
+  margin: 0;
+  padding: 28px 24px;
+  background: #ffffff;
+  border: 1px solid rgba(10,10,10,0.08);
+}
+.social-proof__testimonial p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--black);
+  margin: 0 0 14px 0;
+}
+.social-proof__testimonial cite {
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.social-proof__partners {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 0 56px;
+}
+.social-proof__partner-tag {
+  padding: 10px 18px;
+  border: 1px solid rgba(10,10,10,0.15);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.social-proof__stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 48px;
+  text-align: center;
+}
+.social-proof__stat-number {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--gold-solid);
+  margin-bottom: 6px;
+}
+.social-proof__stat-label {
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
 }
 
 /* -------------------- club teaser -------------------- */
@@ -539,6 +735,30 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: #9a9a9a;
   font-weight: 300;
   margin: 0;
+}
+
+/* -------------------- zone de couverture -------------------- */
+
+.coverage {
+  background: var(--black);
+  padding: 72px 20px;
+}
+@media (min-width: 901px) {
+  .coverage { padding: 140px 40px; }
+}
+.coverage__tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.coverage__tag {
+  padding: 9px 22px;
+  border: 1px solid var(--gold-light);
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--gold-light);
 }
 
 /* -------------------- faq -------------------- */
