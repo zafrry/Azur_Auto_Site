@@ -303,6 +303,29 @@ a { color: inherit; }
   .manifeste__text { font-size: 32px; }
 }
 
+/* -------------------- pôles intro -------------------- */
+
+.poles-intro {
+  background: var(--black);
+  padding: 72px 20px 0;
+}
+@media (min-width: 901px) {
+  .poles-intro { padding: 140px 40px 0; }
+}
+.poles-intro .section-title { color: #ffffff; }
+.poles-intro__text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #d0d0d0;
+  font-weight: 300;
+  margin: 0 auto;
+  max-width: 720px;
+  text-align: center;
+}
+@media (min-width: 901px) {
+  .poles-intro__text { font-size: 18px; }
+}
+
 /* -------------------- pôles -------------------- */
 
 .pole {
@@ -513,7 +536,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #6a6a6a;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
 }
 
 .site-footer__links {
