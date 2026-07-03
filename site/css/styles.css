@@ -513,7 +513,32 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: #b8b8b8;
   font-weight: 300;
   margin: 0 0 30px 0;
-  max-width: 420px;
+  max-width: 460px;
+}
+
+.club-teaser__avantages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin: 0 0 34px 0;
+  max-width: 460px;
+}
+@media (min-width: 640px) {
+  .club-teaser__avantages { grid-template-columns: repeat(3, 1fr); }
+}
+.club-teaser__avantage h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--gold-light);
+  margin: 0 0 8px 0;
+}
+.club-teaser__avantage p {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #9a9a9a;
+  font-weight: 300;
+  margin: 0;
 }
 
 /* -------------------- faq -------------------- */
