@@ -291,29 +291,6 @@ a { color: inherit; }
   .hero__subtitle { font-size: 17px; margin-bottom: 48px; }
 }
 
-/* -------------------- manifeste -------------------- */
-
-.manifeste {
-  background: var(--gray-bg);
-  padding: 80px 24px;
-}
-@media (min-width: 901px) {
-  .manifeste { padding: 160px 40px; }
-}
-.manifeste__text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--black);
-  margin: 0 auto;
-  max-width: 860px;
-  text-align: center;
-}
-@media (min-width: 901px) {
-  .manifeste__text { font-size: 32px; }
-}
-
 /* -------------------- pôles intro -------------------- */
 
 .poles-intro {
