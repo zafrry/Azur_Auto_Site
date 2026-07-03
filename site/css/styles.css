@@ -500,15 +500,44 @@ a { color: inherit; }
   margin: 0 0 32px 0;
 }
 
-/* scroll-reveal: pole sections (scale + rise) */
-.pole[data-reveal] .pole__content {
+/* scroll-reveal: pole sections — stagger badge -> titre -> description -> CTA,
+   même courbe que le hero (cubic-bezier(0.16,1,0.3,1)), déclenché au scroll
+   (voir IntersectionObserver dédié dans main.js, seuil 30%) */
+.pole__content .kicker--icon,
+.pole__content .pole__title,
+.pole__content .pole__desc,
+.pole__content > a {
   opacity: 0;
-  transform: scale(0.96) translateY(24px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
-.pole[data-reveal].is-visible .pole__content {
-  opacity: 1;
-  transform: scale(1) translateY(0);
+.pole.is-in-view .pole__content .kicker--icon { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.pole.is-in-view .pole__content .pole__title { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.pole.is-in-view .pole__content .pole__desc { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.pole.is-in-view .pole__content > a { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+/* balayage de l'image façon "bâche qu'on retire", sens alterné par pôle */
+.pole__bg {
+  transition: clip-path 0.95s cubic-bezier(0.16,1,0.3,1);
+}
+.pole--wipe-ltr .pole__bg { clip-path: inset(0 100% 0 0); }
+.pole--wipe-rtl .pole__bg { clip-path: inset(0 0 0 100%); }
+.pole.is-in-view .pole__bg { clip-path: inset(0 0 0 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pole__content .kicker--icon,
+  .pole__content .pole__title,
+  .pole__content .pole__desc,
+  .pole__content > a {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .pole--wipe-ltr .pole__bg,
+  .pole--wipe-rtl .pole__bg {
+    clip-path: none !important;
+    transition: none !important;
+  }
 }
 
 /* -------------------- flotte -------------------- */

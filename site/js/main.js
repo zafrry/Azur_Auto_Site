@@ -58,7 +58,7 @@
     if (e.matches) closeMobileMenu();
   });
 
-  // -------------------- scroll-reveal (pôles, pourquoi, club teaser) --------------------
+  // -------------------- scroll-reveal (pourquoi, faq, club teaser, etc.) --------------------
   var revealTargets = document.querySelectorAll('[data-reveal]');
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -70,6 +70,47 @@
   }, { threshold: 0.2 });
 
   revealTargets.forEach(function (el) { io.observe(el); });
+
+  // -------------------- pôles: reveal au scroll (seuil 30%) + parallax léger --------------------
+  var poles = document.querySelectorAll('.pole');
+  if (poles.length) {
+    if (prefersReducedMotion) {
+      poles.forEach(function (p) { p.classList.add('is-in-view'); });
+    } else {
+      var poleObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in-view');
+            poleObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      poles.forEach(function (p) { poleObserver.observe(p); });
+
+      var poleImgs = Array.prototype.map.call(poles, function (p) {
+        return p.querySelector('.pole__bg-img');
+      });
+      var poleTicking = false;
+      function updatePoleParallax() {
+        poles.forEach(function (p, i) {
+          var img = poleImgs[i];
+          if (!img) return;
+          var rect = p.getBoundingClientRect();
+          if (rect.bottom > 0 && rect.top < window.innerHeight) {
+            img.style.transform = 'translateY(' + (rect.top * -0.22) + 'px)';
+          }
+        });
+        poleTicking = false;
+      }
+      updatePoleParallax();
+      window.addEventListener('scroll', function () {
+        if (!poleTicking) {
+          requestAnimationFrame(updatePoleParallax);
+          poleTicking = true;
+        }
+      }, { passive: true });
+    }
+  }
 
   // -------------------- contact form: validation + envoi (Formspree) --------------------
   var contactForm = document.getElementById('contact-form');
