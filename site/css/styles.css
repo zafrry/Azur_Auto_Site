@@ -524,6 +524,20 @@ a { color: inherit; }
 .pole--wipe-rtl .pole__bg { clip-path: inset(0 0 0 100%); }
 .pole.is-in-view .pole__bg { clip-path: inset(0 0 0 0); }
 
+/* Prestige Rent : mise au point progressive (la photo a sa propre profondeur
+   de champ — portière nette, hôtel flou) plutôt que le balayage directionnel
+   des autres pôles. Sur .pole__bg-img, pas .pole__bg, pour ne pas entrer en
+   conflit avec le transform du parallax porté par le wrapper. */
+.pole--focus-reveal .pole__bg-img {
+  transform: scale(1.08);
+  filter: blur(14px);
+  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.pole.is-in-view.pole--focus-reveal .pole__bg-img {
+  transform: scale(1);
+  filter: blur(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pole__content .kicker--icon,
   .pole__content .pole__title,
@@ -536,6 +550,11 @@ a { color: inherit; }
   .pole--wipe-ltr .pole__bg,
   .pole--wipe-rtl .pole__bg {
     clip-path: none !important;
+    transition: none !important;
+  }
+  .pole--focus-reveal .pole__bg-img {
+    transform: none !important;
+    filter: none !important;
     transition: none !important;
   }
 }
