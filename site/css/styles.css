@@ -75,11 +75,15 @@ a { color: inherit; }
 .btn {
   text-decoration: none;
   display: inline-block;
+  font-family: 'Jost', sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 17px 34px;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
   transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 .btn--outline-gold {
@@ -844,6 +848,24 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 901px) {
   .contact__layout { grid-template-columns: 2fr 1fr; gap: 60px; }
 }
+
+.contact__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px 24px;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .contact__form { grid-template-columns: 1fr 1fr; }
+}
+.contact__form .form-group.full-width,
+.contact__form textarea,
+.contact__form button[type="submit"],
+.contact__success,
+.contact__error {
+  grid-column: 1 / -1;
+}
+.contact__form button[type="submit"] { justify-self: start; margin-top: 8px; }
 
 .form-group { margin-bottom: 18px; }
 .form-group label {
