@@ -114,7 +114,11 @@
       <div class="kicker kicker--gold">Azur Auto</div>
       <h1 class="hero__title">Vente, location et entretien de voitures de luxe en région PACA</h1>
       <p class="hero__subtitle">La plupart des acteurs du secteur ne font qu'un seul de ces trois métiers. Azur Auto les réunit sous une même exigence, pour la clientèle la plus exigeante de Provence-Alpes-Côte d'Azur.</p>
-      <a href="#poles" class="btn btn--outline-gold">Découvrir l'univers AZUR</a>
+      <div class="hero__cta-group">
+        <!-- TODO: à trancher avec Badr — cible "Réserver un véhicule" vers Prestige Rent (par défaut) ou remplacer par "Nous contacter" → Contact.html si l'Import est prioritaire -->
+        <a href="./Prestige-Rent.html" class="btn btn--primary">Réserver un véhicule</a>
+        <a href="#poles" class="btn btn--outline-gold">Découvrir l'univers AZUR</a>
+      </div>
     </div>
   </section>
 
@@ -177,20 +181,7 @@
           <div class="kicker kicker--gold">🧴 Azur Care</div>
           <h3 class="pole__title">L'Excellence Du Detailing Commence Ici.</h3>
           <p class="pole__desc">Développée avec des partenaires internationaux, notre gamme de produits premium allie innovation, efficacité et qualité professionnelle — pensée pour les passionnés comme pour les professionnels.</p>
-          <a href="./Care.html" class="btn btn--outline-gold">Découvrir la gamme Care</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="pole pole--left" data-reveal data-reveal-variant="scale">
-      <div class="pole__bg img-placeholder" data-caption="PHOTO — ÉVÉNEMENT PRIVÉ AZUR CLUB"></div>
-      <div class="pole__scrim pole__scrim--left"></div>
-      <div class="pole__row pole__row--start">
-        <div class="pole__content">
-          <div class="kicker kicker--gold">💎 Azur Club Titanium</div>
-          <h3 class="pole__title">Rejoignez Un Univers Réservé Aux Passionnés.</h3>
-          <p class="pole__desc">Avantages exclusifs, récompenses cumulables, invitations à des salons automobiles, événements privés, rassemblements de supercars, offres partenaires, essais exclusifs.</p>
-          <a href="./Club.html" class="btn btn--outline-gold">Devenir membre</a>
+          <a href="./Care.html" class="btn--tertiary">Découvrir la gamme Care</a>
         </div>
       </div>
     </section>
@@ -229,17 +220,31 @@
     </div>
   </section>
 
-  <!-- CLUB TEASER -->
-  <section class="club-teaser" data-reveal data-reveal-variant="fade-up">
+  <!-- CLUB (section fusionnée : teaser + conversion) -->
+  <section class="club-teaser" id="club" data-reveal data-reveal-variant="fade-up">
     <div class="club-teaser__inner">
       <div class="club-teaser__card">
         <span>AZUR CLUB — TITANE</span>
       </div>
       <div class="club-teaser__text">
-        <div class="kicker kicker--gold">Azur Club</div>
-        <h2 class="section-title section-title--light">Azur Club — un statut, pas une carte de fidélité</h2>
-        <p class="club-teaser__desc">Événements privés, essais exclusifs, priorité sur chaque métier AZUR. La carte titane ouvre un accès, pas une remise.</p>
-        <a href="./Club.html" class="btn btn--outline-gold">Devenir membre</a>
+        <div class="kicker kicker--gold">💎 Azur Club Titanium</div>
+        <h2 class="section-title section-title--light">Un cercle, pas une liste de clients</h2>
+        <p class="club-teaser__desc">Azur Club Titanium réunit les propriétaires et passionnés qui partagent une même exigence : celle du détail. Accès prioritaire aux véhicules d'exception, événements privés, avantages dédiés sur l'ensemble des pôles Azur — l'appartenance a ses privilèges.</p>
+        <div class="club-teaser__avantages">
+          <div class="club-teaser__avantage">
+            <h3>Accès prioritaire</h3>
+            <p>Premier informé sur les nouvelles arrivées Import et les créneaux Prestige Rent.</p>
+          </div>
+          <div class="club-teaser__avantage">
+            <h3>Tarifs préférentiels</h3>
+            <p>Conditions dédiées sur le Detailing Studio et la gamme Care.</p>
+          </div>
+          <div class="club-teaser__avantage">
+            <h3>Événements privés</h3>
+            <p>Rencontres et expériences réservées aux membres, en petit comité.</p>
+          </div>
+        </div>
+        <a href="./Club.html" class="btn btn--primary">Devenir membre</a>
       </div>
     </div>
   </section>
