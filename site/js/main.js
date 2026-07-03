@@ -67,7 +67,7 @@
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.3 });
 
   revealTargets.forEach(function (el) { io.observe(el); });
 
@@ -115,11 +115,49 @@
     }
   }
 
+  // -------------------- FAQ accordion --------------------
+  document.querySelectorAll('.faq__item').forEach(function (item) {
+    var btn = item.querySelector('.faq__question');
+    btn.addEventListener('click', function () {
+      var isOpen = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+
+  // -------------------- stats: count-up au scroll --------------------
+  function countUp(el, target, duration) {
+    if (prefersReducedMotion) { el.textContent = target + '+'; return; }
+    var start = null;
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + '+';
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + '+';
+    }
+    requestAnimationFrame(step);
+  }
+  document.querySelectorAll('.social-proof__stat-number[data-target]').forEach(function (el) {
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    var statObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          countUp(el, target, 1500);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statObserver.observe(el);
+  });
+
   // -------------------- contact form: validation + envoi (Formspree) --------------------
   var contactForm = document.getElementById('contact-form');
   if (contactForm) {
     var successBox = document.getElementById('form-success');
     var errorBox = document.getElementById('form-error');
+    var submitBtn = contactForm.querySelector('button[type="submit"]');
+    var submitBtnDefaultText = submitBtn.textContent;
 
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -144,18 +182,30 @@
       if (!valid) return;
 
       errorBox.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.classList.add('is-loading');
+      submitBtn.textContent = 'Envoi en cours...';
+
       fetch(contactForm.action, {
         method: 'POST',
         body: new FormData(contactForm),
         headers: { Accept: 'application/json' }
       }).then(function (response) {
         if (response.ok) {
+          submitBtn.classList.remove('is-loading');
+          submitBtn.textContent = 'Demande envoyée';
           contactForm.hidden = true;
           successBox.hidden = false;
         } else {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('is-loading');
+          submitBtn.textContent = submitBtnDefaultText;
           errorBox.hidden = false;
         }
       }).catch(function () {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('is-loading');
+        submitBtn.textContent = submitBtnDefaultText;
         errorBox.hidden = false;
       });
     });

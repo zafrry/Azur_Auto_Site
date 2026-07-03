@@ -14,6 +14,17 @@
   --layout-breakpoint: 900px;
 }
 
+/* Filet de sécurité global : toute transition/animation non couverte par une
+   règle prefers-reduced-motion dédiée plus bas est aussi neutralisée ici. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -112,11 +123,36 @@ a { color: inherit; }
   border-color: #755B20;
 }
 
+/* CTA "Devenir membre" : le plus exclusif du site, traitement différent —
+   une bordure dorée qui se dessine au survol plutôt que le scale générique */
+.btn--club {
+  position: relative;
+  overflow: visible;
+}
+.btn--club:hover {
+  transform: none;
+}
+.btn--club::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--gold-light);
+  clip-path: inset(0 100% 100% 0);
+  transition: clip-path 0.4s ease-out;
+  pointer-events: none;
+}
+.btn--club:hover::before {
+  clip-path: inset(0 0 0 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn--club::before { transition: none; }
+}
+
 /* Niveau 3 — tertiaire : découverte, pas de transaction (Care, Club dans la grille) */
 .btn--tertiary {
+  position: relative;
   display: inline-block;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none;
   color: #9a9a9a;
   font-size: 12px;
   font-weight: 400;
@@ -129,6 +165,23 @@ a { color: inherit; }
 }
 .btn--tertiary:hover {
   color: var(--gold-light);
+}
+/* soulignement qui se dessine au survol plutôt qu'un trait statique —
+   signature répétée sur tous les liens texte du site */
+.btn--tertiary::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 0;
+  margin-top: 3px;
+  background: currentColor;
+  transition: width 0.3s ease-out;
+}
+.btn--tertiary:hover::after {
+  width: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn--tertiary::after { transition: none; }
 }
 /* #9a9a9a passe l'AA sur fond noir (7.04:1) mais pas sur fond clair (2.41:1) ;
    #6b6b6b (déjà utilisé pour le texte muet sur fond clair ailleurs) passe à 4.56:1. */
@@ -537,6 +590,19 @@ a { color: inherit; }
   transform: scale(1);
   filter: blur(0);
 }
+/* Detailing : fort contraste noir/or, l'image part après le texte pour ne pas
+   diviser l'attention (le texte a fini son cascade à 0.3s, l'image démarre à 0.4s) */
+.pole--img-delay .pole__bg-img { transition-delay: 0.4s; }
+
+/* Care : léger zoom en boucle continue, quasi imperceptible (photo produit,
+   doit rester "vivante" sans jamais lire comme un GIF qui tourne) */
+.pole--kenburns .pole__bg-img {
+  animation: pole-kenburns 12s ease-in-out infinite alternate;
+}
+@keyframes pole-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .pole__content .kicker--icon,
@@ -557,6 +623,9 @@ a { color: inherit; }
     filter: none !important;
     transition: none !important;
   }
+  .pole--kenburns .pole__bg-img {
+    animation: none !important;
+  }
 }
 
 /* -------------------- flotte -------------------- */
@@ -576,11 +645,31 @@ a { color: inherit; }
 @media (min-width: 769px) {
   .fleet__grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
 }
+.fleet__card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.fleet[data-reveal].is-visible .fleet__card { opacity: 1; transform: translateY(0); }
+.fleet__card:nth-child(1) { transition-delay: 0s; }
+.fleet__card:nth-child(2) { transition-delay: 0.12s; }
+.fleet__card:nth-child(3) { transition-delay: 0.24s; }
+
 .fleet__image {
   position: relative;
   aspect-ratio: 4 / 3;
   margin-bottom: 18px;
   overflow: hidden;
+}
+.fleet__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease-out;
+}
+.fleet__card:hover .fleet__image img {
+  transform: scale(1.05);
 }
 .fleet__title {
   font-family: 'Cormorant Garamond', serif;
@@ -622,12 +711,20 @@ a { color: inherit; }
   padding: 32px 20px;
   background: #ffffff;
   border: 1px solid rgba(10,10,10,0.08);
-  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease,
+              opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
 }
 .why__item:hover {
   border-color: var(--gold-solid);
   box-shadow: 0 10px 28px rgba(10,10,10,0.08);
 }
+.why[data-reveal].is-visible .why__item { opacity: 1; transform: translateY(0); }
+.why__item:nth-child(1) { transition-delay: 0s; }
+.why__item:nth-child(2) { transition-delay: 0.08s; }
+.why__item:nth-child(3) { transition-delay: 0.16s; }
+.why__item:nth-child(4) { transition-delay: 0.24s; }
 /* le chiffre romain reste un repère secondaire, discret, en coin */
 .why__num {
   position: absolute;
@@ -643,6 +740,14 @@ a { color: inherit; }
   display: inline-flex;
   color: var(--gold-solid);
   margin-bottom: 16px;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease-out;
+}
+.why[data-reveal].is-visible .why__icon {
+  transform: scale(1);
+  opacity: 1;
+  transition-delay: inherit;
 }
 .why__icon svg {
   width: 40px;
@@ -667,11 +772,19 @@ a { color: inherit; }
 section[data-reveal-variant="fade-up"] {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
 }
 section[data-reveal-variant="fade-up"].is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+/* footer : simple fondu, pas de translation — zone utilitaire, pas de spectacle */
+[data-reveal-variant="fade-only"] {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+[data-reveal-variant="fade-only"].is-visible {
+  opacity: 1;
 }
 
 /* -------------------- la vision -------------------- */
@@ -728,7 +841,14 @@ section[data-reveal-variant="fade-up"].is-visible {
   padding: 28px 24px;
   background: #ffffff;
   border: 1px solid rgba(10,10,10,0.08);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
 }
+.social-proof[data-reveal].is-visible .social-proof__testimonial { opacity: 1; transform: translateY(0); }
+.social-proof__testimonial:nth-child(1) { transition-delay: 0s; }
+.social-proof__testimonial:nth-child(2) { transition-delay: 0.1s; }
+.social-proof__testimonial:nth-child(3) { transition-delay: 0.2s; }
 .social-proof__testimonial p {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
@@ -817,6 +937,20 @@ section[data-reveal-variant="fade-up"].is-visible {
   display: flex;
   align-items: flex-end;
   padding: 24px;
+  overflow: hidden;
+}
+/* balayage de lumière doré, une seule fois à l'entrée — signature de la
+   section la plus "exclusive" du site */
+.club-teaser__card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent 0%, rgba(212,175,55,0.3) 50%, transparent 100%);
+  transition: left 1.4s cubic-bezier(0.16,1,0.3,1);
+}
+.club-teaser.is-visible .club-teaser__card::after {
+  left: 100%;
 }
 @media (max-width: 767px) {
   .club-teaser__card {
@@ -891,7 +1025,16 @@ section[data-reveal-variant="fade-up"].is-visible {
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--gold-light);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16,1,0.3,1);
 }
+.coverage[data-reveal].is-visible .coverage__tag { opacity: 1; transform: scale(1); }
+.coverage__tag:nth-child(1) { transition-delay: 0s; }
+.coverage__tag:nth-child(2) { transition-delay: 0.07s; }
+.coverage__tag:nth-child(3) { transition-delay: 0.14s; }
+.coverage__tag:nth-child(4) { transition-delay: 0.21s; }
+.coverage__tag:nth-child(5) { transition-delay: 0.28s; }
 
 /* -------------------- faq -------------------- */
 
@@ -914,23 +1057,67 @@ section[data-reveal-variant="fade-up"].is-visible {
   border-top: 1px solid rgba(10,10,10,0.12);
   padding-top: 28px;
 }
+.faq__item h3 { margin: 0; }
 .faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
   font-weight: 500;
-  margin: 0 0 10px 0;
   color: var(--black);
 }
 @media (min-width: 901px) {
   .faq__question { font-size: 24px; }
 }
+.faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+.faq__icon::before,
+.faq__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--gold-solid);
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+}
+.faq__icon::before { width: 14px; height: 1.5px; }
+.faq__icon::after { width: 1.5px; height: 14px; }
+.faq__item.is-open .faq__icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+
+/* accordéon en CSS Grid : pas de JS pour calculer la hauteur, et ça reste
+   fonctionnel (ouverture/fermeture) même sous prefers-reduced-motion —
+   seule la transition disparaît via la règle globale, pas le mécanisme */
 .faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16,1,0.3,1);
+  max-width: 720px;
+}
+.faq__item.is-open .faq__answer {
+  grid-template-rows: 1fr;
+}
+.faq__answer > div {
+  overflow: hidden;
+}
+.faq__answer p {
   font-size: 14.5px;
   line-height: 1.75;
   color: #6b6b6b;
   font-weight: 300;
-  margin: 0;
-  max-width: 720px;
+  margin: 10px 0 0 0;
 }
 
 /* -------------------- contact -------------------- */
@@ -1001,7 +1188,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: #ffffff;
   font-family: 'Jost', sans-serif;
   font-size: 14px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: #6a6a6a; }
@@ -1010,6 +1197,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--gold-light);
+  box-shadow: 0 0 0 3px rgba(212, 184, 118, 0.18);
 }
 .form-group textarea { resize: vertical; }
 .error-message {
@@ -1029,6 +1217,28 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 .contact__success { border: 1px solid var(--gold-light); color: var(--gold-light); }
 .contact__error { border: 1px solid #e07a5f; color: #e07a5f; }
+
+.btn.is-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+.btn.is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn.is-loading::after { animation-duration: 1.2s; }
+}
 
 .contact__direct {
   display: flex;
