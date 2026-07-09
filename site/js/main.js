@@ -105,14 +105,29 @@
       var poleBgs = Array.prototype.map.call(poles, function (p) {
         return p.querySelector('.pole__bg');
       });
+      // calque du pôle suivant, superposé dans la bande basse du pôle actuel
+      // (null pour Care, qui n'a pas de crossfade image-à-image, cf. CSS)
+      var poleCrossfades = Array.prototype.map.call(poles, function (p) {
+        return p.querySelector('.pole__crossfade');
+      });
       var poleTicking = false;
       function updatePoleParallax() {
+        var viewportHeight = window.innerHeight;
+        var crossfadeBand = viewportHeight * 0.28; // doit matcher .pole__crossfade { height: 28% }
         poles.forEach(function (p, i) {
-          var bg = poleBgs[i];
-          if (!bg) return;
           var rect = p.getBoundingClientRect();
-          if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          var bg = poleBgs[i];
+          if (bg && rect.bottom > 0 && rect.top < viewportHeight) {
             bg.style.transform = 'translateY(' + (rect.top * -0.1) + 'px)';
+          }
+          var crossfade = poleCrossfades[i];
+          if (crossfade) {
+            // 0 tant que le pôle n'a pas commencé à défiler hors de l'écran,
+            // 1 dès que son bord bas est remonté d'une bande complète — l'image
+            // suivante se superpose donc pendant que l'actuelle est encore
+            // pleinement visible, jamais après qu'elle ait disparu
+            var progress = (viewportHeight - rect.bottom) / crossfadeBand;
+            crossfade.style.opacity = String(Math.max(0, Math.min(1, progress)));
           }
         });
         poleTicking = false;
