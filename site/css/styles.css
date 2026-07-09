@@ -481,10 +481,10 @@ a { color: inherit; }
 
 .poles-intro {
   background: var(--black);
-  padding: 72px 20px 0;
+  padding: 72px 20px 64px;
 }
 @media (min-width: 901px) {
-  .poles-intro { padding: 140px 40px 0; }
+  .poles-intro { padding: 140px 40px 110px; }
 }
 .poles-intro .section-title { color: #ffffff; }
 .poles-intro__text {
@@ -511,7 +511,29 @@ a { color: inherit; }
   background: var(--black);
   overflow: hidden;
 }
-.pole__bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+/* Surdimensionné (130% de haut, décalé de -15%) pour que le parallax ait de la
+   marge à parcourir sans jamais découvrir le fond de la section suivante — le
+   clipping réel se fait de toute façon au niveau de .pole (overflow:hidden),
+   donc ce débordement ne casse jamais la mise en page. Le mask-image fond les
+   bords haut/bas vers le noir (--black, déjà le fond de la section) : comme le
+   fondu est porté par ce même élément que le parallax transforme, il reste
+   toujours visible au bon endroit quel que soit le décalage appliqué. */
+.pole__bg {
+  position: absolute;
+  top: -15%;
+  left: 0;
+  right: 0;
+  height: 130%;
+  z-index: 0;
+  overflow: hidden;
+  /* stops calculés pour que le fondu tombe dans la fenêtre VISIBLE (0%-100%
+     en coordonnées de section), pas dans le débordement de 15% de chaque
+     côté : le point "transparent" est placé à 5% à l'intérieur du bord
+     visible réel (11.5%/88.5% en repère de l'élément) pour garantir un noir
+     plein pile à la jonction, pas juste "presque noir" */
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 27%, black 73%, transparent 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 27%, black 73%, transparent 85%, transparent 100%);
+}
 .pole__bg-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pole__scrim { position: absolute; inset: 0; z-index: 1; }
 .pole__scrim--left { background: linear-gradient(90deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
@@ -633,8 +655,21 @@ a { color: inherit; }
 /* -------------------- flotte -------------------- */
 
 .fleet {
+  position: relative;
   background: var(--gray-bg);
   padding: 72px 20px;
+}
+/* jonction avec le dernier pôle (fond noir) : le mask-image des .pole__bg fond
+   déjà vers le noir de leur propre section, mais au changement de section
+   (noir -> --gray-bg) il n'y a pas de fond commun à fondre dedans — bande de
+   transition dédiée pour éviter la coupure nette noir/gris. */
+.fleet::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, var(--black) 0%, var(--gray-bg) 100%);
+  pointer-events: none;
 }
 @media (min-width: 901px) {
   .fleet { padding: 140px 40px; }

@@ -112,7 +112,7 @@
           if (!bg) return;
           var rect = p.getBoundingClientRect();
           if (rect.bottom > 0 && rect.top < window.innerHeight) {
-            bg.style.transform = 'translateY(' + (rect.top * -0.22) + 'px)';
+            bg.style.transform = 'translateY(' + (rect.top * -0.1) + 'px)';
           }
         });
         poleTicking = false;
