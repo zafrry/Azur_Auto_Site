@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Location de voitures de prestige sur la Côte d'Azur | Azur Prestige Rent</title>
+<meta name="description" content="Location de véhicules d'exception pour vos événements en Provence et sur la Côte d'Azur, avec ou sans chauffeur — Cannes, Monaco, Saint-Tropez.">
+<link rel="canonical" href="https://zafrry.github.io/Azur_Auto_Site/Prestige-Rent.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Location de voitures de prestige sur la Côte d'Azur | Azur Prestige Rent">
+<meta property="og:description" content="Location de prestige pour vos événements, en exclusivité — sans catalogue affiché.">
+<meta property="og:url" content="https://zafrry.github.io/Azur_Auto_Site/Prestige-Rent.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="site-header__bar">
+    <a href="./index.html" class="site-header__logo">AZUR AUTO</a>
+
+    <nav class="site-header__nav" id="site-nav">
+      <a href="./Import.html" class="site-header__link">Import</a>
+      <a href="./Prestige-Rent.html" class="site-header__link is-active">Prestige Rent</a>
+      <a href="./Detailing-Studio.html" class="site-header__link">Detailing Studio</a>
+      <a href="./Care.html" class="site-header__link">Care</a>
+      <a href="./Club.html" class="site-header__link">Club</a>
+      <a href="./La-Vision.html" class="site-header__link">La Vision</a>
+      <a href="./Contact.html" class="site-header__link">Contact</a>
+    </nav>
+
+    <button class="site-header__burger" id="burger-btn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="site-header__mobile-menu" id="mobile-menu">
+    <a href="./Import.html">Import</a>
+    <a href="./Prestige-Rent.html">Prestige Rent</a>
+    <a href="./Detailing-Studio.html">Detailing Studio</a>
+    <a href="./Care.html">Care</a>
+    <a href="./Club.html">Club</a>
+    <a href="./La-Vision.html">La Vision</a>
+    <a href="./Contact.html">Contact</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero hero--l hero--left" id="hero">
+    <div class="hero__bg">
+      <picture>
+        <source media="(max-width: 767px)" srcset="./assets/img/prestige-rent-mobile.webp">
+        <img src="./assets/img/prestige-rent-desktop.webp" alt="Voiturier ouvrant la portière d'une berline de luxe devant un hôtel" class="hero__img">
+      </picture>
+    </div>
+    <div class="hero__scrim"></div>
+    <div class="hero__content">
+      <div class="kicker kicker--gold">Azur Prestige Rent</div>
+      <h1 class="hero__title">La route comme un privilège</h1>
+      <p class="hero__subtitle">Location de prestige pour vos événements, en exclusivité — sans catalogue affiché.</p>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section class="page-section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2 class="section-title">Destinations</h2>
+      </div>
+      <div class="gallery-grid gallery-grid--4">
+        <div>
+          <div class="gallery-grid__image">
+            <div class="img-placeholder img-placeholder--light" data-caption="PHOTO — CANNES, PROMENADE"></div>
+          </div>
+          <h3 class="gallery-grid__caption">Cannes</h3>
+        </div>
+        <div>
+          <div class="gallery-grid__image">
+            <div class="img-placeholder img-placeholder--light" data-caption="PHOTO — MONACO, PORT"></div>
+          </div>
+          <h3 class="gallery-grid__caption">Monaco</h3>
+        </div>
+        <div>
+          <div class="gallery-grid__image">
+            <div class="img-placeholder img-placeholder--light" data-caption="PHOTO — SAINT-TROPEZ"></div>
+          </div>
+          <h3 class="gallery-grid__caption">Saint-Tropez</h3>
+        </div>
+        <div>
+          <div class="gallery-grid__image">
+            <div class="img-placeholder img-placeholder--light" data-caption="PHOTO — COURCHEVEL, NEIGE"></div>
+          </div>
+          <h3 class="gallery-grid__caption">Courchevel</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTRE APPROCHE -->
+  <section class="page-section page-section--alt">
+    <div class="section-inner section-inner--narrow manifesto">
+      <div class="kicker kicker--gray">Notre approche</div>
+      <p class="manifesto__text">Pas de catalogue de prix, pas de flotte affichée. Chaque location est une expérience conçue pour un événement — mariage, tournage, soirée privée, escapade.</p>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE -->
+  <section class="page-section page-section--dark" id="reservation">
+    <div class="section-inner section-inner--narrow">
+      <div class="section-head">
+        <h2 class="section-title section-title--light">Réserver une expérience</h2>
+        <p class="contact__subtitle">Décrivez votre événement, notre équipe vous recontacte sous 24h.</p>
+      </div>
+
+      <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <select id="destination" name="destination" required>
+            <option value="" disabled selected>Sélectionnez une option</option>
+            <option value="cannes">Cannes</option>
+            <option value="monaco">Monaco</option>
+            <option value="saint-tropez">Saint-Tropez</option>
+            <option value="courchevel">Courchevel</option>
+            <option value="autre">Autre</option>
+          </select>
+          <span class="error-message" data-error-for="destination"></span>
+        </div>
+        <div class="form-group">
+          <label for="date">Date souhaitée</label>
+          <input type="date" id="date" name="date" required>
+          <span class="error-message" data-error-for="date"></span>
+        </div>
+        <div class="form-group full-width">
+          <label for="evenement">Type d'événement</label>
+          <input type="text" id="evenement" name="evenement" placeholder="ex. mariage, tournage, soirée privée..." required>
+          <span class="error-message" data-error-for="evenement"></span>
+        </div>
+        <button type="submit" class="btn btn--outline-gold full-width">Envoyer ma demande</button>
+        <div id="form-success" class="contact__success" hidden>Demande bien reçue. Un membre de notre équipe Prestige Rent vous recontacte sous 24h ouvrées.</div>
+        <div id="form-error" class="contact__error" hidden>Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement.</div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div>
+      <div class="site-footer__brand">AZUR AUTO</div>
+      <p class="site-footer__desc">Vente, location et entretien de voitures de luxe en Provence. Import, Prestige Rent, Detailing Studio, Care et Club — un seul univers.</p>
+    </div>
+
+    <div>
+      <div class="site-footer__col-title">Univers</div>
+      <div class="site-footer__links">
+        <a href="./Import.html">AZUR Import</a>
+        <a href="./Prestige-Rent.html">AZUR Prestige Rent</a>
+        <a href="./Detailing-Studio.html">AZUR Detailing Studio</a>
+        <a href="./Care.html">AZUR Care</a>
+        <a href="./Club.html">AZUR Club</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="site-footer__col-title">Maison</div>
+      <div class="site-footer__links">
+        <a href="./La-Vision.html">La Vision</a>
+        <a href="./Contact.html">Conciergerie</a>
+        <a href="./mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="site-footer__col-title">Nous contacter</h2>
+      <div class="site-footer__contact">
+        <div>Siège : Paris</div>
+        <div>Zone d'intervention : Salon-de-Provence · Cannes · Monaco</div>
+        <div>+33 6 00 00 00 00</div>
+        <div>conciergerie@azurauto.com</div>
+        <a href="https://wa.me/33600000000" class="btn btn--outline-gold site-footer__whatsapp">WhatsApp Azur Auto</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__bottom">
+    <div>© 2026 Azur Auto. Tous droits réservés.</div>
+    <a href="./mentions-legales.html">Mentions légales</a>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>
