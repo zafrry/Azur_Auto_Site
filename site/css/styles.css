@@ -337,7 +337,7 @@ a { color: inherit; }
   display: none;
   position: fixed;
   inset: 0;
-  top: 64px;
+  top: var(--header-height, 64px);
   background: var(--black);
   z-index: 999;
   flex-direction: column;
@@ -359,7 +359,8 @@ a { color: inherit; }
 
 .hero {
   position: relative;
-  height: 100vh;
+  height: 100vh; /* repli si 100svh non supporté */
+  height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -503,7 +504,8 @@ a { color: inherit; }
 
 .pole {
   position: relative;
-  height: 100vh;
+  height: 100vh; /* repli si 100svh non supporté */
+  height: 100svh;
   display: flex;
   align-items: center;
   background: var(--black);
@@ -1363,7 +1365,10 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 .legal {
   background: var(--gray-bg);
-  padding: 140px 20px 100px;
+  padding: 100px 20px 60px;
+}
+@media (min-width: 901px) {
+  .legal { padding: 140px 40px 100px; }
 }
 .legal__inner {
   max-width: 760px;
