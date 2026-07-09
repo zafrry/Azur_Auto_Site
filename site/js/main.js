@@ -1,6 +1,18 @@
 (function () {
   'use strict';
 
+  // -------------------- header: hauteur réelle mesurée (pour le menu mobile) --------------------
+  var siteHeader = document.getElementById('site-header');
+  function updateHeaderHeight() {
+    document.documentElement.style.setProperty('--header-height', siteHeader.offsetHeight + 'px');
+  }
+  updateHeaderHeight();
+  window.addEventListener('resize', updateHeaderHeight, { passive: true });
+  window.addEventListener('load', updateHeaderHeight);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(updateHeaderHeight);
+  }
+
   // -------------------- hero: entrance animation + scroll parallax --------------------
   var hero = document.getElementById('hero');
   var heroImg = hero ? hero.querySelector('.hero__img') : null;
