@@ -7,6 +7,7 @@
 :root {
   --black: #0a0a0a;
   --gray-bg: #EFEDE9;
+  --gray-bg-alt: #E4E2DC;
   --gold-solid: #A8832E;
   --gold-light: #D4B876;
 
@@ -208,6 +209,17 @@ a { color: inherit; }
   color: var(--gold-light);
   border-color: #ffffff;
 }
+/* variante pour usage sur fond clair (--gray-bg / --gray-bg-alt) */
+.link-underline--dark {
+  color: var(--gold-solid);
+  border-color: var(--gold-solid);
+}
+.link-underline--dark:hover {
+  color: var(--black);
+  border-color: var(--black);
+}
+
+.cta-link-wrap { text-align: center; margin-top: 48px; }
 
 /* -------------------- image placeholder -------------------- */
 
@@ -245,6 +257,11 @@ a { color: inherit; }
   border: 1px solid rgba(255,255,255,0.14);
   pointer-events: none;
 }
+/* variante claire : utilisée sur fond clair (--gray-bg / --gray-bg-alt) là où
+   .img-placeholder (pensé pour un fond noir plein cadre) lirait comme un trou */
+.img-placeholder--light { background-color: #e8e8e8; }
+.img-placeholder--light::before { color: #8a8a8a; }
+.img-placeholder--light::after { border-color: rgba(0,0,0,0.12); }
 
 /* -------------------- header -------------------- */
 
@@ -1431,3 +1448,387 @@ section[data-reveal-variant="fade-up"].is-visible {
   margin: 0 0 14px 0;
 }
 .legal a { color: var(--gold-solid); }
+
+/* -------------------- pages secondaires (Import, Prestige Rent, Detailing
+   Studio, Care, Club, La Vision, Contact) : composants génériques réutilisés
+   d'une page à l'autre, dans le même langage visuel que l'accueil -------------------- */
+
+.page-section {
+  padding: 72px 20px;
+}
+@media (min-width: 901px) {
+  .page-section { padding: 130px 40px; }
+}
+.page-section--alt { background: var(--gray-bg-alt); }
+.page-section--dark { background: var(--black); }
+.page-section--dark .section-title,
+.page-section--dark .manifesto__text { color: #ffffff; }
+
+/* hauteurs de hero secondaire : la page d'accueil garde .hero (100svh) pour
+   elle seule, ces paliers évitent qu'une page de contenu secondaire n'impose
+   un plein écran comme le hero principal */
+.hero--xl { height: 620px; }
+@media (min-width: 901px) { .hero--xl { height: 92vh; } }
+.hero--l { height: 560px; }
+@media (min-width: 901px) { .hero--l { height: 86vh; } }
+.hero--m { height: 460px; }
+@media (min-width: 901px) { .hero--m { height: 70vh; } }
+.hero--s { height: 360px; }
+@media (min-width: 901px) { .hero--s { height: 52vh; } }
+/* variante sans image (Club, quand le visuel est la carte membre elle-même) */
+.hero--card { justify-content: center; }
+.hero--card .hero__content { max-width: 640px; }
+
+/* variante alignée à gauche (Import, Prestige Rent, Detailing Studio,
+   Contact) : même conteneur que .pole__row plutôt que le centrage du hero
+   d'accueil, pour un hero "page de contenu" cohérent avec les pôles */
+.hero--left { justify-content: flex-start; }
+.hero--left .hero__content {
+  text-align: left;
+  max-width: 1520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 901px) {
+  .hero--left .hero__content { padding: 0 40px; }
+}
+.hero--left .hero__title,
+.hero--left .hero__subtitle { max-width: 680px; margin-left: 0; margin-right: 0; }
+.hero--left .hero__subtitle { margin-bottom: 0; }
+
+/* deux colonnes tête de section + liste (Import — Notre modèle) */
+.model-intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+@media (min-width: 901px) {
+  .model-intro { grid-template-columns: 0.7fr 1.3fr; gap: 64px; }
+}
+.model-intro__head .section-title { max-width: 380px; }
+
+/* mesure resserrée, réutilisée pour tout panneau centré (formulaires,
+   manifestes) qui n'a pas besoin de la largeur pleine de .section-inner */
+.section-inner--narrow { max-width: 760px; margin: 0 auto; }
+
+/* note sous une grille de tuiles (pays sourcés, etc.) */
+.tile-grid-note {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 13px;
+  color: #8a8a8a;
+  font-weight: 300;
+}
+
+/* liste numérotée (Import — Notre modèle) */
+.numbered-list { display: flex; flex-direction: column; }
+.numbered-list__item {
+  display: flex;
+  gap: 24px;
+  padding: 26px 0;
+  border-top: 1px solid #e5e5e5;
+}
+.numbered-list__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: #b0b0b0;
+  min-width: 24px;
+}
+.numbered-list__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: var(--black);
+}
+.numbered-list__desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6b6b6b;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* grille de tuiles séparées par un filet (marques Import, prestations
+   Detailing, avantages Club) */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: #d5d3cc;
+  border: 1px solid #d5d3cc;
+}
+@media (min-width: 901px) {
+  .tile-grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .tile-grid--5 { grid-template-columns: repeat(5, 1fr); }
+  .tile-grid--6 { grid-template-columns: repeat(6, 1fr); }
+}
+.tile-grid__item {
+  background: #F7F6F3;
+  padding: 34px 20px;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+.tile-grid__item:hover { background: #F3EAD6; }
+.tile-grid__item--left {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 34px 26px;
+}
+.tile-grid__bar { width: 1px; height: 30px; background: var(--gold-light); }
+.tile-grid__label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--black);
+}
+.tile-grid__label--brand { font-size: 20px; letter-spacing: 0.02em; }
+
+/* parcours en étapes numérotées (Import) */
+.step-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 16px;
+}
+@media (min-width: 901px) {
+  .step-list { grid-template-columns: repeat(5, 1fr); gap: 24px; }
+}
+.step-list__item { text-align: center; }
+.step-list__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+}
+.step-list__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: 0.01em;
+}
+
+/* citation centrée façon manifeste (Prestige Rent, Club, La Vision) */
+.manifesto { max-width: 860px; margin: 0 auto; text-align: center; }
+.manifesto__text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--black);
+  margin: 0;
+}
+@media (min-width: 901px) {
+  .manifesto__text { font-size: 28px; }
+}
+.manifesto--wide { max-width: 780px; text-align: left; }
+.manifesto--wide .manifesto__text {
+  font-size: 22px;
+  line-height: 1.55;
+  margin: 0 0 32px 0;
+}
+@media (min-width: 901px) {
+  .manifesto--wide .manifesto__text { font-size: 30px; }
+}
+.manifesto__body {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #6b6b6b;
+  font-weight: 300;
+  margin: 0 0 24px 0;
+}
+.manifesto__body:last-child { margin-bottom: 0; }
+
+/* grille d'images portrait légendées (destinations Prestige Rent, gamme Care) */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (min-width: 901px) {
+  .gallery-grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+.gallery-grid__image {
+  aspect-ratio: 3 / 4;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-grid__caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--black);
+  text-align: center;
+}
+.gallery-grid__caption--small {
+  font-family: 'Jost', sans-serif;
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* galerie avant / après (Detailing Studio) */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 901px) {
+  .before-after { grid-template-columns: repeat(3, 1fr); }
+}
+.before-after__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  aspect-ratio: 16 / 10;
+}
+.before-after__half { position: relative; overflow: hidden; }
+.before-after__tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  z-index: 1;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(10,10,10,0.65);
+  padding: 3px 8px;
+}
+.before-after__caption {
+  font-size: 13px;
+  color: #6b6b6b;
+  margin-top: 14px;
+  text-align: center;
+  font-weight: 300;
+}
+
+/* bloc image + texte deux colonnes (Detailing Studio — lien Import) */
+.split-feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (min-width: 901px) {
+  .split-feature { grid-template-columns: 1fr 1.1fr; gap: 64px; }
+}
+.split-feature__image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; }
+.split-feature__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 18px 0;
+  color: var(--black);
+}
+@media (min-width: 901px) {
+  .split-feature__title { font-size: 38px; }
+}
+.split-feature__desc {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #6b6b6b;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* carte de membre (Club — hero) */
+.club-card {
+  aspect-ratio: 16 / 10;
+  width: 280px;
+  margin: 0 auto 30px;
+  background: linear-gradient(135deg, #2c2c2c 0%, #050505 55%, #1a1a1a 100%);
+  border: 1.5px solid var(--gold-solid);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px;
+}
+@media (min-width: 901px) {
+  .club-card { width: 380px; }
+}
+.club-card__brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  letter-spacing: 0.15em;
+  color: #8a8a8a;
+}
+.club-card__tier {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  letter-spacing: 0.12em;
+  color: var(--gold-light);
+}
+@media (min-width: 901px) {
+  .club-card__tier { font-size: 36px; }
+}
+
+/* piliers sur fond noir (La Vision) */
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (min-width: 901px) {
+  .pillars { grid-template-columns: repeat(3, 1fr); gap: 56px; }
+}
+.pillars__bar { width: 40px; height: 3px; background: var(--gold-solid); margin-bottom: 20px; }
+.pillars__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0 0 14px 0;
+}
+.pillars__desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #a8a8a8;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* bande CTA centrée (Club — devenir membre) */
+.cta-band { text-align: center; }
+.cta-band__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 500;
+  margin: 0 0 30px 0;
+  color: #ffffff;
+}
+@media (min-width: 901px) {
+  .cta-band__title { font-size: 38px; }
+}
+
+/* liste de canaux de distribution (Care) */
+.channel-list {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 0 40px 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 901px) {
+  .channel-list { gap: 20px; }
+}
+.channel-list__item {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--black);
+  padding: 10px 20px;
+}
+
+/* panneau centré générique (distribution Care, etc.) */
+.centered-panel { text-align: center; }
