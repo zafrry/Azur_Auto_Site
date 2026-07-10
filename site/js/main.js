@@ -177,7 +177,11 @@
 
       contactForm.querySelectorAll('[required]').forEach(function (field) {
         var errorEl = contactForm.querySelector('[data-error-for="' + field.id + '"]');
-        if (!field.value.trim()) {
+        if (!errorEl) return;
+        if (field.type === 'checkbox') {
+          errorEl.textContent = field.checked ? '' : 'Ce champ est requis.';
+          if (!field.checked) valid = false;
+        } else if (!field.value.trim()) {
           errorEl.textContent = 'Ce champ est requis.';
           valid = false;
         } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {

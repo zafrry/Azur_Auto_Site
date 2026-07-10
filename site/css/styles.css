@@ -676,11 +676,12 @@ a { color: inherit; }
   background: var(--gray-bg);
   padding: 72px 20px;
 }
-/* jonction avec le dernier pôle (fond noir) : le mask-image des .pole__bg fond
-   déjà vers le noir de leur propre section, mais au changement de section
-   (noir -> --gray-bg) il n'y a pas de fond commun à fondre dedans — bande de
-   transition dédiée pour éviter la coupure nette noir/gris. */
-.fleet::before {
+/* jonction avec une section précédente en fond noir (ex. le dernier pôle sur
+   l'accueil) : pas de fond commun à fondre dedans entre noir et --gray-bg —
+   bande de transition dédiée, à n'ajouter QUE si .fleet suit réellement une
+   section noire (modificateur .fleet--bridge), sinon elle peint une bande
+   noire au-dessus d'une jonction claire/claire qui n'en a pas besoin. */
+.fleet--bridge::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -1832,3 +1833,162 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 /* panneau centré générique (distribution Care, etc.) */
 .centered-panel { text-align: center; }
+
+/* -------------------- Import : refonte structurelle -------------------- */
+
+/* icône au-dessus du numéro, dans .numbered-list__item (même langage visuel
+   que .why__icon : trait fin, couleur or, 24x24 mis à l'échelle) */
+.numbered-list__icon {
+  display: inline-flex;
+  color: var(--gold-solid);
+  margin-bottom: 14px;
+}
+.numbered-list__icon svg { width: 32px; height: 32px; }
+.numbered-list__item > div:first-child { min-width: 44px; flex-shrink: 0; }
+
+/* grille de tuiles à 2 colonnes (cross-sell Detailing / Prestige Rent) —
+   même seuil que .fleet__grid (769px) pour ne jamais passer par un état
+   intermédiaire à 3 colonnes pour seulement 2 cartes */
+@media (min-width: 769px) {
+  .fleet__grid--2 { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin: 0 auto; }
+}
+
+/* emplacement logo marque (Marques représentées) : le vrai logo de chaque
+   constructeur nécessite une validation des conditions d'usage de marque —
+   en attendant, un slot neutre au format logo (grayscale -> or au survol) */
+.tile-grid__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  margin-bottom: 4px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #9a9a9a;
+  filter: grayscale(1);
+  transition: color 0.25s ease, filter 0.25s ease;
+}
+.tile-grid__item:hover .tile-grid__logo {
+  color: var(--gold-solid);
+  filter: grayscale(0);
+}
+
+/* pays sourcés : rangée drapeau + libellé, plus lisible que le texte gris seul */
+.sourcing-countries {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 40px;
+}
+.sourcing-countries__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #4a4a4a;
+  font-weight: 300;
+}
+.sourcing-countries__flag { font-size: 20px; }
+
+/* parcours : ligne de progression + icône + micro-description toujours
+   visible (plus accessible qu'un survol, qui ne fonctionne pas au tactile) */
+.step-list { position: relative; }
+@media (min-width: 901px) {
+  .step-list::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: rgba(10,10,10,0.14);
+    z-index: 0;
+  }
+}
+.step-list__item { position: relative; z-index: 1; }
+.step-list__icon {
+  display: inline-flex;
+  color: var(--gold-solid);
+  margin-bottom: 10px;
+}
+.step-list__icon svg { width: 24px; height: 24px; }
+.step-list__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold-solid);
+  margin: 0 auto 14px;
+}
+.step-list__desc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #6b6b6b;
+  font-weight: 300;
+  margin: 8px 0 0;
+  max-width: 190px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* case RGPD dans un formulaire sombre (Import) */
+.form-group--checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.form-group--checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--gold-solid);
+  flex-shrink: 0;
+}
+.form-group--checkbox label {
+  font-size: 13px;
+  color: #b0b0b0;
+  text-transform: none;
+  letter-spacing: normal;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* bouton WhatsApp flottant, présent hors flux sur toute la page */
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--black);
+  color: #ffffff;
+  text-decoration: none;
+  border: 1.5px solid var(--gold-light);
+  padding: 14px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  transition: background 0.25s ease, transform 0.2s ease-out;
+}
+.whatsapp-float:hover {
+  background: #1a1a1a;
+  transform: scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float:hover { transform: none; }
+}
+.whatsapp-float svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--gold-light); }
+.whatsapp-float__label {
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding-right: 4px;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .whatsapp-float__label { display: none; }
+  .whatsapp-float { right: 16px; bottom: 16px; }
+}
