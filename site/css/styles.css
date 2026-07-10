@@ -1192,6 +1192,15 @@ section[data-reveal-variant="fade-up"].is-visible {
   font-weight: 300;
   margin: 10px 0 0 0;
 }
+/* lien inline dans une réponse (pas un CTA autonome) : garde la casse et la
+   taille du texte courant plutôt que le style bouton majuscules de
+   .link-underline, pensé pour un lien isolé, pas une phrase */
+.faq__answer-link {
+  color: var(--gold-solid);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.faq__answer-link:hover { color: var(--black); }
 
 /* -------------------- contact -------------------- */
 
@@ -1529,6 +1538,14 @@ section[data-reveal-variant="fade-up"].is-visible {
   .model-intro { grid-template-columns: 0.7fr 1.3fr; gap: 64px; }
 }
 .model-intro__head .section-title { max-width: 380px; }
+.model-intro__text {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #6b6b6b;
+  font-weight: 300;
+  margin: var(--space-5) 0 0;
+  max-width: 420px;
+}
 
 /* mesure resserrée, réutilisée pour tout panneau centré (formulaires,
    manifestes) qui n'a pas besoin de la largeur pleine de .section-inner */
@@ -1627,6 +1644,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   margin-bottom: var(--space-2);
 }
 .step-list__label {
+  margin: 0;
   font-size: 14px;
   font-weight: 500;
   color: var(--black);
