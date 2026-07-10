@@ -226,4 +226,26 @@
       });
     });
   }
+
+  // -------------------- sous-navigation ancrée : surbrillance de la section lue --------------------
+  var subnavLinks = document.querySelectorAll('.subnav__link');
+  if (subnavLinks.length) {
+    var subnavPairs = Array.prototype.map.call(subnavLinks, function (link) {
+      return { link: link, target: document.querySelector(link.getAttribute('href')) };
+    }).filter(function (pair) { return pair.target; });
+
+    // bande fine au centre de l'écran : la section qui l'occupe est celle
+    // "en cours de lecture", plus fiable qu'un simple seuil d'entrée/sortie
+    var subnavObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var active = entry.target;
+        subnavPairs.forEach(function (pair) {
+          pair.link.classList.toggle('is-active', pair.target === active);
+        });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    subnavPairs.forEach(function (pair) { subnavObserver.observe(pair.target); });
+  }
 })();

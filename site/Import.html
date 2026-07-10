@@ -83,8 +83,27 @@
     </div>
   </section>
 
+  <!-- SOUS-NAVIGATION -->
+  <nav class="subnav" aria-label="Navigation de la page Import">
+    <div class="subnav__list">
+      <a href="#notre-modele" class="subnav__link">Modèle</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#selection-recente" class="subnav__link">Imports récents</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#marques" class="subnav__link">Marques</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#parcours" class="subnav__link">Process</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#temoignages" class="subnav__link">Avis</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#faq" class="subnav__link">FAQ</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#recherche" class="subnav__link">Contact</a>
+    </div>
+  </nav>
+
   <!-- NOTRE MODÈLE -->
-  <section class="page-section">
+  <section class="page-section" id="notre-modele">
     <div class="section-inner model-intro">
       <div class="model-intro__head">
         <div class="kicker kicker--gray">Notre modèle</div>
@@ -94,7 +113,7 @@
         <div class="numbered-list__item">
           <div>
             <span class="numbered-list__icon" role="img" aria-label="Recherche personnalisée">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/></svg>
             </span>
             <div class="numbered-list__num">01</div>
           </div>
@@ -106,7 +125,7 @@
         <div class="numbered-list__item">
           <div>
             <span class="numbered-list__icon" role="img" aria-label="Zéro stock">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5 12 4l8 5.5v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Z"/><line x1="3" y1="21" x2="21" y2="3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5 12 4l8 5.5v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Z"/><line x1="3" y1="21" x2="21" y2="3"/></svg>
             </span>
             <div class="numbered-list__num">02</div>
           </div>
@@ -118,7 +137,7 @@
         <div class="numbered-list__item">
           <div>
             <span class="numbered-list__icon" role="img" aria-label="Accompagnement complet">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 13 3 3 3-3M7 16V8"/><path d="m20 11-3-3-3 3M17 8v8"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 13 3 3 3-3M7 16V8"/><path d="m20 11-3-3-3 3M17 8v8"/></svg>
             </span>
             <div class="numbered-list__num">03</div>
           </div>
@@ -133,7 +152,7 @@
 
   <!-- SÉLECTION RÉCENTE -->
   <!-- TODO: photos et statuts réels à intégrer en phase Image Design (voir brief) -->
-  <section class="fleet page-section--alt" data-reveal data-reveal-variant="fade-up">
+  <section class="fleet page-section--alt" id="selection-recente" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="section-head">
         <div class="kicker kicker--gray">Preuve</div>
@@ -141,17 +160,17 @@
       </div>
       <div class="fleet__grid">
         <div class="fleet__card">
-          <div class="fleet__image"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE IMPORTÉ 1"></div></div>
+          <div class="fleet__image fleet__image--portrait"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE IMPORTÉ 1"></div></div>
           <h3 class="fleet__title">[Marque Modèle 1]</h3>
           <p class="fleet__desc">[Pays d'origine] — Livré à [ville] en [mois/année]</p>
         </div>
         <div class="fleet__card">
-          <div class="fleet__image"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE IMPORTÉ 2"></div></div>
+          <div class="fleet__image fleet__image--portrait"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE IMPORTÉ 2"></div></div>
           <h3 class="fleet__title">[Marque Modèle 2]</h3>
           <p class="fleet__desc">[Pays d'origine] — Livré à [ville] en [mois/année]</p>
         </div>
         <div class="fleet__card">
-          <div class="fleet__image"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE EN COURS DE SOURCING"></div></div>
+          <div class="fleet__image fleet__image--portrait"><div class="img-placeholder" data-caption="PHOTO — VÉHICULE EN COURS DE SOURCING"></div></div>
           <h3 class="fleet__title">[Marque Modèle 3]</h3>
           <p class="fleet__desc">[Pays d'origine] — En cours de sourcing</p>
         </div>
@@ -160,7 +179,7 @@
   </section>
 
   <!-- MARQUES -->
-  <section class="page-section">
+  <section class="page-section" id="marques">
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title">Marques représentées</h2>
@@ -185,7 +204,7 @@
   </section>
 
   <!-- LE PARCOURS -->
-  <section class="page-section page-section--alt">
+  <section class="page-section page-section--alt" id="parcours">
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title">Le parcours</h2>
@@ -193,7 +212,7 @@
       <div class="step-list">
         <div class="step-list__item">
           <span class="step-list__icon" role="img" aria-label="Recherche">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/></svg>
           </span>
           <div class="step-list__dot"></div>
           <div class="step-list__num">01</div>
@@ -202,7 +221,7 @@
         </div>
         <div class="step-list__item">
           <span class="step-list__icon" role="img" aria-label="Sélection">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>
           </span>
           <div class="step-list__dot"></div>
           <div class="step-list__num">02</div>
@@ -211,7 +230,7 @@
         </div>
         <div class="step-list__item">
           <span class="step-list__icon" role="img" aria-label="Négociation">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 13 3 3 3-3M7 16V8"/><path d="m20 11-3-3-3 3M17 8v8"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 13 3 3 3-3M7 16V8"/><path d="m20 11-3-3-3 3M17 8v8"/></svg>
           </span>
           <div class="step-list__dot"></div>
           <div class="step-list__num">03</div>
@@ -220,7 +239,7 @@
         </div>
         <div class="step-list__item">
           <span class="step-list__icon" role="img" aria-label="Import">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16h13l4-5h-4V6H8L3 11Z"/><line x1="3" y1="19" x2="21" y2="19"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16h13l4-5h-4V6H8L3 11Z"/><line x1="3" y1="19" x2="21" y2="19"/></svg>
           </span>
           <div class="step-list__dot"></div>
           <div class="step-list__num">04</div>
@@ -229,7 +248,7 @@
         </div>
         <div class="step-list__item">
           <span class="step-list__icon" role="img" aria-label="Livraison">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="13" height="4" rx="1"/><circle cx="8" cy="17" r="2"/><circle cx="15" cy="17" r="2"/><path d="M9.5 10V7h4l3 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="13" height="4" rx="1"/><circle cx="8" cy="17" r="2"/><circle cx="15" cy="17" r="2"/><path d="M9.5 10V7h4l3 3"/></svg>
           </span>
           <div class="step-list__dot"></div>
           <div class="step-list__num">05</div>
@@ -265,7 +284,7 @@
   </section>
 
   <!-- TÉMOIGNAGES -->
-  <section class="social-proof page-section--alt" data-reveal data-reveal-variant="fade-up">
+  <section class="social-proof page-section--alt" id="temoignages" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="section-head">
         <div class="kicker kicker--gray">Témoignages</div>
@@ -290,7 +309,7 @@
 
   <!-- FAQ -->
   <!-- Structure 1 question = 1 réponse en texte brut, prête pour le schema JSON-LD FAQPage en phase SEO/GEO -->
-  <section class="faq" data-reveal data-reveal-variant="fade-up">
+  <section class="faq" id="faq" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title">Questions fréquentes</h2>
@@ -388,13 +407,13 @@
     <div class="section-inner">
       <div class="fleet__grid fleet__grid--2">
         <div class="fleet__card">
-          <div class="fleet__image"><div class="img-placeholder" data-caption="AZUR DETAILING STUDIO"></div></div>
+          <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR DETAILING STUDIO"></div></div>
           <h3 class="fleet__title">Le véhicule arrive ?</h3>
           <p class="fleet__desc">Préparez-le avec AZUR Detailing Studio — polish, protection céramique, présentation à son arrivée.</p>
           <a href="./Detailing-Studio.html" class="btn--tertiary">Découvrir Detailing Studio</a>
         </div>
         <div class="fleet__card">
-          <div class="fleet__image"><div class="img-placeholder" data-caption="AZUR PRESTIGE RENT"></div></div>
+          <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR PRESTIGE RENT"></div></div>
           <h3 class="fleet__title">En attendant la livraison</h3>
           <p class="fleet__desc">Roulez avec AZUR Prestige Rent le temps que votre véhicule importé arrive.</p>
           <a href="./Prestige-Rent.html" class="btn--tertiary">Découvrir Prestige Rent</a>
