@@ -482,14 +482,14 @@ a { color: inherit; }
   flex-wrap: wrap;
   max-width: 900px;
   margin: 0 auto;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: #e6e6e6;
   font-weight: 300;
 }
 .reassurance__sep { color: #4a4a4a; }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .reassurance__bar { flex-direction: column; gap: 10px; }
   .reassurance__sep { display: none; }
 }
@@ -716,6 +716,12 @@ a { color: inherit; }
   margin-bottom: 18px;
   overflow: hidden;
 }
+/* variations de ratio pour éviter 5 rectangles identiques d'affilée sur une
+   page longue (Import : "Nos derniers imports" en portrait, cross-sell en
+   paysage large) — à documenter pour le brief image : livrer les photos
+   correspondantes dans ces proportions dès le départ */
+.fleet__image--portrait { aspect-ratio: 4 / 5; }
+.fleet__image--wide { aspect-ratio: 16 / 9; }
 .fleet__image img {
   width: 100%;
   height: 100%;
@@ -1843,7 +1849,10 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: var(--gold-solid);
   margin-bottom: 14px;
 }
-.numbered-list__icon svg { width: 32px; height: 32px; }
+/* même trait (1.5) et même famille line-art que .step-list__icon plus bas —
+   seule la taille d'affichage diffère, section moins dense donc icône plus
+   grande (40-48px vs 24-32px pour la timeline du parcours) */
+.numbered-list__icon svg { width: 44px; height: 44px; }
 .numbered-list__item > div:first-child { min-width: 44px; flex-shrink: 0; }
 
 /* grille de tuiles à 2 colonnes (cross-sell Detailing / Prestige Rent) —
@@ -1914,7 +1923,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: var(--gold-solid);
   margin-bottom: 10px;
 }
-.step-list__icon svg { width: 24px; height: 24px; }
+.step-list__icon svg { width: 28px; height: 28px; }
 .step-list__dot {
   width: 9px;
   height: 9px;
@@ -1992,3 +2001,49 @@ section[data-reveal-variant="fade-up"].is-visible {
   .whatsapp-float__label { display: none; }
   .whatsapp-float { right: 16px; bottom: 16px; }
 }
+
+/* sous-navigation ancrée (Import) : reste visible pendant le scroll une fois
+   le hero dépassé (position: sticky, pas de JS de bascule nécessaire), juste
+   sous le header fixe. Scrollable horizontalement au tactile plutôt que de
+   passer à la ligne. */
+.subnav {
+  position: sticky;
+  top: var(--header-height, 64px);
+  z-index: 500;
+  background: var(--gray-bg);
+  border-bottom: 1px solid rgba(10,10,10,0.08);
+}
+.subnav__list {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.subnav__list::-webkit-scrollbar { display: none; }
+@media (min-width: 901px) {
+  .subnav__list { padding: 14px 40px; justify-content: center; }
+}
+.subnav__link {
+  flex-shrink: 0;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.subnav__link:hover,
+.subnav__link.is-active {
+  color: var(--gold-solid);
+  border-bottom-color: var(--gold-solid);
+}
+.subnav__sep { flex-shrink: 0; font-size: 11px; color: #d5d3cc; }
