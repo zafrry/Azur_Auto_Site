@@ -13,6 +13,18 @@
 
   --header-nav-breakpoint: 1200px;
   --layout-breakpoint: 900px;
+
+  /* échelle d'espacement unique — toute marge/padding fin (interne à un
+     bloc, pas le rythme macro entre grandes sections) doit piocher dans
+     cette liste plutôt que d'introduire une valeur en dur */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
 }
 
 /* Filet de sécurité global : toute transition/animation non couverte par une
@@ -92,7 +104,7 @@ a { color: inherit; }
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 17px 34px;
+  padding: var(--space-4) var(--space-6);
   background: transparent;
   cursor: pointer;
   appearance: none;
@@ -472,7 +484,7 @@ a { color: inherit; }
 
 .reassurance {
   background: var(--black);
-  padding: 8px 20px 48px;
+  padding: 8px 20px var(--space-7);
 }
 .reassurance__bar {
   display: flex;
@@ -713,7 +725,7 @@ a { color: inherit; }
 .fleet__image {
   position: relative;
   aspect-ratio: 4 / 3;
-  margin-bottom: 18px;
+  margin-bottom: var(--space-4);
   overflow: hidden;
 }
 /* variations de ratio pour éviter 5 rectangles identiques d'affilée sur une
@@ -736,7 +748,7 @@ a { color: inherit; }
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
   font-weight: 500;
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--space-2) 0;
   color: var(--black);
 }
 .fleet__desc {
@@ -744,7 +756,7 @@ a { color: inherit; }
   line-height: 1.7;
   color: #6b6b6b;
   font-weight: 300;
-  margin: 0 0 16px 0;
+  margin: 0 0 var(--space-4) 0;
 }
 
 /* -------------------- pourquoi azur -------------------- */
@@ -899,7 +911,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 .social-proof__testimonial {
   margin: 0;
-  padding: 28px 24px;
+  padding: var(--space-6);
   background: #ffffff;
   border: 1px solid rgba(10,10,10,0.08);
   opacity: 0;
@@ -916,7 +928,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   font-style: italic;
   line-height: 1.55;
   color: var(--black);
-  margin: 0 0 14px 0;
+  margin: 0 0 var(--space-5) 0;
 }
 .social-proof__testimonial cite {
   font-style: normal;
@@ -1214,7 +1226,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 .contact__form {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4px 24px;
+  gap: 0 var(--space-5);
   align-items: start;
 }
 @media (min-width: 1024px) {
@@ -1227,23 +1239,26 @@ section[data-reveal-variant="fade-up"].is-visible {
 .contact__error {
   grid-column: 1 / -1;
 }
-.contact__form button[type="submit"] { justify-self: start; margin-top: 8px; }
+.contact__form button[type="submit"] { justify-self: start; }
 
-.form-group { margin-bottom: 18px; }
+/* une seule valeur pour l'écart entre deux lignes de champs, portée par la
+   marge du .form-group plutôt que cumulée avec le row-gap de la grille
+   (qui reste à 0) — évite un rythme vertical à deux vitesses */
+.form-group { margin-bottom: var(--space-5); }
 .form-group label {
   display: block;
   font-size: 11.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #9a9a9a;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
 }
 .form-group label em { color: #6a6a6a; font-style: normal; }
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: var(--space-3) var(--space-4);
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.16);
   color: #ffffff;
@@ -1573,7 +1588,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 .tile-grid__item {
   background: #F7F6F3;
-  padding: 34px 20px;
+  padding: var(--space-5) 20px;
   text-align: center;
   transition: background 0.2s ease;
 }
@@ -1609,7 +1624,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   font-size: 30px;
   font-weight: 500;
   color: var(--gold-light);
-  margin-bottom: 14px;
+  margin-bottom: var(--space-2);
 }
 .step-list__label {
   font-size: 14px;
@@ -1921,7 +1936,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 .step-list__icon {
   display: inline-flex;
   color: var(--gold-solid);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-2);
 }
 .step-list__icon svg { width: 28px; height: 28px; }
 .step-list__dot {
@@ -1929,17 +1944,15 @@ section[data-reveal-variant="fade-up"].is-visible {
   height: 9px;
   border-radius: 50%;
   background: var(--gold-solid);
-  margin: 0 auto 14px;
+  margin: 0 auto var(--space-4);
 }
 .step-list__desc {
   font-size: 12.5px;
   line-height: 1.6;
   color: #6b6b6b;
   font-weight: 300;
-  margin: 8px 0 0;
+  margin: var(--space-3) auto 0;
   max-width: 190px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* case RGPD dans un formulaire sombre (Import) */
@@ -1972,12 +1985,12 @@ section[data-reveal-variant="fade-up"].is-visible {
   z-index: 900;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   background: var(--black);
   color: #ffffff;
   text-decoration: none;
   border: 1.5px solid var(--gold-light);
-  padding: 14px;
+  padding: var(--space-3) var(--space-4);
   border-radius: 999px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   transition: background 0.25s ease, transform 0.2s ease-out;
@@ -2016,16 +2029,15 @@ section[data-reveal-variant="fade-up"].is-visible {
 .subnav__list {
   display: flex;
   align-items: center;
-  gap: 22px;
   max-width: 1520px;
   margin: 0 auto;
-  padding: 14px 20px;
+  padding: var(--space-4) 20px;
   overflow-x: auto;
   scrollbar-width: none;
 }
 .subnav__list::-webkit-scrollbar { display: none; }
 @media (min-width: 901px) {
-  .subnav__list { padding: 14px 40px; justify-content: center; }
+  .subnav__list { padding: var(--space-4) 40px; justify-content: center; }
 }
 .subnav__link {
   flex-shrink: 0;
@@ -2046,4 +2058,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: var(--gold-solid);
   border-bottom-color: var(--gold-solid);
 }
-.subnav__sep { flex-shrink: 0; font-size: 11px; color: #d5d3cc; }
+/* --space-3 de chaque côté = --space-5 (24px) entre deux items, séparateur
+   centré dans cet espace plutôt qu'un gap de conteneur qui s'ajouterait à sa
+   propre largeur */
+.subnav__sep { flex-shrink: 0; font-size: 11px; color: #d5d3cc; margin: 0 var(--space-3); }
