@@ -53,6 +53,13 @@
 
   <!-- HERO — CARTE -->
   <section class="hero hero--xl hero--card" id="hero">
+    <div class="hero__bg">
+      <picture>
+        <source media="(max-width: 767px)" srcset="./assets/img/club-titanium-mobile.webp">
+        <img src="./assets/img/club-titanium-desktop.webp" alt="Remise de clés lors d'un événement privé Azur Club" class="hero__img">
+      </picture>
+    </div>
+    <div class="hero__scrim"></div>
     <div class="hero__content">
       <div class="kicker kicker--gold">Azur Club</div>
       <div class="club-card">
@@ -60,37 +67,366 @@
         <div class="club-card__tier">TITANE</div>
       </div>
       <h1 class="hero__title">Un statut, pas une carte de fidélité</h1>
+      <div class="hero__cta-group">
+        <a href="#devenir-membre" class="btn btn--primary">Devenir membre</a>
+        <a href="https://wa.me/33600000000" class="btn btn--outline-gold">Appeler / WhatsApp</a>
+      </div>
     </div>
   </section>
 
-  <!-- PROGRAMME -->
-  <section class="page-section">
-    <div class="section-inner section-inner--narrow manifesto">
-      <div class="kicker kicker--gray">Le programme</div>
-      <p class="manifesto__text">Chaque achat, chaque prestation, chaque location cumule des points — utilisables sur l'ensemble des pôles AZUR.</p>
+  <!-- RÉASSURANCE -->
+  <section class="reassurance">
+    <div class="reassurance__bar">
+      <span>Statut sur cumul de points</span>
+      <span class="reassurance__sep">|</span>
+      <span>Avantages cross-pôles</span>
+      <span class="reassurance__sep">|</span>
+      <span>Sur demande ou invitation</span>
     </div>
   </section>
+
+  <!-- SOUS-NAVIGATION -->
+  <nav class="subnav" aria-label="Navigation de la page Club">
+    <div class="subnav__list">
+      <a href="#avantages" class="subnav__link">Avantages</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#statut" class="subnav__link">Le statut Titane</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#process" class="subnav__link">Comment ça marche</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#chiffres" class="subnav__link">Chiffres</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#temoignages" class="subnav__link">Avis</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#faq" class="subnav__link">FAQ</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
+      <a href="#devenir-membre" class="subnav__link">Devenir membre</a>
+    </div>
+  </nav>
 
   <!-- AVANTAGES -->
-  <section class="page-section page-section--alt">
+  <section class="page-section page-section--alt" id="avantages">
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title">Avantages membres</h2>
       </div>
       <div class="tile-grid tile-grid--5">
-        <div class="tile-grid__item tile-grid__item--left"><div class="tile-grid__bar"></div><div class="tile-grid__label">Réductions sur tous les pôles</div></div>
-        <div class="tile-grid__item tile-grid__item--left"><div class="tile-grid__bar"></div><div class="tile-grid__label">Événements privés</div></div>
-        <div class="tile-grid__item tile-grid__item--left"><div class="tile-grid__bar"></div><div class="tile-grid__label">Essais exclusifs</div></div>
-        <div class="tile-grid__item tile-grid__item--left"><div class="tile-grid__bar"></div><div class="tile-grid__label">Offres partenaires</div></div>
-        <div class="tile-grid__item tile-grid__item--left"><div class="tile-grid__bar"></div><div class="tile-grid__label">Services prioritaires</div></div>
+        <div class="tile-grid__item tile-grid__item--left">
+          <span class="numbered-list__icon" role="img" aria-label="Réductions sur tous les pôles">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 15 9l3 3-11 11H4v-3Z"/><circle cx="8" cy="8" r="3"/></svg>
+          </span>
+          <div class="tile-grid__label">Réductions sur tous les pôles</div>
+          <p class="tile-grid__desc">[1 phrase : quel niveau de réduction, sur quels pôles]</p>
+        </div>
+        <div class="tile-grid__item tile-grid__item--left">
+          <span class="numbered-list__icon" role="img" aria-label="Événements privés">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-1 6a3 3 0 0 1-6 0Z"/><line x1="12" y1="12" x2="12" y2="19"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+          </span>
+          <div class="tile-grid__label">Événements privés</div>
+          <p class="tile-grid__desc">[1 phrase : type d'événements, fréquence]</p>
+        </div>
+        <div class="tile-grid__item tile-grid__item--left">
+          <span class="numbered-list__icon" role="img" aria-label="Essais exclusifs">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 6-6 2 2-6Z"/></svg>
+          </span>
+          <div class="tile-grid__label">Essais exclusifs</div>
+          <p class="tile-grid__desc">[1 phrase : accès à quels véhicules, dans quelles conditions]</p>
+        </div>
+        <div class="tile-grid__item tile-grid__item--left">
+          <span class="numbered-list__icon" role="img" aria-label="Offres partenaires">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 13 3 3 3-3M7 16V8"/><path d="m20 11-3-3-3 3M17 8v8"/></svg>
+          </span>
+          <div class="tile-grid__label">Offres partenaires</div>
+          <p class="tile-grid__desc">[1 phrase : type de partenaires — hôtellerie, gastronomie, etc.]</p>
+        </div>
+        <div class="tile-grid__item tile-grid__item--left">
+          <span class="numbered-list__icon" role="img" aria-label="Services prioritaires">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+          </span>
+          <div class="tile-grid__label">Services prioritaires</div>
+          <p class="tile-grid__desc">[1 phrase : ce que "prioritaire" change concrètement — délais, disponibilité]</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="page-section page-section--dark cta-band">
-    <h2 class="cta-band__title">Devenir membre</h2>
-    <a href="./Contact.html" class="btn btn--primary btn--club">Faire une demande</a>
+  <!-- LE STATUT TITANE -->
+  <section class="page-section" id="statut">
+    <div class="section-inner model-intro">
+      <div class="model-intro__head">
+        <div class="kicker kicker--gray">Le statut Titane</div>
+        <h2 class="section-title">Un statut qui se mérite</h2>
+        <p class="model-intro__text">[1-2 phrases expliquant si Titane est le statut unique du Club ou son niveau le plus élevé, et comment on l'obtient — cumul de points, ancienneté, ou les deux]</p>
+      </div>
+      <div class="numbered-list">
+        <div class="numbered-list__item">
+          <div>
+            <span class="numbered-list__icon" role="img" aria-label="Cumul cross-pôles">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></svg>
+            </span>
+            <div class="numbered-list__num">01</div>
+          </div>
+          <div>
+            <h3 class="numbered-list__title">Cumul cross-pôles</h3>
+            <p class="numbered-list__desc">Chaque prestation Import, Prestige Rent, Detailing Studio et Care compte.</p>
+          </div>
+        </div>
+        <div class="numbered-list__item">
+          <div>
+            <span class="numbered-list__icon" role="img" aria-label="Pas d'abonnement">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 15 9l3 3-11 11H4v-3Z"/><line x1="13" y1="11" x2="16" y2="14"/><line x1="3" y1="21" x2="21" y2="3" opacity="0.4"/></svg>
+            </span>
+            <div class="numbered-list__num">02</div>
+          </div>
+          <div>
+            <h3 class="numbered-list__title">Pas d'abonnement</h3>
+            <p class="numbered-list__desc">Le statut se gagne par l'usage, pas par un paiement direct.</p>
+          </div>
+        </div>
+        <div class="numbered-list__item">
+          <div>
+            <span class="numbered-list__icon" role="img" aria-label="Reconnu sur tout AZUR">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6.5v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5v-5Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <div class="numbered-list__num">03</div>
+          </div>
+          <div>
+            <h3 class="numbered-list__title">Reconnu sur tout AZUR</h3>
+            <p class="numbered-list__desc">Vos avantages s'appliquent identiquement sur l'ensemble des pôles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="page-section page-section--alt" id="process">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2 class="section-title">Comment ça marche</h2>
+      </div>
+      <div class="step-list step-list--4">
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Vous utilisez AZUR">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16h13l4-5h-4V6H8L3 11Z"/><line x1="3" y1="19" x2="21" y2="19"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">01</div>
+          <h3 class="step-list__label">Vous utilisez AZUR</h3>
+          <p class="step-list__desc">Import, Prestige Rent, Detailing Studio, Care — chaque prestation compte.</p>
+        </div>
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Vous cumulez des points">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">02</div>
+          <h3 class="step-list__label">Vous cumulez des points</h3>
+          <p class="step-list__desc">Les points se cumulent automatiquement sur votre profil.</p>
+        </div>
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Vous accédez au statut Titane">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6.5v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5v-5Z"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">03</div>
+          <h3 class="step-list__label">Vous accédez au statut Titane</h3>
+          <p class="step-list__desc">Au seuil atteint, le statut est activé.</p>
+        </div>
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Vous profitez des avantages">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">04</div>
+          <h3 class="step-list__label">Vous profitez des avantages</h3>
+          <p class="step-list__desc">Réductions, événements et accès exclusifs s'appliquent immédiatement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHIFFRES CLÉS -->
+  <section class="social-proof" id="chiffres" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="social-proof__stats">
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number" data-target="0">0+</span>
+          <span class="social-proof__stat-label">membres Titane</span>
+        </div>
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number" data-target="0">0</span>
+          <span class="social-proof__stat-label">événements privés organisés</span>
+        </div>
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number" data-target="0">0</span>
+          <span class="social-proof__stat-label">partenaires offres</span>
+        </div>
+        <div class="social-proof__stat">
+          <span class="social-proof__stat-number" data-target="0">0</span>
+          <span class="social-proof__stat-label">% de membres qui renouvellent leur statut</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section class="social-proof page-section--alt" id="temoignages" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="kicker kicker--gray">Témoignages</div>
+        <h2 class="section-title">Ils nous ont fait confiance</h2>
+      </div>
+      <div class="social-proof__testimonials">
+        <blockquote class="social-proof__testimonial">
+          <p>« [Témoignage membre sur un événement privé, un essai exclusif ou un avantage marquant.] »</p>
+          <cite>— [Prénom], [Ville], [Membre depuis mois/année]</cite>
+        </blockquote>
+        <blockquote class="social-proof__testimonial">
+          <p>« [Témoignage membre sur un événement privé, un essai exclusif ou un avantage marquant.] »</p>
+          <cite>— [Prénom], [Ville], [Membre depuis mois/année]</cite>
+        </blockquote>
+        <blockquote class="social-proof__testimonial">
+          <p>« [Témoignage membre sur un événement privé, un essai exclusif ou un avantage marquant.] »</p>
+          <cite>— [Prénom], [Ville], [Membre depuis mois/année]</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2 class="section-title">Questions fréquentes</h2>
+      </div>
+      <div class="faq__list">
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Comment devenir membre du Club ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Le statut Titane coûte-t-il quelque chose ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Comment sont calculés les points ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Le statut expire-t-il ou faut-il le renouveler ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Les avantages sont-ils valables sur tous les pôles Azur ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Puis-je perdre mon statut ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Qui sont les partenaires offres du Club ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE -->
+  <section class="page-section page-section--dark" id="devenir-membre">
+    <div class="section-inner section-inner--narrow">
+      <div class="section-head">
+        <h2 class="section-title section-title--light">Devenir membre</h2>
+        <p class="contact__subtitle">Décrivez votre usage des pôles AZUR, notre équipe évalue votre éligibilité au statut Titane.</p>
+      </div>
+
+      <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" placeholder="ex. Jean Dupont" required>
+          <span class="error-message" data-error-for="nom"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+          <span class="error-message" data-error-for="email"></span>
+        </div>
+        <div class="form-group">
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78">
+        </div>
+        <div class="form-group full-width">
+          <fieldset class="form-group--fieldset">
+            <legend>Pôles déjà utilisés</legend>
+            <div class="form-group form-group--checkbox">
+              <input type="checkbox" id="pole-import" name="poles" value="import">
+              <label for="pole-import">Import</label>
+            </div>
+            <div class="form-group form-group--checkbox">
+              <input type="checkbox" id="pole-prestige-rent" name="poles" value="prestige-rent">
+              <label for="pole-prestige-rent">Prestige Rent</label>
+            </div>
+            <div class="form-group form-group--checkbox">
+              <input type="checkbox" id="pole-detailing-studio" name="poles" value="detailing-studio">
+              <label for="pole-detailing-studio">Detailing Studio</label>
+            </div>
+            <div class="form-group form-group--checkbox">
+              <input type="checkbox" id="pole-care" name="poles" value="care">
+              <label for="pole-care">Care</label>
+            </div>
+            <div class="form-group form-group--checkbox">
+              <input type="checkbox" id="pole-aucun" name="poles" value="aucun">
+              <label for="pole-aucun">Aucun pour l'instant</label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="form-group full-width">
+          <label for="message">Message <em>(optionnel)</em></label>
+          <textarea id="message" name="message" rows="4" placeholder="Précisez ici tout élément utile à votre demande..."></textarea>
+        </div>
+        <div class="form-group form-group--checkbox full-width">
+          <input type="checkbox" id="rgpd" name="rgpd" required>
+          <label for="rgpd">J'accepte d'être recontacté par Azur Auto au sujet de ma demande.</label>
+          <span class="error-message" data-error-for="rgpd"></span>
+        </div>
+        <button type="submit" class="btn btn--outline-gold full-width">Envoyer ma demande</button>
+        <div id="form-success" class="contact__success" hidden>Merci, votre demande a bien été transmise. Notre équipe revient vers vous rapidement.</div>
+        <div id="form-error" class="contact__error" hidden>Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement.</div>
+      </form>
+
+      <div class="cta-link-wrap">
+        <a href="./Contact.html" class="link-underline link-underline--dark">Pour une demande plus complexe, contactez-nous →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-SELL -->
+  <section class="fleet fleet--bridge" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="fleet__grid fleet__grid--4">
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR IMPORT"></div></div>
+          <h3 class="fleet__title">Découvrir AZUR Import</h3>
+          <a href="./Import.html" class="btn--tertiary">Découvrir Import</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR PRESTIGE RENT"></div></div>
+          <h3 class="fleet__title">Découvrir AZUR Prestige Rent</h3>
+          <a href="./Prestige-Rent.html" class="btn--tertiary">Découvrir Prestige Rent</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR DETAILING STUDIO"></div></div>
+          <h3 class="fleet__title">Découvrir AZUR Detailing Studio</h3>
+          <a href="./Detailing-Studio.html" class="btn--tertiary">Découvrir Detailing Studio</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR CARE"></div></div>
+          <h3 class="fleet__title">Découvrir AZUR Care</h3>
+          <a href="./Care.html" class="btn--tertiary">Découvrir Care</a>
+        </div>
+      </div>
+    </div>
   </section>
 
 </main>
@@ -140,6 +476,12 @@
     <a href="./mentions-legales.html">Mentions légales</a>
   </div>
 </footer>
+
+<!-- CONTACT RAPIDE FLOTTANT -->
+<a href="https://wa.me/33600000000" class="whatsapp-float" aria-label="Discuter maintenant sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10h.01M12 10h.01M16 10h.01"/><path d="M4 20l1.6-4A8 8 0 1 1 9 19l-5 1Z"/></svg>
+  <span class="whatsapp-float__label">Discuter maintenant</span>
+</a>
 
 <script src="./js/main.js"></script>
 </body>
