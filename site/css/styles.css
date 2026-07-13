@@ -1903,6 +1903,10 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 769px) {
   .fleet__grid--2 { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin: 0 auto; }
 }
+/* variante à 4 cartes compactes (cross-sell Club, transversal aux 4 pôles) */
+@media (min-width: 901px) {
+  .fleet__grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
 
 /* emplacement logo marque (Marques représentées) : le vrai logo de chaque
    constructeur nécessite une validation des conditions d'usage de marque —
@@ -2003,6 +2007,23 @@ section[data-reveal-variant="fade-up"].is-visible {
   margin: 0;
   font-weight: 300;
 }
+
+/* groupe de cases à cocher multiples (ex. "Pôles déjà utilisés" — Club) :
+   reset du fieldset natif, legend alignée sur le style des labels de champ */
+.form-group--fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.form-group--fieldset legend {
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-bottom: var(--space-3);
+  padding: 0;
+}
+.form-group--fieldset .form-group--checkbox { margin-bottom: var(--space-2); }
 
 /* bouton WhatsApp flottant, présent hors flux sur toute la page */
 .whatsapp-float {
