@@ -465,12 +465,6 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__img { animation: none; transform: none; }
-  .hero__video { display: none; }
-  .hero__bg {
-    background-image: url('../assets/video/hero-banner-poster.jpg');
-    background-size: cover;
-    background-position: center;
-  }
   .hero__title, .hero__subtitle, .hero__cta-group {
     opacity: 1 !important;
     transform: none !important;
