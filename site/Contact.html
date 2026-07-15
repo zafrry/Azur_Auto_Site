@@ -3,18 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact et conciergerie | Azur Auto</title>
-<meta name="description" content="Contactez la conciergerie Azur Auto pour un projet d'import, de location, de detailing, de produits Care ou d'adhésion au Club — réponse sous 24h.">
+<title>Contact &amp; Conciergerie | Azur Auto</title>
+<meta name="description" content="Contactez Azur Auto : un seul interlocuteur pour tous vos projets automobiles de prestige — import, location, detailing, entretien et Club.">
 <link rel="canonical" href="https://zafrry.github.io/Azur_Auto_Site/Contact.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Contact et conciergerie | Azur Auto">
-<meta property="og:description" content="Parlons de votre projet AZUR.">
+<meta property="og:title" content="Contact &amp; Conciergerie | Azur Auto">
+<meta property="og:description" content="Contactez Azur Auto : un seul interlocuteur pour tous vos projets automobiles de prestige — import, location, detailing, entretien et Club.">
 <meta property="og:url" content="https://zafrry.github.io/Azur_Auto_Site/Contact.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/styles.css">
+<!-- TODO: remplacer par le vrai domaine une fois acquis. `telephone` et `address` sont volontairement
+     omis du schema ContactPage/Organization ci-dessous tant que les vraies coordonnées ne sont pas
+     connues — mieux vaut les omettre qu'y laisser le numéro placeholder +33 6 00 00 00 00, qu'une IA
+     pourrait recommander à un client comme s'il était réel. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "name": "Contact Azur Auto",
+      "url": "https://zafrry.github.io/Azur_Auto_Site/Contact.html",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Azur Auto",
+        "email": "conciergerie@azurauto.com"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Sous quel délai recevrai-je une réponse ?", "acceptedAnswer": { "@type": "Answer", "text": "Notre équipe vous répond généralement sous 24h." } },
+        { "@type": "Question", "name": "Dois-je passer par un formulaire spécifique à un pôle ou puis-je toujours utiliser celui-ci ?", "acceptedAnswer": { "@type": "Answer", "text": "Ce formulaire convient à toute demande — nous vous orientons ensuite vers le bon interlocuteur si nécessaire." } },
+        { "@type": "Question", "name": "Puis-je être rappelé plutôt que d'échanger par email ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, indiquez-le dans votre message et un membre de notre équipe vous appelle directement." } },
+        { "@type": "Question", "name": "Est-il possible de vous rencontrer en personne ?", "acceptedAnswer": { "@type": "Answer", "text": "Sur rendez-vous, selon le pôle concerné et votre localisation." } }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://zafrry.github.io/Azur_Auto_Site/" },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://zafrry.github.io/Azur_Auto_Site/Contact.html" }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -54,65 +91,189 @@
   <!-- HERO -->
   <section class="hero hero--s hero--left" id="hero">
     <div class="hero__content">
-      <div class="kicker kicker--gold">Conciergerie</div>
-      <h1 class="hero__title">Parlons de votre projet AZUR</h1>
+      <div class="kicker kicker--gold">Contact</div>
+      <h1 class="hero__title">Une question, un projet ? Parlons-en</h1>
+      <p class="hero__subtitle">Un seul point de contact, quel que soit le pôle Azur concerné par votre demande.</p>
     </div>
   </section>
 
-  <!-- FORMULAIRE -->
-  <section class="contact" id="contact">
+  <!-- RÉASSURANCE -->
+  <section class="reassurance">
+    <div class="reassurance__bar">
+      <span>Réponse sous 24h</span>
+      <span class="reassurance__sep">|</span>
+      <span>Un interlocuteur unique</span>
+      <span class="reassurance__sep">|</span>
+      <span>Confidentialité garantie</span>
+    </div>
+  </section>
+
+  <!-- NOS COORDONNÉES -->
+  <!-- TODO: téléphone et adresse encore en placeholder sur tout le site — à remplacer en priorité sur
+       cette page avant toute autre, c'est ici qu'un visiteur vérifie la légitimité de l'entreprise. -->
+  <section class="page-section page-section--dark">
+    <div class="section-inner section-inner--narrow">
+      <div class="section-head">
+        <h2 class="section-title section-title--light">Nos coordonnées</h2>
+      </div>
+      <div class="contact__direct">
+        <p><strong>Siège</strong>Paris</p>
+        <p><strong>Zone d'intervention</strong>Salon-de-Provence · Cannes · Monaco</p>
+        <p><strong>Téléphone</strong><a href="tel:+33600000000">+33 6 00 00 00 00</a></p>
+        <p><strong>Email</strong><a href="mailto:conciergerie@azurauto.com">conciergerie@azurauto.com</a></p>
+      </div>
+      <!-- .contact__direct affiche déjà strong en display:block, donc le libellé passe naturellement
+           à la ligne au-dessus de la valeur, sans <br> nécessaire (cf. styles.css) -->
+      <div class="btn-group">
+        <a href="https://wa.me/33600000000" class="btn btn--outline-gold">WhatsApp Azur Auto</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA CONCIERGERIE AZUR -->
+  <section class="page-section">
+    <div class="section-inner section-inner--narrow manifesto">
+      <h2 class="section-title">La conciergerie Azur</h2>
+      <p class="manifesto__body">Notre conciergerie est votre point d'entrée unique dans l'univers Azur. Que votre demande concerne un seul pôle ou plusieurs à la fois — importer un véhicule, le faire préparer, puis l'inscrire au Club — un seul interlocuteur coordonne l'ensemble, sans que vous ayez à démultiplier les échanges.</p>
+    </div>
+  </section>
+
+  <!-- NOUS CONTACTER -->
+  <section class="page-section page-section--dark" id="contact">
+    <div class="section-inner section-inner--narrow">
+      <div class="section-head">
+        <h2 class="section-title section-title--light">Nous contacter</h2>
+        <p class="contact__subtitle">Décrivez votre demande, notre équipe vous oriente vers le bon interlocuteur.</p>
+      </div>
+
+      <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" placeholder="ex. Jean Dupont" required>
+          <span class="error-message" data-error-for="nom"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+          <span class="error-message" data-error-for="email"></span>
+        </div>
+        <div class="form-group">
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78">
+        </div>
+        <div class="form-group">
+          <label for="sujet">Sujet de votre demande</label>
+          <select id="sujet" name="sujet" required>
+            <option value="" disabled selected>Sélectionnez une option</option>
+            <option value="import">Import</option>
+            <option value="prestige-rent">Prestige Rent</option>
+            <option value="detailing-studio">Detailing Studio</option>
+            <option value="care">Care</option>
+            <option value="club">Club</option>
+            <option value="autre">Autre demande</option>
+          </select>
+          <span class="error-message" data-error-for="sujet"></span>
+        </div>
+        <div class="form-group full-width">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Précisez ici tout élément utile à votre demande..." required></textarea>
+          <span class="error-message" data-error-for="message"></span>
+        </div>
+        <div class="form-group form-group--checkbox full-width">
+          <input type="checkbox" id="rgpd" name="rgpd" required>
+          <label for="rgpd">J'accepte d'être recontacté par Azur Auto au sujet de ma demande.</label>
+          <span class="error-message" data-error-for="rgpd"></span>
+        </div>
+        <button type="submit" class="btn btn--outline-gold full-width">Envoyer mon message</button>
+        <div id="form-success" class="contact__success" hidden>Merci, votre message a bien été transmis. Notre équipe revient vers vous sous 24h.</div>
+        <div id="form-error" class="contact__error" hidden>Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- VOUS SAVEZ DÉJÀ CE QUE VOUS CHERCHEZ ? -->
+  <section class="fleet page-section--alt" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
-      <div class="contact__layout">
-        <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-
-          <div class="form-group full-width">
-            <label for="service">Quel service vous intéresse ?</label>
-            <select id="service" name="service" required>
-              <option value="" disabled selected>Sélectionnez une option</option>
-              <option value="import">Import</option>
-              <option value="location">Prestige Rent</option>
-              <option value="detailing">Detailing Studio</option>
-              <option value="care">Care</option>
-              <option value="club">Club</option>
-              <option value="autre">Autre demande</option>
-            </select>
-            <span class="error-message" data-error-for="service"></span>
+      <div class="section-head">
+        <h2 class="section-title">Vous savez déjà ce que vous cherchez ?</h2>
+      </div>
+      <div class="fleet__grid">
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide">
+            <picture>
+              <img src="./assets/img/import-desktop.webp" alt="AZUR Import" loading="lazy">
+            </picture>
           </div>
-
-          <div class="form-group">
-            <label for="nom">Nom et prénom</label>
-            <input type="text" id="nom" name="nom" placeholder="ex. Jean Dupont" required>
-            <span class="error-message" data-error-for="nom"></span>
+          <h3 class="fleet__title">AZUR Import</h3>
+          <p class="fleet__desc">Sourcing sur mesure de véhicules d'exception.</p>
+          <a href="./Import.html" class="btn--tertiary">Découvrir Import</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide">
+            <picture>
+              <img src="./assets/img/prestige-rent-desktop.webp" alt="AZUR Prestige Rent" loading="lazy">
+            </picture>
           </div>
-
-          <div class="form-group">
-            <label for="telephone">Téléphone</label>
-            <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" required>
-            <span class="error-message" data-error-for="telephone"></span>
+          <h3 class="fleet__title">AZUR Prestige Rent</h3>
+          <p class="fleet__desc">Location de prestige pour vos événements.</p>
+          <a href="./Prestige-Rent.html" class="btn--tertiary">Découvrir Prestige Rent</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide">
+            <picture>
+              <img src="./assets/img/detailing-desktop.webp" alt="AZUR Detailing Studio" loading="lazy">
+            </picture>
           </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
-            <span class="error-message" data-error-for="email"></span>
+          <h3 class="fleet__title">AZUR Detailing Studio</h3>
+          <p class="fleet__desc">Finition et protection longue durée.</p>
+          <a href="./Detailing-Studio.html" class="btn--tertiary">Découvrir Detailing Studio</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide">
+            <picture>
+              <img src="./assets/img/care-desktop.webp" alt="AZUR Care" loading="lazy">
+            </picture>
           </div>
-
-          <div class="form-group full-width">
-            <label for="message">Votre message <em>(optionnel)</em></label>
-            <textarea id="message" name="message" rows="4" placeholder="Précisez ici tout élément utile à votre demande..."></textarea>
+          <h3 class="fleet__title">AZUR Care</h3>
+          <p class="fleet__desc">[à écrire une fois la page Care traitée]</p>
+          <a href="./Care.html" class="btn--tertiary">Découvrir Care</a>
+        </div>
+        <div class="fleet__card">
+          <div class="fleet__image fleet__image--wide">
+            <picture>
+              <img src="./assets/img/club-titanium-desktop.webp" alt="AZUR Club" loading="lazy">
+            </picture>
           </div>
+          <h3 class="fleet__title">AZUR Club</h3>
+          <p class="fleet__desc">Un statut, pas une carte de fidélité.</p>
+          <a href="./Club.html" class="btn--tertiary">Découvrir Club</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <button type="submit" class="btn btn--outline-gold full-width">Envoyer ma demande</button>
-
-          <div id="form-success" class="contact__success" hidden>Demande bien reçue. Un membre de notre conciergerie vous recontacte sous 24h ouvrées.</div>
-          <div id="form-error" class="contact__error" hidden>Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement ci-contre.</div>
-        </form>
-
-        <div class="contact__direct">
-          <p><strong>Téléphone</strong><br><a href="tel:+33600000000">+33 6 00 00 00 00</a></p>
-          <p><strong>Email</strong><br><a href="mailto:conciergerie@azurauto.com">conciergerie@azurauto.com</a></p>
-          <p><strong>WhatsApp</strong><br><a href="https://wa.me/33600000000">Écrire sur WhatsApp</a></p>
-          <p><strong>Réseaux</strong><br><a href="#">Instagram</a> · <a href="#">LinkedIn</a></p>
+  <!-- FAQ -->
+  <section class="faq" id="faq" data-reveal data-reveal-variant="fade-up">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2 class="section-title">Questions fréquentes</h2>
+      </div>
+      <div class="faq__list">
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Sous quel délai recevrai-je une réponse ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Notre équipe vous répond généralement sous 24h.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Dois-je passer par un formulaire spécifique à un pôle ou puis-je toujours utiliser celui-ci ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Ce formulaire convient à toute demande — nous vous orientons ensuite vers le bon interlocuteur si nécessaire.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Puis-je être rappelé plutôt que d'échanger par email ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Oui, indiquez-le dans votre message et un membre de notre équipe vous appelle directement.</p></div></div>
+        </div>
+        <div class="faq__item">
+          <h3><button type="button" class="faq__question" aria-expanded="false">Est-il possible de vous rencontrer en personne ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+          <div class="faq__answer"><div><p>Sur rendez-vous, selon le pôle concerné et votre localisation.</p></div></div>
         </div>
       </div>
     </div>
@@ -165,6 +326,12 @@
     <a href="./mentions-legales.html">Mentions légales</a>
   </div>
 </footer>
+
+<!-- CONTACT RAPIDE FLOTTANT -->
+<a href="https://wa.me/33600000000" class="whatsapp-float" aria-label="Discuter maintenant sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10h.01M12 10h.01M16 10h.01"/><path d="M4 20l1.6-4A8 8 0 1 1 9 19l-5 1Z"/></svg>
+  <span class="whatsapp-float__label">Discuter maintenant</span>
+</a>
 
 <script src="./js/main.js"></script>
 </body>
