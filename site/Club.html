@@ -15,6 +15,49 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/styles.css">
+<!-- TODO: remplacer par le vrai domaine une fois acquis. Le JSON-LD FAQPage reprend les réponses "prudentes" de la
+     passe copywriting — à revalider dès confirmation de la mécanique exacte du statut Titane (seuil d'obtention,
+     règles de renouvellement) avant toute communication engageante. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Azur Auto",
+      "url": "https://zafrry.github.io/Azur_Auto_Site/",
+      "memberOf": {
+        "@type": "ProgramMembership",
+        "programName": "Azur Club Titane",
+        "description": "Programme de fidélité automobile de luxe cumulant des points sur l'ensemble des pôles Azur Auto (Import, Prestige Rent, Detailing Studio, Care), sans abonnement.",
+        "hostingOrganization": {
+          "@type": "Organization",
+          "name": "Azur Auto"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Comment devenir membre du Club ?", "acceptedAnswer": { "@type": "Answer", "text": "Le statut Titane s'obtient en cumulant des points sur vos prestations Azur, ou sur invitation directe de notre équipe." } },
+        { "@type": "Question", "name": "Le statut Titane coûte-t-il quelque chose ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, l'adhésion est gratuite — le statut se gagne par l'usage de nos services, pas par un abonnement payant." } },
+        { "@type": "Question", "name": "Comment sont calculés les points ?", "acceptedAnswer": { "@type": "Answer", "text": "Chaque prestation réalisée sur l'un de nos pôles — Import, Prestige Rent, Detailing Studio, Care — génère des points, cumulés automatiquement sur votre profil." } },
+        { "@type": "Question", "name": "Le statut expire-t-il ou faut-il le renouveler ?", "acceptedAnswer": { "@type": "Answer", "text": "Le statut est réévalué périodiquement selon votre activité sur l'ensemble des pôles Azur." } },
+        { "@type": "Question", "name": "Les avantages sont-ils valables sur tous les pôles Azur ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, les avantages du statut Titane s'appliquent identiquement sur Import, Prestige Rent, Detailing Studio et Care." } },
+        { "@type": "Question", "name": "Puis-je perdre mon statut ?", "acceptedAnswer": { "@type": "Answer", "text": "Le statut est lié à votre activité : une longue période d'inactivité peut entraîner une réévaluation de votre niveau." } },
+        { "@type": "Question", "name": "Qui sont les partenaires offres du Club ?", "acceptedAnswer": { "@type": "Answer", "text": "Nos partenaires sont sélectionnés parmi des enseignes d'exception, hors automobile, pour compléter l'expérience Azur." } }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://zafrry.github.io/Azur_Auto_Site/" },
+        { "@type": "ListItem", "position": 2, "name": "Club", "item": "https://zafrry.github.io/Azur_Auto_Site/Club.html" }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -56,7 +99,7 @@
     <div class="hero__bg">
       <picture>
         <source media="(max-width: 767px)" srcset="./assets/img/club-titanium-mobile.webp">
-        <img src="./assets/img/club-titanium-desktop.webp" alt="Remise de clés lors d'un événement privé Azur Club" class="hero__img">
+        <img src="./assets/img/club-titanium-desktop.webp" alt="Remise de clés lors d'un événement privé Azur Club — statut Titane Azur Auto" class="hero__img">
       </picture>
     </div>
     <div class="hero__scrim"></div>
@@ -67,6 +110,7 @@
         <div class="club-card__tier">TITANE</div>
       </div>
       <h1 class="hero__title">Un statut, pas une carte de fidélité</h1>
+      <p class="hero__subtitle">Le programme de fidélité automobile de luxe d'Azur Auto : chaque achat, chaque prestation, chaque location cumule des points, utilisables sur l'ensemble des pôles AZUR.</p>
       <div class="hero__cta-group">
         <a href="#devenir-membre" class="btn btn--primary">Devenir membre</a>
         <a href="https://wa.me/33600000000" class="btn btn--outline-gold">Appeler / WhatsApp</a>
@@ -94,10 +138,7 @@
       <span class="subnav__sep" aria-hidden="true">·</span>
       <a href="#process" class="subnav__link">Comment ça marche</a>
       <span class="subnav__sep" aria-hidden="true">·</span>
-      <a href="#chiffres" class="subnav__link">Chiffres</a>
-      <span class="subnav__sep" aria-hidden="true">·</span>
-      <a href="#temoignages" class="subnav__link">Avis</a>
-      <span class="subnav__sep" aria-hidden="true">·</span>
+      <!-- liens "Chiffres" et "Avis" masqués avec leurs sections, en attente de données réelles -->
       <a href="#faq" class="subnav__link">FAQ</a>
       <span class="subnav__sep" aria-hidden="true">·</span>
       <a href="#devenir-membre" class="subnav__link">Devenir membre</a>
@@ -116,35 +157,36 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 15 9l3 3-11 11H4v-3Z"/><circle cx="8" cy="8" r="3"/></svg>
           </span>
           <div class="tile-grid__label">Réductions sur tous les pôles</div>
-          <p class="tile-grid__desc">[1 phrase : quel niveau de réduction, sur quels pôles]</p>
+          <!-- descriptions volontairement génériques en attendant le détail réel de chaque avantage (ex. % exact) -->
+          <p class="tile-grid__desc">Un tarif préférentiel appliqué automatiquement sur Import, Prestige Rent, Detailing Studio et Care.</p>
         </div>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Événements privés">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-1 6a3 3 0 0 1-6 0Z"/><line x1="12" y1="12" x2="12" y2="19"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
           </span>
           <div class="tile-grid__label">Événements privés</div>
-          <p class="tile-grid__desc">[1 phrase : type d'événements, fréquence]</p>
+          <p class="tile-grid__desc">Accès à des soirées et rencontres réservées aux membres Titane, plusieurs fois par an.</p>
         </div>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Essais exclusifs">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 6-6 2 2-6Z"/></svg>
           </span>
           <div class="tile-grid__label">Essais exclusifs</div>
-          <p class="tile-grid__desc">[1 phrase : accès à quels véhicules, dans quelles conditions]</p>
+          <p class="tile-grid__desc">La possibilité d'essayer certains véhicules avant leur mise à disposition générale.</p>
         </div>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Offres partenaires">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 13 3 3 3-3M7 16V8"/><path d="m20 11-3-3-3 3M17 8v8"/></svg>
           </span>
           <div class="tile-grid__label">Offres partenaires</div>
-          <p class="tile-grid__desc">[1 phrase : type de partenaires — hôtellerie, gastronomie, etc.]</p>
+          <p class="tile-grid__desc">Des avantages négociés auprès d'enseignes sélectionnées pour leur exigence, hors automobile.</p>
         </div>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Services prioritaires">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
           </span>
           <div class="tile-grid__label">Services prioritaires</div>
-          <p class="tile-grid__desc">[1 phrase : ce que "prioritaire" change concrètement — délais, disponibilité]</p>
+          <p class="tile-grid__desc">Un traitement prioritaire sur les délais de prise en charge, quel que soit le pôle sollicité.</p>
         </div>
       </div>
     </div>
@@ -156,7 +198,10 @@
       <div class="model-intro__head">
         <div class="kicker kicker--gray">Le statut Titane</div>
         <h2 class="section-title">Un statut qui se mérite</h2>
-        <p class="model-intro__text">[1-2 phrases expliquant si Titane est le statut unique du Club ou son niveau le plus élevé, et comment on l'obtient — cumul de points, ancienneté, ou les deux]</p>
+        <!-- ⚠️ à revalider dès confirmation de la mécanique du statut : ce paragraphe part de l'hypothèse
+             "Titane = statut unique du Club" (cohérente avec le H1 "Un statut, pas une carte de fidélité").
+             À corriger si Titane est en réalité le palier supérieur d'un système à plusieurs niveaux. -->
+        <p class="model-intro__text">Azur Club Titane est le programme de fidélité d'Azur Auto : un statut, sans abonnement, obtenu en cumulant des points sur l'ensemble de nos pôles — Import, Prestige Rent, Detailing Studio et Care. Plus vous utilisez Azur, plus vos avantages s'élargissent.</p>
       </div>
       <div class="numbered-list">
         <div class="numbered-list__item">
@@ -180,7 +225,7 @@
           </div>
           <div>
             <h3 class="numbered-list__title">Pas d'abonnement</h3>
-            <p class="numbered-list__desc">Le statut se gagne par l'usage, pas par un paiement direct.</p>
+            <p class="numbered-list__desc">Le statut se gagne par l'usage, jamais par un paiement direct.</p>
           </div>
         </div>
         <div class="numbered-list__item">
@@ -195,6 +240,9 @@
             <p class="numbered-list__desc">Vos avantages s'appliquent identiquement sur l'ensemble des pôles.</p>
           </div>
         </div>
+      </div>
+      <div class="cta-link-wrap">
+        <a href="./La-Vision.html" class="link-underline link-underline--dark">Notre vision de la fidélité →</a>
       </div>
     </div>
   </section>
@@ -231,7 +279,7 @@
           <div class="step-list__dot"></div>
           <div class="step-list__num">03</div>
           <h3 class="step-list__label">Vous accédez au statut Titane</h3>
-          <p class="step-list__desc">Au seuil atteint, le statut est activé.</p>
+          <p class="step-list__desc">Le seuil atteint, le statut est activé et vos avantages s'ouvrent.</p>
         </div>
         <div class="step-list__item">
           <span class="step-list__icon" role="img" aria-label="Vous profitez des avantages">
@@ -246,7 +294,13 @@
     </div>
   </section>
 
-  <!-- CHIFFRES CLÉS -->
+  <!-- CHIFFRES CLÉS + TÉMOIGNAGES -->
+  <!-- Sections masquées temporairement, sur recommandation explicite du brief copywriting/SEO/GEO :
+       un programme de statut qui affiche des chiffres inventés ou des témoignages fictifs nuit à sa
+       propre crédibilité. Restaurer dès réception des 4 valeurs réelles (chiffres) et de 2-3 vrais
+       retours membres (témoignages). Les liens "Chiffres" et "Avis" de la sous-navigation sont
+       masqués en parallèle ci-dessus. -->
+  <!--
   <section class="social-proof" id="chiffres" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="social-proof__stats">
@@ -270,7 +324,6 @@
     </div>
   </section>
 
-  <!-- TÉMOIGNAGES -->
   <section class="social-proof page-section--alt" id="temoignages" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="section-head">
@@ -293,8 +346,12 @@
       </div>
     </div>
   </section>
+  -->
 
   <!-- FAQ -->
+  <!-- Réponses volontairement prudentes tant que la mécanique exacte du programme (seuil d'obtention,
+       règles de renouvellement) n'est pas confirmée — à revalider dès confirmation avant toute
+       communication plus engageante ou plus précise. -->
   <section class="faq" id="faq" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="section-head">
@@ -303,31 +360,31 @@
       <div class="faq__list">
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Comment devenir membre du Club ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Le statut Titane s'obtient en cumulant des points sur vos prestations Azur, ou sur invitation directe de notre équipe.</p></div></div>
         </div>
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Le statut Titane coûte-t-il quelque chose ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Non, l'adhésion est gratuite — le statut se gagne par l'usage de nos services, pas par un abonnement payant.</p></div></div>
         </div>
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Comment sont calculés les points ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Chaque prestation réalisée sur l'un de nos pôles — Import, Prestige Rent, Detailing Studio, Care — génère des points, cumulés automatiquement sur votre profil.</p></div></div>
         </div>
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Le statut expire-t-il ou faut-il le renouveler ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Le statut est réévalué périodiquement selon votre activité sur l'ensemble des pôles Azur.</p></div></div>
         </div>
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Les avantages sont-ils valables sur tous les pôles Azur ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Oui, les avantages du statut Titane s'appliquent identiquement sur Import, Prestige Rent, Detailing Studio et Care.</p></div></div>
         </div>
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Puis-je perdre mon statut ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Le statut est lié à votre activité : une longue période d'inactivité peut entraîner une réévaluation de votre niveau.</p></div></div>
         </div>
         <div class="faq__item">
           <h3><button type="button" class="faq__question" aria-expanded="false">Qui sont les partenaires offres du Club ?<span class="faq__icon" aria-hidden="true"></span></button></h3>
-          <div class="faq__answer"><div><p>Réponse à rédiger en phase copywriting.</p></div></div>
+          <div class="faq__answer"><div><p>Nos partenaires sont sélectionnés parmi des enseignes d'exception, hors automobile, pour compléter l'expérience Azur.</p></div></div>
         </div>
       </div>
     </div>
@@ -338,7 +395,7 @@
     <div class="section-inner section-inner--narrow">
       <div class="section-head">
         <h2 class="section-title section-title--light">Devenir membre</h2>
-        <p class="contact__subtitle">Décrivez votre usage des pôles AZUR, notre équipe évalue votre éligibilité au statut Titane.</p>
+        <p class="contact__subtitle">Décrivez votre profil, notre équipe étudie votre demande d'adhésion.</p>
       </div>
 
       <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
@@ -396,7 +453,7 @@
       </form>
 
       <div class="cta-link-wrap">
-        <a href="./Contact.html" class="link-underline link-underline--dark">Pour une demande plus complexe, contactez-nous →</a>
+        <a href="./Contact.html" class="link-underline link-underline--dark">Pour toute question, contactez-nous →</a>
       </div>
     </div>
   </section>
@@ -404,25 +461,37 @@
   <!-- CROSS-SELL -->
   <section class="fleet fleet--bridge" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
+      <div class="section-head">
+        <div class="kicker kicker--gray">Aller plus loin</div>
+        <h2 class="section-title">Découvrez tout l'univers Azur</h2>
+      </div>
       <div class="fleet__grid fleet__grid--4">
         <div class="fleet__card">
+          <!-- alt prévu une fois la photo intégrée : "Découvrir AZUR Import" -->
           <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR IMPORT"></div></div>
           <h3 class="fleet__title">Découvrir AZUR Import</h3>
+          <p class="fleet__desc">Sourcing sur mesure de véhicules d'exception.</p>
           <a href="./Import.html" class="btn--tertiary">Découvrir Import</a>
         </div>
         <div class="fleet__card">
+          <!-- alt prévu une fois la photo intégrée : "Découvrir AZUR Prestige Rent" -->
           <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR PRESTIGE RENT"></div></div>
           <h3 class="fleet__title">Découvrir AZUR Prestige Rent</h3>
+          <p class="fleet__desc">Location de prestige pour vos événements.</p>
           <a href="./Prestige-Rent.html" class="btn--tertiary">Découvrir Prestige Rent</a>
         </div>
         <div class="fleet__card">
+          <!-- alt prévu une fois la photo intégrée : "Découvrir AZUR Detailing Studio" -->
           <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR DETAILING STUDIO"></div></div>
           <h3 class="fleet__title">Découvrir AZUR Detailing Studio</h3>
+          <p class="fleet__desc">Finition et protection longue durée.</p>
           <a href="./Detailing-Studio.html" class="btn--tertiary">Découvrir Detailing Studio</a>
         </div>
         <div class="fleet__card">
+          <!-- alt prévu une fois la photo intégrée : "Découvrir AZUR Care" -->
           <div class="fleet__image fleet__image--wide"><div class="img-placeholder" data-caption="AZUR CARE"></div></div>
           <h3 class="fleet__title">Découvrir AZUR Care</h3>
+          <p class="fleet__desc">Suivi d'entretien dédié aux véhicules d'exception.</p>
           <a href="./Care.html" class="btn--tertiary">Découvrir Care</a>
         </div>
       </div>
