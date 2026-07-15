@@ -1121,6 +1121,28 @@ section[data-reveal-variant="fade-up"].is-visible {
     padding: 140px 40px;
   }
 }
+.coverage__groups {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .coverage__groups {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+.coverage__country {
+  color: var(--gold-light);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 14px;
+  font-weight: 600;
+}
 .coverage__tags {
   display: flex;
   justify-content: center;
@@ -2165,6 +2187,13 @@ section[data-reveal-variant="fade-up"].is-visible {
 .subnav__sep { flex-shrink: 0; font-size: 11px; color: #d5d3cc; margin: 0 var(--space-3); }
 
 /* -------------------- Prestige Rent : refonte structurelle -------------------- */
+
+/* regroupement des destinations par pays (10 destinations, plus adapté qu'une grille plate) */
+.destinations__group + .destinations__group { margin-top: 56px; }
+.destinations__country {
+  text-align: center;
+  margin-bottom: 24px;
+}
 
 /* variante paysage de .gallery-grid__image (destinations, univers de
    véhicules) — le ratio 3:4 de base reste celui des produits Care */
