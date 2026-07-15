@@ -369,7 +369,10 @@ a { color: inherit; }
   cursor: pointer;
   flex-direction: column;
   gap: 5px;
-  padding: 8px;
+  /* 15px/13px de marge autour des 3 barres (13px de contenu) porte la cible
+     tactile à ~44px de haut / ~52px de large, conforme aux recommandations
+     d'accessibilité tactile (mesuré à 42×29px avant ce correctif) */
+  padding: 15px 13px;
 }
 @media (max-width: 1199px) {
   .site-header__burger { display: flex; }
@@ -2065,7 +2068,8 @@ section[data-reveal-variant="fade-up"].is-visible {
   padding: var(--space-3) var(--space-4);
   border-radius: 999px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  transition: background 0.25s ease, transform 0.2s ease-out;
+  opacity: 1;
+  transition: background 0.25s ease, transform 0.2s ease-out, opacity 0.25s ease;
 }
 .whatsapp-float:hover {
   background: #1a1a1a;
@@ -2073,6 +2077,18 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .whatsapp-float:hover { transform: none; }
+}
+/* masqué tant que le hero est à l'écran : sur les petits viewports (hauteur
+   courte), le bouton flottant fixe peut chevaucher le CTA "Appeler / WhatsApp"
+   du hero et le texte de la barre de réassurance juste en dessous — le hero
+   propose déjà sa propre action WhatsApp, la version flottante ne sert donc
+   qu'une fois qu'on a défilé au-delà */
+.whatsapp-float.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float.is-hidden { transition: none; }
 }
 .whatsapp-float svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--gold-light); }
 .whatsapp-float__label {
@@ -2129,6 +2145,13 @@ section[data-reveal-variant="fade-up"].is-visible {
 .subnav__link.is-active {
   color: var(--gold-solid);
   border-bottom-color: var(--gold-solid);
+}
+/* cible tactile élargie sur écrans à pointeur imprécis (doigt) : la hauteur
+   cliquable réelle du lien mesurait ~15px avant ce correctif (juste la
+   ligne de texte), difficile à toucher précisément dans une sous-nav
+   scrollable — inchangé au clavier/souris (:hover reste sur le texte) */
+@media (pointer: coarse) {
+  .subnav__link { padding: 16px 0 12px; }
 }
 /* --space-3 de chaque côté = --space-5 (24px) entre deux items, séparateur
    centré dans cet espace plutôt qu'un gap de conteneur qui s'ajouterait à sa

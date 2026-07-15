@@ -248,4 +248,17 @@
 
     subnavPairs.forEach(function (pair) { subnavObserver.observe(pair.target); });
   }
+
+  // -------------------- bouton WhatsApp flottant : masqué tant que le hero est visible --------------------
+  // évite le chevauchement avec le CTA "Appeler / WhatsApp" du hero et la barre de
+  // réassurance juste en dessous, surtout marqué sur les petits viewports (hauteur courte)
+  var whatsappFloat = document.querySelector('.whatsapp-float');
+  if (whatsappFloat && hero) {
+    var whatsappObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        whatsappFloat.classList.toggle('is-hidden', entry.isIntersecting);
+      });
+    });
+    whatsappObserver.observe(hero);
+  }
 })();
