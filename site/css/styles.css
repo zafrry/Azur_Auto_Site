@@ -132,6 +132,17 @@ a { color: inherit; }
   border-color: var(--gold-solid);
 }
 
+/* variante de .btn--outline-gold pour fond clair (texte blanc illisible sur
+   page-section clair) — ex. La Vision, CTA hors hero sur fond blanc/gris clair */
+.btn--outline-dark {
+  color: var(--black);
+  border: 1.5px solid var(--black);
+}
+.btn--outline-dark:hover {
+  background: var(--black);
+  color: #ffffff;
+}
+
 /* Niveau 1 — primaire : action de conversion macro-objectif (hero, Club dédié) */
 /* --gold-solid sur fond blanc de texte ne passe pas WCAG AA (3.53:1) ;
    #866824 assombrit juste assez pour atteindre 5.22:1 avec du texte blanc. */
@@ -487,6 +498,19 @@ a { color: inherit; }
 }
 @media (max-width: 480px) {
   .hero__cta-group { flex-direction: column; align-items: stretch; }
+}
+
+/* rangée de boutons hors hero (ex. La Vision : manifeste, clôture "Nous rencontrer") —
+   même mise en page que .hero__cta-group, sans l'animation d'entrée liée à .hero.is-loaded */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+}
+@media (max-width: 480px) {
+  .btn-group { flex-direction: column; align-items: stretch; }
 }
 
 /* -------------------- réassurance -------------------- */
