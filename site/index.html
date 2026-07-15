@@ -119,13 +119,11 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero__bg">
-      <video
-        class="hero__img hero__video"
-        muted
-        playsinline
-        poster="./assets/video/hero-banner-poster.jpg">
-        <source src="./assets/video/hero-banner.mp4" type="video/mp4">
-      </video>
+      <picture>
+        <source media="(max-width: 767px)" srcset="./assets/img/hero-mobile.webp">
+        <source media="(max-width: 1439px)" srcset="./assets/img/hero-tablet.webp">
+        <img src="./assets/img/hero-desktop.webp" alt="Supercar sur une route côtière au coucher du soleil, Côte d'Azur" class="hero__img">
+      </picture>
     </div>
     <div class="hero__scrim"></div>
     <div class="hero__content">

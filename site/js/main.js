@@ -16,35 +16,12 @@
   // -------------------- hero: entrance animation + scroll parallax --------------------
   var hero = document.getElementById('hero');
   var heroImg = hero ? hero.querySelector('.hero__img') : null;
-  var heroVideo = hero ? hero.querySelector('.hero__video') : null;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (hero) {
     requestAnimationFrame(function () { hero.classList.add('is-loaded'); });
 
-    if (heroVideo && !prefersReducedMotion) {
-      // la vidéo n'avance plus toute seule : sa position de lecture suit le scroll
-      heroVideo.removeAttribute('autoplay');
-      heroVideo.pause();
-      var scrubReady = false;
-      heroVideo.addEventListener('loadedmetadata', function () {
-        scrubReady = true;
-        updateScrub();
-      });
-      var scrubTicking = false;
-      function updateScrub() {
-        scrubTicking = false;
-        if (!scrubReady || !heroVideo.duration) { return; }
-        var progress = Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1);
-        heroVideo.currentTime = progress * heroVideo.duration;
-      }
-      window.addEventListener('scroll', function () {
-        if (!scrubTicking) {
-          requestAnimationFrame(updateScrub);
-          scrubTicking = true;
-        }
-      }, { passive: true });
-    } else if (heroImg && !prefersReducedMotion) {
+    if (heroImg && !prefersReducedMotion) {
       var ticking = false;
       function updateParallax() {
         var offset = window.scrollY;
