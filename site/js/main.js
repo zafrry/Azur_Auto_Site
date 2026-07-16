@@ -155,7 +155,7 @@
     var statObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          countUp(el, target, 1500);
+          countUp(el, target, 1400);
           statObserver.unobserve(entry.target);
         }
       });
@@ -260,5 +260,130 @@
       });
     });
     whatsappObserver.observe(hero);
+  }
+
+  // ==========================================================================
+  // ACCUEIL — rupture de grille & micro-interactions (page.page-home uniquement)
+  // ==========================================================================
+  var isHomePage = document.body.classList.contains('page-home');
+
+  // -------------------- "Trois métiers" : molette verticale -> scroll horizontal --------------------
+  var polesScroll = document.getElementById('poles-scroll');
+  if (polesScroll) {
+    var poleDots = Array.prototype.slice.call(document.querySelectorAll('.poles-scroll-dot'));
+    var polePanels = Array.prototype.slice.call(polesScroll.querySelectorAll('.pole'));
+
+    function setActiveDot(index) {
+      poleDots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === index);
+        dot.setAttribute('aria-current', String(i === index));
+      });
+    }
+
+    poleDots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        var target = polePanels[i];
+        if (!target) return;
+        polesScroll.scrollTo({ left: target.offsetLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      });
+    });
+
+    if (polePanels.length) {
+      var poleDotObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setActiveDot(polePanels.indexOf(entry.target));
+          }
+        });
+      }, { root: polesScroll, threshold: 0.6 });
+      polePanels.forEach(function (p) { poleDotObserver.observe(p); });
+    }
+
+    // conversion du scroll vertical (molette souris) en scroll horizontal, un
+    // panel à la fois : scroll-snap-type + une simple accumulation de deltaY
+    // se contrarient (le navigateur re-snap au point de départ à chaque
+    // micro-ajustement), donc on avance explicitement d'un panel par "cran"
+    // plutôt que de traduire le delta en continu. Comportement natif (trackpad,
+    // swipe tactile, scrollbar) inchangé. Désactivé sous prefers-reduced-motion :
+    // la section reste un simple ruban horizontal scrollable au doigt/trackpad.
+    if (!prefersReducedMotion && polePanels.length) {
+      var wheelCooldown = false;
+      polesScroll.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaY) < 8) return;
+        var currentIndex = Math.round(polesScroll.scrollLeft / polesScroll.clientWidth);
+        var scrollingDown = e.deltaY > 0;
+        var atStart = currentIndex <= 0;
+        var atEnd = currentIndex >= polePanels.length - 1;
+        if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) {
+          return; // laisse la page continuer son scroll vertical normal
+        }
+        e.preventDefault();
+        if (wheelCooldown) return;
+        wheelCooldown = true;
+        var nextIndex = currentIndex + (scrollingDown ? 1 : -1);
+        polesScroll.scrollTo({ left: polePanels[nextIndex].offsetLeft, behavior: 'smooth' });
+        setTimeout(function () { wheelCooldown = false; }, 700);
+      }, { passive: false });
+    }
+  }
+
+  // -------------------- cartes véhicules : tilt 3D léger au survol (souris) --------------------
+  if (isHomePage && !prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.fleet__card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width - 0.5;
+        var py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = 'perspective(800px) rotateX(' + (py * -8) + 'deg) rotateY(' + (px * 8) + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  }
+
+  // -------------------- club : parallax marqué (l'image bouge plus lentement que le scroll) --------------------
+  var clubBg = document.getElementById('club-teaser-bg');
+  var clubSection = document.getElementById('club');
+  if (clubBg && clubSection && !prefersReducedMotion) {
+    var clubTicking = false;
+    function updateClubParallax() {
+      var rect = clubSection.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        clubBg.style.transform = 'translateY(' + (rect.top * -0.15) + 'px)';
+      }
+      clubTicking = false;
+    }
+    updateClubParallax();
+    window.addEventListener('scroll', function () {
+      if (!clubTicking) {
+        requestAnimationFrame(updateClubParallax);
+        clubTicking = true;
+      }
+    }, { passive: true });
+  }
+
+  // -------------------- curseur personnalisé (souris fine uniquement) --------------------
+  if (isHomePage && !prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', function (e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursor.classList.add('is-active');
+    });
+    document.addEventListener('mouseleave', function () {
+      cursor.classList.remove('is-active');
+    });
+
+    var hoverTargets = 'a, button, .btn, .fleet__card, .why__item, .poles-scroll-dot';
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest(hoverTargets)) cursor.classList.add('is-hovering');
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest(hoverTargets)) cursor.classList.remove('is-hovering');
+    });
   }
 })();
