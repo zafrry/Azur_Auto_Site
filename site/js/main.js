@@ -267,13 +267,18 @@
   // ==========================================================================
   var isHomePage = document.body.classList.contains('page-home');
 
-  // -------------------- "Trois métiers" : section épinglée, translation pilotée par le scroll --------------------
+  // -------------------- "Trois métiers" : section épinglée, changement de panel par pas --------------------
   // La section reste épinglée (position: sticky sur .poles-scroll-wrap) tant
-  // que le "rail" vertical (.poles-scroll-track, hauteur = nb de panels x
-  // 100vh) n'est pas entièrement parcouru. Impossible de la traverser sans
-  // voir les 3 panels, quel que soit le moyen de scroll (molette, trackpad,
-  // clavier, barre de défilement, tactile) puisque tout passe par le scroll
-  // normal de la page plutôt que par un ruban scrollable indépendant.
+  // que le "rail" vertical (.poles-scroll-track) n'est pas entièrement
+  // parcouru. Impossible de la traverser sans voir les 3 panels, quel que
+  // soit le moyen de scroll (molette, trackpad, clavier, barre de
+  // défilement, tactile) puisque tout passe par le scroll normal de la page
+  // plutôt que par un ruban scrollable indépendant. Le rail n'ajoute qu'un
+  // petit pas de scroll par panel (POLE_STEP_PX, pas 100vh par panel) : un
+  // seul mouvement de molette/trackpad suffit à franchir le seuil et faire
+  // glisser vers le panel suivant (transition CSS sur .poles-scroll, pas de
+  // scrub 1:1 qui obligeait à scroller plusieurs fois pour un seul panel).
+  var POLE_STEP_PX = 140;
   var polesTrack = document.getElementById('poles-scroll-track');
   var polesScroll = document.getElementById('poles-scroll');
   if (polesTrack && polesScroll) {
@@ -288,19 +293,28 @@
     }
 
     if (!prefersReducedMotion && polePanels.length > 1) {
-      polesTrack.style.height = (polePanels.length * 100) + 'vh';
+      var polesStepTotal = (polePanels.length - 1) * POLE_STEP_PX;
+      polesTrack.style.height = 'calc(100vh + ' + polesStepTotal + 'px)';
 
       function getTrackScrollableDistance() {
         return polesTrack.offsetHeight - window.innerHeight;
       }
 
+      var lastPoleIndex = 0;
       function updatePolesTransform() {
         var scrollableDistance = getTrackScrollableDistance();
         if (scrollableDistance <= 0) return;
         var trackRect = polesTrack.getBoundingClientRect();
-        var progress = Math.min(Math.max(-trackRect.top / scrollableDistance, 0), 1);
-        polesScroll.style.transform = 'translateX(-' + (progress * (polePanels.length - 1) * 100) + '%)';
-        setActiveDot(Math.round(progress * (polePanels.length - 1)));
+        // pas fixe par panel (POLE_STEP_PX) plutôt qu'une proportion du
+        // scroll total : chaque transition demande le même petit effort de
+        // scroll, la dernière n'est pas plus longue à atteindre que la première
+        var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
+        var index = Math.min(polePanels.length - 1, Math.floor(scrolledSoFar / POLE_STEP_PX));
+        if (index !== lastPoleIndex) {
+          lastPoleIndex = index;
+          setActiveDot(index);
+        }
+        polesScroll.style.transform = 'translateX(-' + (index * 100) + '%)';
       }
 
       var polesTicking = false;
