@@ -309,7 +309,10 @@
         // scroll total : chaque transition demande le même petit effort de
         // scroll, la dernière n'est pas plus longue à atteindre que la première
         var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
-        var index = Math.min(polePanels.length - 1, Math.floor(scrolledSoFar / POLE_STEP_PX));
+        // round (pas floor) : après un saut programmatique exact vers une
+        // frontière de pas, une imprécision sous-pixel (ex. 139.83 au lieu
+        // de 140) ne doit pas faire retomber sur l'index précédent
+        var index = Math.min(polePanels.length - 1, Math.round(scrolledSoFar / POLE_STEP_PX));
         if (index !== lastPoleIndex) {
           lastPoleIndex = index;
           setActiveDot(index);
@@ -329,6 +332,54 @@
         }
       }, { passive: true });
       window.addEventListener('resize', updatePolesTransform, { passive: true });
+
+      // Le scroll natif (molette/trackpad) avance en continu avec le scrollY :
+      // un flick de trackpad avec inertie parcourt largement plus que
+      // POLE_STEP_PX en un seul geste, ce qui faisait sauter plusieurs
+      // panels d'un coup (voire sortir du rail direction "Sélection du
+      // moment" sans jamais s'arrêter sur le dernier panel) et cassait la
+      // transition douce (elle repartait de zéro à chaque frame de scroll).
+      // Tant que le rail est engagé, on intercepte la molette : un seul
+      // geste = un seul pas, animé par la transition CSS de .poles-scroll
+      // (scrollTo instantané en interne, pas de scroll animé natif en plus,
+      // pour ne pas cumuler deux animations différentes l'une sur l'autre).
+      var polesWheelCooldown = false;
+      var polesCooldownTimer = null;
+      function clearPolesWheelCooldown() {
+        polesWheelCooldown = false;
+        if (polesCooldownTimer) { clearTimeout(polesCooldownTimer); polesCooldownTimer = null; }
+      }
+      // le verrou se lève quand la transition CSS se termine réellement
+      // (transitionend), pas sur un délai estimé : reste juste tant que
+      // l'animation est visuellement en cours, quelle que soit sa durée.
+      // Le setTimeout n'est qu'un filet de sécurité si transitionend ne se
+      // déclenche pas (ex. neuf: le navigateur ignore la transition).
+      // transitionend remonte depuis les descendants (le texte/l'image de
+      // chaque panel ont leurs propres transitions de révélation) : ne
+      // réagir qu'à celle de .poles-scroll lui-même, pas à une bulle d'un
+      // enfant qui partage aussi la propriété transform/opacity.
+      polesScroll.addEventListener('transitionend', function (e) {
+        if (e.target === polesScroll && e.propertyName === 'transform') clearPolesWheelCooldown();
+      });
+      polesTrack.addEventListener('wheel', function (e) {
+        var trackRect = polesTrack.getBoundingClientRect();
+        if (trackRect.bottom <= 0 || trackRect.top >= window.innerHeight) return; // rail pas engagé
+        var scrollableDistance = getTrackScrollableDistance();
+        if (scrollableDistance <= 0) return;
+        var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
+        var scrollingDown = e.deltaY > 0;
+        var atStart = scrolledSoFar <= 0;
+        var atEnd = scrolledSoFar >= scrollableDistance;
+        if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) return; // laisse sortir du rail normalement
+        e.preventDefault();
+        if (polesWheelCooldown) return;
+        polesWheelCooldown = true;
+        var currentIndex = Math.round(scrolledSoFar / POLE_STEP_PX);
+        var nextIndex = Math.min(polePanels.length - 1, Math.max(0, currentIndex + (scrollingDown ? 1 : -1)));
+        var trackTop = polesTrack.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: trackTop + nextIndex * POLE_STEP_PX, behavior: 'auto' });
+        polesCooldownTimer = setTimeout(clearPolesWheelCooldown, 1200);
+      }, { passive: false });
 
       poleDots.forEach(function (dot, i) {
         dot.addEventListener('click', function () {
