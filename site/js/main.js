@@ -361,21 +361,68 @@
       polesScroll.addEventListener('transitionend', function (e) {
         if (e.target === polesScroll && e.propertyName === 'transform') clearPolesWheelCooldown();
       });
+      // vrai seulement pendant que le rail est effectivement engagé : permet
+      // de détecter le tout premier événement d'une nouvelle entrée dans la
+      // section (voir plus bas), pour ne jamais accepter un panel autre que
+      // le premier (ou le dernier) comme point d'arrivée. Initialisé selon
+      // l'état RÉEL au chargement (pas juste "false") : sinon, arriver déjà
+      // engagé dans le rail par un autre moyen que la molette (restauration
+      // du scroll par le navigateur au rechargement, ancre, etc.) déclenche
+      // à tort la correction d'atterrissage au premier scroll et fait
+      // reculer la position au lieu de la laisser telle quelle.
+      var polesWasEngaged = (function () {
+        var r = polesTrack.getBoundingClientRect();
+        return r.bottom > 0 && r.top < window.innerHeight;
+      })();
       polesTrack.addEventListener('wheel', function (e) {
         var trackRect = polesTrack.getBoundingClientRect();
-        if (trackRect.bottom <= 0 || trackRect.top >= window.innerHeight) return; // rail pas engagé
+        var engagedNow = trackRect.bottom > 0 && trackRect.top < window.innerHeight;
+        if (!engagedNow) { polesWasEngaged = false; return; } // rail pas engagé
         var scrollableDistance = getTrackScrollableDistance();
         if (scrollableDistance <= 0) return;
         var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
         var scrollingDown = e.deltaY > 0;
-        var atStart = scrolledSoFar <= 0;
-        var atEnd = scrolledSoFar >= scrollableDistance;
+
+        // entrée fraîche dans le rail : l'inertie du geste qui nous a fait
+        // entrer peut avoir déjà emporté le scroll au-delà du premier palier
+        // avant même cette toute première interception. On "atterrit"
+        // proprement sur le premier panel (ou le dernier si on entre par le
+        // bas) plutôt que d'accepter la position où l'élan nous a laissés —
+        // sinon le premier panel n'est jamais vu, on arrive direct sur le 2e.
+        // Ne se déclenche QUE si le dépassement reste dans le premier pas
+        // (proche du bord réellement franchi) : arriver profondément dans le
+        // rail par un autre moyen (clic sur un point, barre de défilement)
+        // ne doit surtout pas nous faire reculer jusqu'au bord opposé.
+        if (!polesWasEngaged) {
+          polesWasEngaged = true;
+          if (scrollingDown && scrolledSoFar > 2 && scrolledSoFar < POLE_STEP_PX) {
+            e.preventDefault();
+            window.scrollTo({ top: trackRect.top + window.scrollY, behavior: 'auto' });
+            return;
+          }
+          if (!scrollingDown && scrolledSoFar < scrollableDistance - 2 && scrolledSoFar > scrollableDistance - POLE_STEP_PX) {
+            e.preventDefault();
+            window.scrollTo({ top: trackRect.top + window.scrollY + scrollableDistance, behavior: 'auto' });
+            return;
+          }
+        }
+
+        // marge de 2px : les mesures de getBoundingClientRect() peuvent être
+        // sous-pixel (ex. 279.83 au lieu de 280), une comparaison stricte
+        // >=/<= pouvait ne jamais reconnaître qu'on était réellement à la
+        // frontière et bloquer indéfiniment la sortie du rail
+        var atStart = scrolledSoFar <= 2;
+        var atEnd = scrolledSoFar >= scrollableDistance - 2;
         if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) return; // laisse sortir du rail normalement
+        var currentIndex = Math.round(scrolledSoFar / POLE_STEP_PX);
+        var nextIndex = Math.min(polePanels.length - 1, Math.max(0, currentIndex + (scrollingDown ? 1 : -1)));
+        // filet de sécurité : si le pas calculé ne change rien (arrondi déjà
+        // au bout), ne jamais verrouiller le scroll dans un cycle sans issue
+        // — on laisse sortir normalement plutôt que de bloquer la page.
+        if (nextIndex === currentIndex) return;
         e.preventDefault();
         if (polesWheelCooldown) return;
         polesWheelCooldown = true;
-        var currentIndex = Math.round(scrolledSoFar / POLE_STEP_PX);
-        var nextIndex = Math.min(polePanels.length - 1, Math.max(0, currentIndex + (scrollingDown ? 1 : -1)));
         var trackTop = polesTrack.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: trackTop + nextIndex * POLE_STEP_PX, behavior: 'auto' });
         polesCooldownTimer = setTimeout(clearPolesWheelCooldown, 1200);
