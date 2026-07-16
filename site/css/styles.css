@@ -613,13 +613,13 @@ a { color: inherit; }
   background-size: 180px 180px;
   background-repeat: repeat;
 }
-.pole__scrim--left { background-image: var(--grain), linear-gradient(90deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
-.pole__scrim--right { background-image: var(--grain), linear-gradient(270deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
+.pole__scrim--left { background-image: var(--grain), linear-gradient(90deg, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.08) 45%); }
+.pole__scrim--right { background-image: var(--grain), linear-gradient(270deg, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.08) 45%); }
 .pole__scrim--left, .pole__scrim--right { background-size: 180px 180px, auto; background-repeat: repeat, no-repeat; }
 /* Photo produits Care : pas de zone "vide" dans le cadrage (flacons + étiquettes
    sur toute la largeur), le scrim directionnel standard laisse les textes des
    étiquettes concurrencer le texte du bloc — overlay plus soutenu et plus large. */
-.pole__scrim--strong.pole__scrim--right { background-image: var(--grain), linear-gradient(270deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.55) 75%); background-size: 180px 180px, auto; background-repeat: repeat, no-repeat; }
+.pole__scrim--strong.pole__scrim--right { background-image: var(--grain), linear-gradient(270deg, rgba(10,10,10,0.62) 0%, rgba(10,10,10,0.25) 60%); background-size: 180px 180px, auto; background-repeat: repeat, no-repeat; }
 
 .pole__row {
   position: relative;
