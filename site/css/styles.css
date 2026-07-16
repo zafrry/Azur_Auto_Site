@@ -596,13 +596,12 @@ a { color: inherit; }
   height: 130%;
   z-index: 0;
   overflow: hidden;
-  /* stops calculés pour que le fondu tombe dans la fenêtre VISIBLE (0%-100%
-     en coordonnées de section), pas dans le débordement de 15% de chaque
-     côté : le point "transparent" est placé à 5% à l'intérieur du bord
-     visible réel (11.5%/88.5% en repère de l'élément) pour garantir un noir
-     plein pile à la jonction, pas juste "presque noir" */
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 27%, black 73%, transparent 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 27%, black 73%, transparent 85%, transparent 100%);
+  /* vignette resserrée aux bords haut/bas (au lieu d'un quart d'image fondu
+     de chaque côté) : les pôles sont désormais des panels plein écran
+     autonomes, plus des sections qui s'enchaînent en continu, la marge de
+     sécurité pour le parallax n'a donc plus besoin d'un fondu aussi large */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 .pole__bg-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pole__scrim {
@@ -2278,21 +2277,32 @@ section[data-reveal-variant="fade-up"].is-visible {
 .page-home .social-proof__partner-tag:nth-child(3) { transition-delay: 0.26s; }
 .page-home .social-proof__partner-tag:nth-child(4) { transition-delay: 0.39s; }
 
-/* -------------------- "Trois métiers" : scroll horizontal en panels plein écran -------------------- */
+/* -------------------- "Trois métiers" : scroll horizontal en panels plein écran --------------------
+   La section reste épinglée (position: sticky) tant que son "rail" vertical
+   (.poles-scroll-track, hauteur = nb de panels x 100vh, fixée en JS) n'est
+   pas entièrement parcouru : impossible de la traverser d'un seul scroll
+   sans voir les 3 panels, quel que soit le moyen de scroll (molette,
+   trackpad, clavier, barre de défilement, tactile) puisque tout passe par
+   le scroll normal de la page, pas par un ruban scrollable indépendant. */
+.poles-scroll-track {
+  position: relative;
+}
+.poles-scroll-wrap {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
 .poles-scroll {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  height: 100%;
+  will-change: transform;
 }
-.poles-scroll::-webkit-scrollbar { display: none; }
 .poles-scroll .pole {
   flex: 0 0 100%;
   width: 100%;
-  scroll-snap-align: start;
 }
-.poles-scroll-wrap { position: relative; }
 .poles-scroll-dots {
   position: absolute;
   z-index: 3;
@@ -2315,6 +2325,16 @@ section[data-reveal-variant="fade-up"].is-visible {
 .poles-scroll-dot.is-active { background: var(--gold-light); }
 @media (max-width: 767px) {
   .poles-scroll-dots { bottom: 16px; }
+}
+
+/* sous prefers-reduced-motion : pas d'épinglage ni de translation pilotée par
+   le scroll, retour à un simple empilement vertical des 3 panels */
+@media (prefers-reduced-motion: reduce) {
+  .poles-scroll-track { height: auto !important; }
+  .poles-scroll-wrap { position: static; height: auto; }
+  .poles-scroll { flex-direction: column; height: auto; transform: none !important; }
+  .poles-scroll .pole { flex: none; }
+  .poles-scroll-dots { display: none; }
 }
 
 /* -------------------- club : image plein format + parallax -------------------- */

@@ -267,9 +267,16 @@
   // ==========================================================================
   var isHomePage = document.body.classList.contains('page-home');
 
-  // -------------------- "Trois métiers" : molette verticale -> scroll horizontal --------------------
+  // -------------------- "Trois métiers" : section épinglée, translation pilotée par le scroll --------------------
+  // La section reste épinglée (position: sticky sur .poles-scroll-wrap) tant
+  // que le "rail" vertical (.poles-scroll-track, hauteur = nb de panels x
+  // 100vh) n'est pas entièrement parcouru. Impossible de la traverser sans
+  // voir les 3 panels, quel que soit le moyen de scroll (molette, trackpad,
+  // clavier, barre de défilement, tactile) puisque tout passe par le scroll
+  // normal de la page plutôt que par un ruban scrollable indépendant.
+  var polesTrack = document.getElementById('poles-scroll-track');
   var polesScroll = document.getElementById('poles-scroll');
-  if (polesScroll) {
+  if (polesTrack && polesScroll) {
     var poleDots = Array.prototype.slice.call(document.querySelectorAll('.poles-scroll-dot'));
     var polePanels = Array.prototype.slice.call(polesScroll.querySelectorAll('.pole'));
 
@@ -280,56 +287,53 @@
       });
     }
 
-    poleDots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () {
-        var target = polePanels[i];
-        if (!target) return;
-        polesScroll.scrollTo({ left: target.offsetLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-      });
-    });
+    if (!prefersReducedMotion && polePanels.length > 1) {
+      polesTrack.style.height = (polePanels.length * 100) + 'vh';
 
-    if (polePanels.length) {
-      var poleDotObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            setActiveDot(polePanels.indexOf(entry.target));
-          }
-        });
-      }, { root: polesScroll, threshold: 0.6 });
-      polePanels.forEach(function (p) { poleDotObserver.observe(p); });
-    }
+      function getTrackScrollableDistance() {
+        return polesTrack.offsetHeight - window.innerHeight;
+      }
 
-    // conversion du scroll vertical (molette souris) en scroll horizontal, un
-    // panel à la fois : scroll-snap-type + une simple accumulation de deltaY
-    // se contrarient (le navigateur re-snap au point de départ à chaque
-    // micro-ajustement), donc on avance explicitement d'un panel par "cran"
-    // plutôt que de traduire le delta en continu. Comportement natif (trackpad,
-    // swipe tactile, scrollbar) inchangé. Désactivé sous prefers-reduced-motion :
-    // la section reste un simple ruban horizontal scrollable au doigt/trackpad.
-    if (!prefersReducedMotion && polePanels.length) {
-      var wheelCooldown = false;
-      polesScroll.addEventListener('wheel', function (e) {
-        if (Math.abs(e.deltaY) < 8) return;
-        // ne détourne la molette que lorsque la section occupe tout l'écran
-        // (arrivée en cours de scroll = on laisse le scroll vertical normal
-        // amener la section complètement à l'écran avant de la prendre en main)
-        var wrapRect = polesScroll.getBoundingClientRect();
-        var fullyInView = wrapRect.top >= -2 && wrapRect.top <= 2 && wrapRect.bottom >= window.innerHeight - 2;
-        if (!fullyInView) return;
-        var currentIndex = Math.round(polesScroll.scrollLeft / polesScroll.clientWidth);
-        var scrollingDown = e.deltaY > 0;
-        var atStart = currentIndex <= 0;
-        var atEnd = currentIndex >= polePanels.length - 1;
-        if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) {
-          return; // laisse la page continuer son scroll vertical normal
+      function updatePolesTransform() {
+        var scrollableDistance = getTrackScrollableDistance();
+        if (scrollableDistance <= 0) return;
+        var trackRect = polesTrack.getBoundingClientRect();
+        var progress = Math.min(Math.max(-trackRect.top / scrollableDistance, 0), 1);
+        polesScroll.style.transform = 'translateX(-' + (progress * (polePanels.length - 1) * 100) + '%)';
+        setActiveDot(Math.round(progress * (polePanels.length - 1)));
+      }
+
+      var polesTicking = false;
+      updatePolesTransform();
+      window.addEventListener('scroll', function () {
+        if (!polesTicking) {
+          requestAnimationFrame(function () {
+            updatePolesTransform();
+            polesTicking = false;
+          });
+          polesTicking = true;
         }
-        e.preventDefault();
-        if (wheelCooldown) return;
-        wheelCooldown = true;
-        var nextIndex = currentIndex + (scrollingDown ? 1 : -1);
-        polesScroll.scrollTo({ left: polePanels[nextIndex].offsetLeft, behavior: 'smooth' });
-        setTimeout(function () { wheelCooldown = false; }, 700);
-      }, { passive: false });
+      }, { passive: true });
+      window.addEventListener('resize', updatePolesTransform, { passive: true });
+
+      poleDots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () {
+          var scrollableDistance = getTrackScrollableDistance();
+          if (scrollableDistance <= 0) return;
+          var targetProgress = i / (polePanels.length - 1);
+          var trackTop = polesTrack.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: trackTop + targetProgress * scrollableDistance, behavior: 'smooth' });
+        });
+      });
+    } else {
+      // prefers-reduced-motion : panels empilés verticalement (voir CSS), les
+      // points de navigation défilent simplement jusqu'au panel visé
+      poleDots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () {
+          var target = polePanels[i];
+          if (target) target.scrollIntoView({ behavior: 'auto' });
+        });
+      });
     }
   }
 
