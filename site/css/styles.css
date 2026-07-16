@@ -25,6 +25,11 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
+
+  /* grain léger réutilisé sur les sections sombres de l'accueil (page.page-home
+     uniquement) pour éviter l'effet "aplat" — bruit blanc à très faible alpha,
+     pensé pour être posé en couche supplémentaire d'un background-image existant */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Filet de sécurité global : toute transition/animation non couverte par une
@@ -600,13 +605,21 @@ a { color: inherit; }
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 27%, black 73%, transparent 85%, transparent 100%);
 }
 .pole__bg-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.pole__scrim { position: absolute; inset: 0; z-index: 1; }
-.pole__scrim--left { background: linear-gradient(90deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
-.pole__scrim--right { background: linear-gradient(270deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
+.pole__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--grain);
+  background-size: 180px 180px;
+  background-repeat: repeat;
+}
+.pole__scrim--left { background-image: var(--grain), linear-gradient(90deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
+.pole__scrim--right { background-image: var(--grain), linear-gradient(270deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 60%); }
+.pole__scrim--left, .pole__scrim--right { background-size: 180px 180px, auto; background-repeat: repeat, no-repeat; }
 /* Photo produits Care : pas de zone "vide" dans le cadrage (flacons + étiquettes
    sur toute la largeur), le scrim directionnel standard laisse les textes des
    étiquettes concurrencer le texte du bloc — overlay plus soutenu et plus large. */
-.pole__scrim--strong.pole__scrim--right { background: linear-gradient(270deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.55) 75%); }
+.pole__scrim--strong.pole__scrim--right { background-image: var(--grain), linear-gradient(270deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.55) 75%); background-size: 180px 180px, auto; background-repeat: repeat, no-repeat; }
 
 .pole__row {
   position: relative;
@@ -797,8 +810,11 @@ a { color: inherit; }
 
 /* -------------------- pourquoi azur -------------------- */
 
+/* fond légèrement différencié de --gray-bg (identique à .fleet juste avant et
+   .social-proof juste après) pour éviter que ces 3 sections claires d'affilée
+   ne se lisent comme un seul aplat sans respiration */
 .why {
-  background: var(--gray-bg);
+  background: var(--gray-bg-alt);
   padding: 72px 20px;
 }
 @media (min-width: 901px) {
@@ -899,15 +915,17 @@ section[data-reveal-variant="fade-up"].is-visible {
 /* -------------------- la vision -------------------- */
 
 .vision-teaser {
-  background-image: linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-mobile.webp');
-  background-size: cover;
+  background-image: var(--grain), linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-mobile.webp');
+  background-size: 180px 180px, cover, cover;
+  background-repeat: repeat, no-repeat, no-repeat;
   background-position: center;
   padding: 72px 20px;
   text-align: center;
 }
 @media (min-width: 901px) {
   .vision-teaser {
-    background-image: linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-desktop.webp');
+    background-image: var(--grain), linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-desktop.webp');
+    background-size: 180px 180px, cover, cover;
     padding: 140px 40px;
   }
 }
@@ -1014,64 +1032,8 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 /* -------------------- club teaser -------------------- */
 
-.club-teaser {
-  position: relative;
-  background: var(--black);
-  padding: 72px 20px;
-  overflow: hidden;
-}
-@media (min-width: 901px) {
-  .club-teaser { padding: 140px 40px; }
-}
-
-.club-teaser__inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px 20px;
-  align-items: center;
-}
-@media (min-width: 901px) {
-  .club-teaser__inner { grid-template-columns: 1fr 1fr; gap: 32px; }
-}
-
-.club-teaser__card {
-  aspect-ratio: 16 / 10;
-  background-image: linear-gradient(0deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.1) 60%), url('../assets/img/club-titanium-desktop.webp');
-  background-size: cover;
-  background-position: center;
-  border: 1.5px solid var(--gold-solid);
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  padding: 24px;
-  overflow: hidden;
-}
-/* balayage de lumière doré, une seule fois à l'entrée — signature de la
-   section la plus "exclusive" du site */
-.club-teaser__card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%; height: 100%;
-  background: linear-gradient(100deg, transparent 0%, rgba(212,175,55,0.3) 50%, transparent 100%);
-  transition: left 1.4s cubic-bezier(0.16,1,0.3,1);
-}
-.club-teaser.is-visible .club-teaser__card::after {
-  left: 100%;
-}
-@media (max-width: 767px) {
-  .club-teaser__card {
-    background-image: linear-gradient(0deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.1) 60%), url('../assets/img/club-titanium-mobile.webp');
-  }
-}
-.club-teaser__card span {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  letter-spacing: 0.1em;
-  color: var(--gold-light);
-}
+/* mise en page complète (image plein format + parallax) définie plus bas,
+   dans le bloc dédié "ACCUEIL — rupture de grille & micro-interactions" */
 
 .club-teaser__desc {
   font-size: 14.5px;
@@ -1110,14 +1072,16 @@ section[data-reveal-variant="fade-up"].is-visible {
 /* -------------------- zone de couverture -------------------- */
 
 .coverage {
-  background-image: linear-gradient(0deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 100%), url('../assets/img/coverage-mobile.webp');
-  background-size: cover;
+  background-image: var(--grain), linear-gradient(0deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 100%), url('../assets/img/coverage-mobile.webp');
+  background-size: 180px 180px, cover, cover;
+  background-repeat: repeat, no-repeat, no-repeat;
   background-position: center;
   padding: 72px 20px;
 }
 @media (min-width: 901px) {
   .coverage {
-    background-image: linear-gradient(0deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 100%), url('../assets/img/coverage-desktop.webp');
+    background-image: var(--grain), linear-gradient(0deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 100%), url('../assets/img/coverage-desktop.webp');
+    background-size: 180px 180px, cover, cover;
     padding: 140px 40px;
   }
 }
@@ -1268,6 +1232,14 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 @media (min-width: 901px) {
   .contact { padding: 140px 40px; }
+}
+/* grain réservé à l'accueil (voir --grain) : la section .contact est un
+   composant partagé par toutes les pages, on ne touche pas son rendu ailleurs */
+.page-home .contact {
+  background-color: var(--black);
+  background-image: var(--grain);
+  background-size: 180px 180px;
+  background-repeat: repeat;
 }
 .contact .section-head { text-align: center; }
 .contact__subtitle {
@@ -2222,4 +2194,212 @@ section[data-reveal-variant="fade-up"].is-visible {
    composant que .step-list (Import — Le parcours) avec une colonne de moins */
 @media (min-width: 901px) {
   .step-list--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ==========================================================================
+   ACCUEIL — rupture de grille & micro-interactions (page.page-home uniquement)
+   Tout ce qui suit ne doit affecter QUE l'accueil : les classes ci-dessous
+   sont soit propres à l'accueil (.pole, .poles-scroll, .club-teaser...), soit
+   des composants partagés (.site-header__link, .btn, .fleet__card) explicitement
+   scopés via .page-home pour ne pas déteindre sur les autres pages.
+   ========================================================================== */
+
+/* -------------------- nav : soulignement animé au survol -------------------- */
+.page-home .site-header__link {
+  position: relative;
+  border-bottom-color: transparent;
+}
+.page-home .site-header__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: var(--gold-light);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.page-home .site-header__link:hover,
+.page-home .site-header__link.is-active {
+  border-bottom-color: transparent;
+}
+.page-home .site-header__link:hover::after,
+.page-home .site-header__link.is-active::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home .site-header__link::after { transition: none; }
+}
+
+/* -------------------- glow doré au survol des CTA et cartes -------------------- */
+.page-home .btn:hover {
+  box-shadow: 0 0 22px rgba(212,184,118,0.35);
+}
+.page-home .fleet__card {
+  transition: box-shadow 0.3s ease;
+}
+.page-home .fleet__card:hover {
+  box-shadow: 0 14px 36px rgba(168,131,46,0.28);
+}
+
+/* -------------------- cartes véhicules : tilt 3D léger au survol (JS) + zoom -------------------- */
+.page-home .fleet__image {
+  perspective: 800px;
+}
+.page-home .fleet__card {
+  transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+  transition: box-shadow 0.3s ease, transform 0.15s ease-out;
+  will-change: transform;
+}
+.page-home .fleet__image img {
+  transition: transform 0.6s ease-out;
+}
+.page-home .fleet__card:hover .fleet__image img {
+  transform: scale(1.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home .fleet__card { transform: none !important; transition: box-shadow 0.3s ease; }
+}
+
+/* -------------------- preuve sociale : stagger sur les badges -------------------- */
+.page-home .social-proof__partner-tag {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.page-home .social-proof[data-reveal].is-visible .social-proof__partner-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+.page-home .social-proof__partner-tag:nth-child(1) { transition-delay: 0s; }
+.page-home .social-proof__partner-tag:nth-child(2) { transition-delay: 0.13s; }
+.page-home .social-proof__partner-tag:nth-child(3) { transition-delay: 0.26s; }
+.page-home .social-proof__partner-tag:nth-child(4) { transition-delay: 0.39s; }
+
+/* -------------------- "Trois métiers" : scroll horizontal en panels plein écran -------------------- */
+.poles-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.poles-scroll::-webkit-scrollbar { display: none; }
+.poles-scroll .pole {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+}
+.poles-scroll-wrap { position: relative; }
+.poles-scroll-dots {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+.poles-scroll-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-light);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.poles-scroll-dot.is-active { background: var(--gold-light); }
+@media (max-width: 767px) {
+  .poles-scroll-dots { bottom: 16px; }
+}
+
+/* -------------------- club : image plein format + parallax -------------------- */
+.club-teaser {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+}
+.club-teaser__bg {
+  position: absolute;
+  top: -12%;
+  left: 0;
+  right: 0;
+  height: 124%;
+  z-index: 0;
+}
+.club-teaser__bg-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.club-teaser__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--grain), linear-gradient(100deg, rgba(5,5,5,0.93) 0%, rgba(5,5,5,0.72) 45%, rgba(5,5,5,0.35) 100%);
+  background-size: 180px 180px, auto;
+  background-repeat: repeat, no-repeat;
+}
+.club-teaser__sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.club-teaser__sweep::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent 0%, rgba(212,175,55,0.28) 50%, transparent 100%);
+  transition: left 1.4s cubic-bezier(0.16,1,0.3,1);
+}
+.club-teaser.is-visible .club-teaser__sweep::after { left: 100%; }
+
+.club-teaser__inner {
+  display: block;
+  position: relative;
+  z-index: 2;
+  max-width: 1520px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 90px 20px;
+}
+@media (min-width: 901px) {
+  .club-teaser__inner { padding: 0 40px; }
+}
+.club-teaser__text { max-width: 560px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .club-teaser__bg { transition: none !important; }
+  .club-teaser__sweep::after { transition: none; left: 100%; }
+}
+
+/* -------------------- curseur personnalisé (desktop uniquement, JS) --------------------
+   position pilotée en left/top (avec transition = léger effet de retard "premium"),
+   le grossissement au survol passe par transform:scale pour ne jamais entrer en
+   conflit avec le positionnement ; le curseur natif reste visible en parallèle. */
+.page-home .custom-cursor {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-light);
+  pointer-events: none;
+  z-index: 2000;
+  opacity: 0;
+  transform: scale(1);
+  transition: left 0.12s ease-out, top 0.12s ease-out, opacity 0.25s ease, transform 0.25s ease-out, background 0.25s ease;
+}
+.page-home .custom-cursor.is-active { opacity: 0.8; }
+.page-home .custom-cursor.is-hovering {
+  background: rgba(212,184,118,0.18);
+  transform: scale(1.7);
 }
