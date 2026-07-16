@@ -310,6 +310,12 @@
       var wheelCooldown = false;
       polesScroll.addEventListener('wheel', function (e) {
         if (Math.abs(e.deltaY) < 8) return;
+        // ne détourne la molette que lorsque la section occupe tout l'écran
+        // (arrivée en cours de scroll = on laisse le scroll vertical normal
+        // amener la section complètement à l'écran avant de la prendre en main)
+        var wrapRect = polesScroll.getBoundingClientRect();
+        var fullyInView = wrapRect.top >= -2 && wrapRect.top <= 2 && wrapRect.bottom >= window.innerHeight - 2;
+        if (!fullyInView) return;
         var currentIndex = Math.round(polesScroll.scrollLeft / polesScroll.clientWidth);
         var scrollingDown = e.deltaY > 0;
         var atStart = currentIndex <= 0;
