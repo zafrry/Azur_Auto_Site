@@ -737,10 +737,13 @@ a { color: inherit; }
   padding: 72px 20px;
 }
 /* jonction avec une section précédente en fond noir (ex. le dernier pôle sur
-   l'accueil) : pas de fond commun à fondre dedans entre noir et --gray-bg —
-   bande de transition dédiée, à n'ajouter QUE si .fleet suit réellement une
-   section noire (modificateur .fleet--bridge), sinon elle peint une bande
-   noire au-dessus d'une jonction claire/claire qui n'en a pas besoin. */
+   Import/Prestige Rent/Detailing Studio/Club) : pas de fond commun à fondre
+   dedans entre noir et --gray-bg — bande de transition dédiée, à n'ajouter
+   QUE si .fleet suit réellement une section noire (modificateur
+   .fleet--bridge), sinon elle peint une bande noire au-dessus d'une
+   jonction claire/claire qui n'en a pas besoin. Retiré sur l'accueil : la
+   section "Trois métiers" y est désormais un panel épinglé qui se termine
+   franchement, pas une section qui s'enchaîne en continu. */
 .fleet--bridge::before {
   content: '';
   position: absolute;
@@ -2279,11 +2282,15 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 /* -------------------- "Trois métiers" : scroll horizontal en panels plein écran --------------------
    La section reste épinglée (position: sticky) tant que son "rail" vertical
-   (.poles-scroll-track, hauteur = nb de panels x 100vh, fixée en JS) n'est
-   pas entièrement parcouru : impossible de la traverser d'un seul scroll
-   sans voir les 3 panels, quel que soit le moyen de scroll (molette,
+   (.poles-scroll-track, hauteur = 100vh + un petit pas par panel, fixée en
+   JS) n'est pas entièrement parcouru : impossible de la traverser d'un seul
+   scroll sans voir les 3 panels, quel que soit le moyen de scroll (molette,
    trackpad, clavier, barre de défilement, tactile) puisque tout passe par
-   le scroll normal de la page, pas par un ruban scrollable indépendant. */
+   le scroll normal de la page, pas par un ruban scrollable indépendant.
+   Le panel affiché change par pas discret (pas de scrub 1:1) dès qu'un
+   scroll franchit le seuil du panel suivant : un seul mouvement de molette
+   suffit à faire glisser vers le panel suivant, en douceur (transition CSS)
+   plutôt qu'en continu ou d'un coup sec. */
 .poles-scroll-track {
   position: relative;
 }
@@ -2298,6 +2305,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   display: flex;
   height: 100%;
   will-change: transform;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
 }
 .poles-scroll .pole {
   flex: 0 0 100%;
