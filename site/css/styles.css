@@ -670,30 +670,13 @@ a { color: inherit; }
 .pole.is-in-view .pole__content .pole__desc { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
 .pole.is-in-view .pole__content > a { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
 
-/* balayage de l'image façon "bâche qu'on retire", sens alterné par pôle */
-.pole__bg {
-  transition: clip-path 0.95s cubic-bezier(0.16,1,0.3,1);
-}
-.pole--wipe-ltr .pole__bg { clip-path: inset(0 100% 0 0); }
-.pole--wipe-rtl .pole__bg { clip-path: inset(0 0 0 100%); }
-.pole.is-in-view .pole__bg { clip-path: inset(0 0 0 0); }
-
-/* Prestige Rent : mise au point progressive (la photo a sa propre profondeur
-   de champ — portière nette, hôtel flou) plutôt que le balayage directionnel
-   des autres pôles. Sur .pole__bg-img, pas .pole__bg, pour ne pas entrer en
-   conflit avec le transform du parallax porté par le wrapper. */
-.pole--focus-reveal .pole__bg-img {
-  transform: scale(1.08);
-  filter: blur(14px);
-  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.pole.is-in-view.pole--focus-reveal .pole__bg-img {
-  transform: scale(1);
-  filter: blur(0);
-}
-/* Detailing : fort contraste noir/or, l'image part après le texte pour ne pas
-   diviser l'attention (le texte a fini son cascade à 0.3s, l'image démarre à 0.4s) */
-.pole--img-delay .pole__bg-img { transition-delay: 0.4s; }
+/* Les images des 3 pôles n'ont plus d'effet de révélation qui leur est propre
+   (balayage clip-path, flou de mise au point) : dans le carrousel épinglé,
+   le panel entier glisse déjà à l'écran (voir .poles-scroll .pole dans
+   main.js/plus bas) — ajouter une seconde animation sur l'image en plus de ce
+   glissement donnait une entrée surchargée, pas le mouvement unique et doux
+   demandé. L'image s'affiche donc net dès que le panel devient visible ; seul
+   le texte (kicker/titre/description/CTA ci-dessus) garde son propre fondu. */
 
 /* Care : léger zoom en boucle continue, quasi imperceptible (photo produit,
    doit rester "vivante" sans jamais lire comme un GIF qui tourne) */
@@ -712,16 +695,6 @@ a { color: inherit; }
   .pole__content > a {
     opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
-  }
-  .pole--wipe-ltr .pole__bg,
-  .pole--wipe-rtl .pole__bg {
-    clip-path: none !important;
-    transition: none !important;
-  }
-  .pole--focus-reveal .pole__bg-img {
-    transform: none !important;
-    filter: none !important;
     transition: none !important;
   }
   .pole--kenburns .pole__bg-img {
