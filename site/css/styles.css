@@ -2273,6 +2273,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 .poles-scroll-wrap {
   position: sticky;
   top: 0;
+  z-index: 600; /* au-dessus de la sous-nav (z-index 500) pour la couvrir tant que le carrousel plein écran est épinglé */
   height: 100vh;
   height: 100svh;
   overflow: hidden;
