@@ -171,7 +171,7 @@
     </div>
   </nav>
 
-  <!-- 3 MÉTIERS : SCROLL IMMERSIF -->
+  <!-- 3 MÉTIERS : CARROUSEL AUTOMATIQUE -->
   <div id="poles">
 
     <section class="poles-intro" data-reveal data-reveal-variant="fade-up">
@@ -183,9 +183,9 @@
       </div>
     </section>
 
-    <div class="poles-scroll-track" id="poles-scroll-track">
-     <div class="poles-scroll-wrap">
-      <div class="poles-scroll" id="poles-scroll">
+    <div class="poles-carousel" id="poles-carousel">
+      <div class="poles-carousel-viewport">
+       <div class="poles-carousel-track" id="poles-carousel-track">
 
         <section class="pole pole--left">
           <div class="pole__bg">
@@ -250,13 +250,19 @@
           </div>
         </section>
 
+       </div>
+       <button type="button" class="poles-carousel-arrow poles-carousel-arrow--prev" aria-label="Métier précédent">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+       </button>
+       <button type="button" class="poles-carousel-arrow poles-carousel-arrow--next" aria-label="Métier suivant">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+       </button>
       </div>
-      <div class="poles-scroll-dots" id="poles-scroll-dots" role="group" aria-label="Navigation entre les trois métiers">
-        <button type="button" class="poles-scroll-dot is-active" aria-label="Import" aria-current="true"></button>
-        <button type="button" class="poles-scroll-dot" aria-label="Prestige Rent" aria-current="false"></button>
-        <button type="button" class="poles-scroll-dot" aria-label="Detailing Studio" aria-current="false"></button>
+      <div class="poles-carousel-dots" id="poles-carousel-dots" role="group" aria-label="Navigation entre les trois métiers">
+        <button type="button" class="poles-carousel-dot is-active" aria-label="Import" aria-current="true"></button>
+        <button type="button" class="poles-carousel-dot" aria-label="Prestige Rent" aria-current="false"></button>
+        <button type="button" class="poles-carousel-dot" aria-label="Detailing Studio" aria-current="false"></button>
       </div>
-     </div>
     </div>
 
   </div>

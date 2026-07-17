@@ -672,7 +672,7 @@ a { color: inherit; }
 
 /* Les images des 3 pôles n'ont plus d'effet de révélation qui leur est propre
    (balayage clip-path, flou de mise au point) : dans le carrousel épinglé,
-   le panel entier glisse déjà à l'écran (voir .poles-scroll .pole dans
+   le panel entier glisse déjà à l'écran (voir .poles-carousel-track .pole dans
    main.js/plus bas) — ajouter une seconde animation sur l'image en plus de ce
    glissement donnait une entrée surchargée, pas le mouvement unique et doux
    demandé. L'image s'affiche donc net dès que le panel devient visible ; seul
@@ -2174,7 +2174,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 /* ==========================================================================
    ACCUEIL — rupture de grille & micro-interactions (page.page-home uniquement)
    Tout ce qui suit ne doit affecter QUE l'accueil : les classes ci-dessous
-   sont soit propres à l'accueil (.pole, .poles-scroll, .club-teaser...), soit
+   sont soit propres à l'accueil (.pole, .poles-carousel, .club-teaser...), soit
    des composants partagés (.site-header__link, .btn, .fleet__card) explicitement
    scopés via .page-home pour ne pas déteindre sur les autres pages.
    ========================================================================== */
@@ -2253,37 +2253,30 @@ section[data-reveal-variant="fade-up"].is-visible {
 .page-home .social-proof__partner-tag:nth-child(3) { transition-delay: 0.26s; }
 .page-home .social-proof__partner-tag:nth-child(4) { transition-delay: 0.39s; }
 
-/* -------------------- "Trois métiers" : panels plein écran, entrée gauche -> droite --------------------
-   La section reste épinglée (position: sticky) tant que son "rail" vertical
-   (.poles-scroll-track, hauteur = 100vh + un petit pas par panel, fixée en
-   JS) n'est pas entièrement parcouru : impossible de la traverser d'un seul
-   scroll sans voir les 3 panels, quel que soit le moyen de scroll (molette,
-   trackpad, clavier, barre de défilement, tactile) puisque tout passe par
-   le scroll normal de la page, pas par un ruban scrollable indépendant.
-   Chaque panel est empilé (position: absolute) plutôt qu'aligné en rangée :
-   le panel actif est à translateX(0), les suivants attendent hors-champ à
-   gauche (-100%), les précédents sont poussés hors-champ à droite (100%) —
-   au lieu de faire défiler tout le ruban, ça fait "entrer" chaque nouveau
-   panel depuis la gauche, en douceur et lentement (1.1s). Le premier panel
-   démarre lui aussi hors-champ à gauche : son entrée ne joue qu'au moment
-   où la section devient réellement plein écran (voir main.js), pas avant. */
-.poles-scroll-track {
-  position: relative;
+/* -------------------- "Trois métiers" : carrousel automatique, entrée gauche -> droite --------------------
+   Section normale du flux de page (plus d'épinglage/scroll-jacking : elle
+   défile comme n'importe quelle autre section). Les panels défilent tout
+   seuls toutes les 3.5s (voir main.js), avec des flèches et des points pour
+   naviguer manuellement à tout moment. Chaque panel est empilé (position:
+   absolute) plutôt qu'aligné en rangée : le panel actif est à translateX(0),
+   les suivants attendent hors-champ à gauche (-100%), les précédents sont
+   poussés hors-champ à droite (100%) — ça fait "entrer" chaque nouveau
+   panel depuis la gauche, en douceur et lentement (1.2s). */
+.poles-carousel {
+  position: relative; /* conteneur positionné pour .poles-carousel-dots (absolute), qui est en dehors du viewport */
 }
-.poles-scroll-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 600; /* au-dessus de la sous-nav (z-index 500) pour la couvrir tant que le carrousel plein écran est épinglé */
+.poles-carousel-viewport {
+  position: relative;
   height: 100vh;
   height: 100svh;
   overflow: hidden;
   background: var(--black);
 }
-.poles-scroll {
+.poles-carousel-track {
   position: relative;
   height: 100%;
 }
-.poles-scroll .pole {
+.poles-carousel-track .pole {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -2296,7 +2289,34 @@ section[data-reveal-variant="fade-up"].is-visible {
   transition: transform 1.2s cubic-bezier(0.83,0,0.17,1);
   will-change: transform;
 }
-.poles-scroll-dots {
+.poles-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(10,10,10,0.3);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.poles-carousel-arrow:hover { border-color: var(--gold-light); background: rgba(10,10,10,0.5); }
+.poles-carousel-arrow svg { width: 20px; height: 20px; }
+.poles-carousel-arrow--prev { left: 20px; }
+.poles-carousel-arrow--next { right: 20px; }
+@media (max-width: 767px) {
+  .poles-carousel-arrow { width: 36px; height: 36px; }
+  .poles-carousel-arrow svg { width: 16px; height: 16px; }
+  .poles-carousel-arrow--prev { left: 12px; }
+  .poles-carousel-arrow--next { right: 12px; }
+}
+.poles-carousel-dots {
   position: absolute;
   z-index: 3;
   left: 50%;
@@ -2305,7 +2325,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   display: flex;
   gap: 10px;
 }
-.poles-scroll-dot {
+.poles-carousel-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -2315,23 +2335,18 @@ section[data-reveal-variant="fade-up"].is-visible {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-.poles-scroll-dot.is-active { background: var(--gold-light); }
+.poles-carousel-dot.is-active { background: var(--gold-light); }
 @media (max-width: 767px) {
-  .poles-scroll-dots { bottom: 16px; }
+  .poles-carousel-dots { bottom: 16px; }
 }
 
-/* sous prefers-reduced-motion : pas d'épinglage ni de translation pilotée par
-   le scroll, retour à un simple empilement vertical des 3 panels */
+/* prefers-reduced-motion : le carrousel ne défile plus jamais tout seul
+   (voir main.js), et le changement de panel via les flèches/points devient
+   instantané plutôt qu'animé */
 @media (prefers-reduced-motion: reduce) {
-  .poles-scroll-track { height: auto !important; }
-  .poles-scroll-wrap { position: static; height: auto; }
-  .poles-scroll { height: auto; }
-  .poles-scroll .pole {
-    position: static;
-    transform: none !important;
+  .poles-carousel-track .pole {
     transition: none !important;
   }
-  .poles-scroll-dots { display: none; }
 }
 
 /* -------------------- club : image plein format + parallax -------------------- */
