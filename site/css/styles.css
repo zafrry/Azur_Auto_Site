@@ -2287,7 +2287,12 @@ section[data-reveal-variant="fade-up"].is-visible {
   inset: 0;
   width: 100%;
   transform: translateX(-100%);
-  transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
+  /* easeInOutQuint (symétrique) plutôt que easeOutExpo : cette dernière
+     parcourt l'essentiel de la distance dans les 200 premières ms puis
+     ralentit à peine perceptiblement sur le reste de la durée, ce qui se
+     lit comme un "à-coup" suivi d'une pause plutôt que comme un mouvement
+     lent et régulier. */
+  transition: transform 1.2s cubic-bezier(0.83,0,0.17,1);
   will-change: transform;
 }
 .poles-scroll-dots {

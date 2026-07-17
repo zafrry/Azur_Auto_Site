@@ -370,39 +370,24 @@
       // geste = un seul pas, animé par la transition CSS de chaque panel
       // (scrollTo instantané en interne, pas de scroll animé natif en plus,
       // pour ne pas cumuler deux animations différentes l'une sur l'autre).
-      var polesWheelCooldown = false;
-      var polesCooldownTimer = null;
-      function clearPolesWheelCooldown() {
-        polesWheelCooldown = false;
-        if (polesCooldownTimer) { clearTimeout(polesCooldownTimer); polesCooldownTimer = null; }
-      }
-      // le verrou se lève quand la transition CSS se termine réellement
-      // (transitionend), pas sur un délai estimé : reste juste tant que
-      // l'animation est visuellement en cours, quelle que soit sa durée.
-      // Le setTimeout n'est qu'un filet de sécurité si transitionend ne se
-      // déclenche pas. transitionend remonte depuis les descendants (le
-      // texte/l'image de chaque panel ont leurs propres transitions de
-      // révélation) : ne réagir qu'à celle d'un .pole lui-même (e.target),
-      // pas à une bulle d'un enfant qui partage aussi transform/opacity.
-      polesScroll.addEventListener('transitionend', function (e) {
-        if (e.propertyName === 'transform' && e.target.classList && e.target.classList.contains('pole')) {
-          clearPolesWheelCooldown();
-        }
-      });
-      // Un geste de trackpad avec inertie envoie des dizaines d'événements
-      // wheel pendant 1 à 2 secondes, largement plus longtemps que le verrou
-      // ci-dessus (lié à la durée de la transition) : une fois le verrou levé,
-      // l'inertie du MÊME geste continuait de déclencher un pas
-      // supplémentaire (voire de sortir du rail), ce qui rendait le scroll
-      // hypersensible. On distingue donc en plus le "geste" lui-même : tant
-      // qu'il n'y a pas eu de pause d'au moins WHEEL_GESTURE_GAP_MS entre deux
-      // événements wheel, on reste dans le même geste et un seul pas au total
-      // lui est autorisé (avancer d'un panel OU sortir du rail, jamais les
-      // deux, jamais plusieurs panels). Une vraie pause (doigt levé) réarme
-      // le prochain geste.
-      var WHEEL_GESTURE_GAP_MS = 200;
-      var lastWheelTime = 0;
-      var wheelGestureActed = false;
+      // Un flick de trackpad avec inertie envoie des dizaines d'événements
+      // wheel étalés sur 1 à 2 secondes, avec des écarts irréguliers entre
+      // événements (l'inertie ralentit progressivement, les derniers
+      // événements peuvent être espacés de bien plus de 200ms alors que le
+      // doigt n'a pourtant jamais quitté le trackpad). Une détection basée
+      // sur "une pause de X ms = nouveau geste" s'est donc révélée trop
+      // fragile : un simple ralentissement de l'inertie en cours de route
+      // pouvait être pris pour un geste tout neuf et laisser passer un pas
+      // supplémentaire (voire une sortie du rail), rendant le scroll
+      // hypersensible malgré la protection.
+      // On verrouille donc simplement TOUT événement wheel pendant une durée
+      // fixe POLES_LOCK_MS après chaque pas — largement supérieure à la durée
+      // de la transition (1.2s) et à l'inertie réelle d'un flick de trackpad
+      // — plutôt que de deviner où s'arrête le geste. Un seul pas (avancer
+      // d'un panel OU sortir du rail, jamais les deux) est autorisé par
+      // fenêtre de verrouillage.
+      var POLES_LOCK_MS = 2200;
+      var polesLockedUntil = 0;
       polesTrack.addEventListener('wheel', function (e) {
         if (currentPoleIndex < 0) return; // pas encore plein écran : scroll normal
         var trackRect = polesTrack.getBoundingClientRect();
@@ -410,11 +395,10 @@
         var scrollableDistance = getTrackScrollableDistance();
         if (scrollableDistance <= 0) return;
 
-        var now = Date.now();
-        if (now - lastWheelTime > WHEEL_GESTURE_GAP_MS) {
-          wheelGestureActed = false; // pause détectée : nouveau geste
+        if (Date.now() < polesLockedUntil) {
+          e.preventDefault(); // reste figé tant que la fenêtre de verrouillage n'est pas écoulée
+          return;
         }
-        lastWheelTime = now;
 
         var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
         var scrollingDown = e.deltaY > 0;
@@ -424,24 +408,16 @@
         // frontière et bloquer indéfiniment la sortie du rail
         var atStart = scrolledSoFar <= 2;
         var atEnd = scrolledSoFar >= scrollableDistance - 2;
-        if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) {
-          // sortie du rail : seulement sur un geste tout neuf, jamais dans la
-          // continuité (inertie) du geste qui vient d'amener sur ce panel
-          if (wheelGestureActed) { e.preventDefault(); }
-          return;
-        }
+        if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) return; // laisse sortir du rail normalement
         var nextIndex = Math.min(polePanels.length - 1, Math.max(0, currentPoleIndex + (scrollingDown ? 1 : -1)));
         // filet de sécurité : si le pas calculé ne change rien, ne jamais
         // verrouiller le scroll dans un cycle sans issue — on laisse sortir
         // normalement plutôt que de bloquer la page.
         if (nextIndex === currentPoleIndex) return;
         e.preventDefault();
-        if (polesWheelCooldown || wheelGestureActed) return;
-        polesWheelCooldown = true;
-        wheelGestureActed = true;
+        polesLockedUntil = Date.now() + POLES_LOCK_MS;
         var trackTop = trackRect.top + window.scrollY;
         window.scrollTo({ top: trackTop + nextIndex * POLE_STEP_PX, behavior: 'auto' });
-        polesCooldownTimer = setTimeout(clearPolesWheelCooldown, 1200);
       }, { passive: false });
 
       poleDots.forEach(function (dot, i) {
