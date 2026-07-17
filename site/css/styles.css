@@ -2253,15 +2253,15 @@ section[data-reveal-variant="fade-up"].is-visible {
 .page-home .social-proof__partner-tag:nth-child(3) { transition-delay: 0.26s; }
 .page-home .social-proof__partner-tag:nth-child(4) { transition-delay: 0.39s; }
 
-/* -------------------- "Trois métiers" : carrousel automatique, entrée gauche -> droite --------------------
+/* -------------------- "Trois métiers" : carrousel automatique, entrée droite -> gauche --------------------
    Section normale du flux de page (plus d'épinglage/scroll-jacking : elle
    défile comme n'importe quelle autre section). Les panels défilent tout
    seuls toutes les 3.5s (voir main.js), avec des flèches et des points pour
    naviguer manuellement à tout moment. Chaque panel est empilé (position:
    absolute) plutôt qu'aligné en rangée : le panel actif est à translateX(0),
-   les suivants attendent hors-champ à gauche (-100%), les précédents sont
-   poussés hors-champ à droite (100%) — ça fait "entrer" chaque nouveau
-   panel depuis la gauche, en douceur et lentement (1.2s). */
+   les suivants attendent hors-champ à droite (100%), les précédents sont
+   poussés hors-champ à gauche (-100%) — ça fait "entrer" chaque nouveau
+   panel depuis la droite, en douceur et lentement (1.2s). */
 .poles-carousel {
   position: relative; /* conteneur positionné pour .poles-carousel-dots (absolute), qui est en dehors du viewport */
 }
@@ -2280,7 +2280,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   position: absolute;
   inset: 0;
   width: 100%;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   /* easeInOutQuint (symétrique) plutôt que easeOutExpo : cette dernière
      parcourt l'essentiel de la distance dans les 200 premières ms puis
      ralentit à peine perceptiblement sur le reste de la durée, ce qui se

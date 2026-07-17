@@ -267,7 +267,7 @@
   // ==========================================================================
   var isHomePage = document.body.classList.contains('page-home');
 
-  // -------------------- "Trois métiers" : carrousel automatique, entrée gauche -> droite --------------------
+  // -------------------- "Trois métiers" : carrousel automatique, entrée droite -> gauche --------------------
   // Section normale du flux de page (pas d'épinglage ni de scroll-jacking) :
   // les panels défilent tout seuls toutes les POLES_AUTOPLAY_MS, avec des
   // flèches et des points pour naviguer manuellement à tout moment. La
@@ -289,7 +289,7 @@
 
     function applyPoleIndex(index) {
       polePanels.forEach(function (p, i) {
-        p.style.transform = 'translateX(' + (i < index ? 100 : (i > index ? -100 : 0)) + '%)';
+        p.style.transform = 'translateX(' + (i < index ? -100 : (i > index ? 100 : 0)) + '%)';
       });
       poleDots.forEach(function (dot, i) {
         dot.classList.toggle('is-active', i === index);
@@ -340,12 +340,11 @@
         }, { threshold: 0.4 });
         polesObserver.observe(polesCarousel);
 
-        // pas de pause au survol souris : après un scroll à la molette, le
-        // curseur reste souvent visuellement "sur" la section sans que
-        // l'utilisateur l'ait voulu, ce qui donnerait l'impression que le
-        // carrousel ne défile jamais tout seul. La pause au focus clavier
-        // suffit (accessibilité : on peut interagir avec les liens/flèches
-        // sans que le contenu change sous le focus).
+        // pause au survol souris (demandé explicitement) et au focus clavier
+        // (accessibilité : on peut interagir avec les liens/flèches sans que
+        // le contenu change sous le focus).
+        polesCarousel.addEventListener('mouseenter', function () { polesIsPaused = true; refreshPolesAutoplay(); });
+        polesCarousel.addEventListener('mouseleave', function () { polesIsPaused = false; refreshPolesAutoplay(); });
         polesCarousel.addEventListener('focusin', function () { polesIsPaused = true; refreshPolesAutoplay(); });
         polesCarousel.addEventListener('focusout', function () { polesIsPaused = false; refreshPolesAutoplay(); });
       }
