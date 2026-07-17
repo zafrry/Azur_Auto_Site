@@ -267,197 +267,114 @@
   // ==========================================================================
   var isHomePage = document.body.classList.contains('page-home');
 
-  // -------------------- "Trois métiers" : section épinglée, entrée gauche -> droite --------------------
-  // La section reste épinglée (position: sticky sur .poles-scroll-wrap) tant
-  // que le "rail" vertical (.poles-scroll-track) n'est pas entièrement
-  // parcouru. Impossible de la traverser sans voir les 3 panels, quel que
-  // soit le moyen de scroll (molette, trackpad, clavier, barre de
-  // défilement, tactile) puisque tout passe par le scroll normal de la page
-  // plutôt que par un ruban scrollable indépendant. Le rail n'ajoute qu'un
-  // petit pas de scroll par panel (POLE_STEP_PX, pas 100vh par panel) : un
-  // seul mouvement de molette/trackpad suffit à franchir le seuil et faire
-  // entrer le panel suivant depuis la gauche, en douceur et lentement.
-  var POLE_STEP_PX = 140;
-  var polesTrack = document.getElementById('poles-scroll-track');
-  var polesScroll = document.getElementById('poles-scroll');
-  if (polesTrack && polesScroll) {
-    var poleDots = Array.prototype.slice.call(document.querySelectorAll('.poles-scroll-dot'));
-    var polePanels = Array.prototype.slice.call(polesScroll.querySelectorAll('.pole'));
+  // -------------------- "Trois métiers" : carrousel automatique, entrée gauche -> droite --------------------
+  // Section normale du flux de page (pas d'épinglage ni de scroll-jacking) :
+  // les panels défilent tout seuls toutes les POLES_AUTOPLAY_MS, avec des
+  // flèches et des points pour naviguer manuellement à tout moment. La
+  // précédente version pilotait le changement de panel par le scroll de la
+  // page (section épinglée + interception de la molette), mais aucun réglage
+  // de sensibilité ne convenait à tout le monde : soit plusieurs panels
+  // sautaient d'un coup avec l'inertie du trackpad, soit un scroll pourtant
+  // volontaire ne faisait rien ("il faut forcer"). Un carrousel autonome,
+  // indépendant du scroll de la page, élimine ce compromis.
+  var POLES_AUTOPLAY_MS = 3500;
+  var polesCarousel = document.getElementById('poles-carousel');
+  var polesTrack = document.getElementById('poles-carousel-track');
+  if (polesCarousel && polesTrack) {
+    var poleDots = Array.prototype.slice.call(document.querySelectorAll('.poles-carousel-dot'));
+    var polePanels = Array.prototype.slice.call(polesTrack.querySelectorAll('.pole'));
+    var polePrevBtn = polesCarousel.querySelector('.poles-carousel-arrow--prev');
+    var poleNextBtn = polesCarousel.querySelector('.poles-carousel-arrow--next');
+    var currentPoleIndex = 0;
 
-    function setActiveDot(index) {
+    function applyPoleIndex(index) {
+      polePanels.forEach(function (p, i) {
+        p.style.transform = 'translateX(' + (i < index ? 100 : (i > index ? -100 : 0)) + '%)';
+      });
       poleDots.forEach(function (dot, i) {
         dot.classList.toggle('is-active', i === index);
         dot.setAttribute('aria-current', String(i === index));
       });
     }
+    applyPoleIndex(currentPoleIndex);
 
-    if (!prefersReducedMotion && polePanels.length > 1) {
-      var polesStepTotal = (polePanels.length - 1) * POLE_STEP_PX;
-      polesTrack.style.height = 'calc(100vh + ' + polesStepTotal + 'px)';
-
-      function getTrackScrollableDistance() {
-        return polesTrack.offsetHeight - window.innerHeight;
+    if (polePanels.length > 1) {
+      function goToPole(index) {
+        currentPoleIndex = (index + polePanels.length) % polePanels.length;
+        applyPoleIndex(currentPoleIndex);
       }
 
-      // -1 : rien n'est encore entré en scène, les 3 panels attendent
-      // hors-champ à gauche. Devient 0/1/2 une fois la section réellement
-      // plein écran (voir updatePolesTransform), jamais avant — c'est ce qui
-      // fait que le premier panel "entre" au lieu d'être déjà là au chargement.
-      var currentPoleIndex = -1;
-      var polesEverEngaged = false;
+      // Autoplay coupé si l'utilisateur préfère moins d'animation, si la
+      // section n'est pas à l'écran (inutile de faire tourner un carrousel
+      // que personne ne regarde), ou pendant un focus clavier dans la
+      // section (le temps de cliquer sur un lien/une flèche sans que ça
+      // change sous le focus).
+      var polesAutoplayTimer = null;
+      var polesIsIntersecting = false;
+      var polesIsPaused = false;
 
-      function applyPoleIndex(index) {
-        polePanels.forEach(function (p, i) {
-          p.style.transform = 'translateX(' + (i < index ? 100 : (i > index ? -100 : 0)) + '%)';
-        });
-        if (index >= 0) setActiveDot(index);
+      function startPolesAutoplay() {
+        if (polesAutoplayTimer) return;
+        polesAutoplayTimer = setInterval(function () { goToPole(currentPoleIndex + 1); }, POLES_AUTOPLAY_MS);
       }
-      applyPoleIndex(currentPoleIndex);
-
-      function updatePolesTransform() {
-        var scrollableDistance = getTrackScrollableDistance();
-        if (scrollableDistance <= 0) return;
-        var trackRect = polesTrack.getBoundingClientRect();
-
-        if (!polesEverEngaged) {
-          // ne se déclenche qu'au moment précis où la section devient
-          // réellement plein écran (le rail se colle en haut du viewport) ;
-          // marge de 1px car getBoundingClientRect() peut renvoyer une
-          // valeur sous-pixel (ex. 0.17 au lieu de 0 pile)
-          if (trackRect.top <= 1) {
-            polesEverEngaged = true;
-            var scrolledAtEntry = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
-            // L'inertie d'un scroll normal dépasse fréquemment de peu le point
-            // d'entrée avant que ce handler ne s'exécute (rAF) : sans garde,
-            // ça arrondissait à l'index 1 et faisait sauter la première
-            // slide. On force donc le panel 0 pour un léger dépassement.
-            // Mais un très grand saut arrivé en un seul événement (ancre,
-            // barre de scroll tirée directement loin dans le rail) n'aura
-            // pas d'autre événement de scroll pour se corriger ensuite :
-            // dans ce cas on respecte la position réellement atteinte plutôt
-            // que de rester bloqué sur le panel 0 pour toujours.
-            currentPoleIndex = scrolledAtEntry <= POLE_STEP_PX * 1.5
-              ? 0
-              : Math.min(polePanels.length - 1, Math.round(scrolledAtEntry / POLE_STEP_PX));
-            applyPoleIndex(currentPoleIndex);
-            // Si le geste qui vient de figer la section a encore de l'inertie
-            // (molette/trackpad), ses prochains événements wheel seraient
-            // sinon immédiatement traités comme un pas à part entière (plus
-            // rien ne les bloque puisque currentPoleIndex n'est plus -1) et
-            // feraient sauter à la slide suivante dans la foulée. On
-            // applique donc le même verrou que pour un pas normal dès l'entrée.
-            polesLockedUntil = Date.now() + POLES_LOCK_MS;
-          }
-          return;
-        }
-
-        // pas fixe par panel (POLE_STEP_PX) plutôt qu'une proportion du
-        // scroll total : chaque transition demande le même petit effort de
-        // scroll, la dernière n'est pas plus longue à atteindre que la première.
-        // round (pas floor) : après un saut programmatique exact vers une
-        // frontière de pas, une imprécision sous-pixel (ex. 139.83 au lieu
-        // de 140) ne doit pas faire retomber sur l'index précédent.
-        var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
-        var index = Math.min(polePanels.length - 1, Math.round(scrolledSoFar / POLE_STEP_PX));
-        if (index !== currentPoleIndex) {
-          currentPoleIndex = index;
-          applyPoleIndex(index);
-        }
+      function stopPolesAutoplay() {
+        if (polesAutoplayTimer) { clearInterval(polesAutoplayTimer); polesAutoplayTimer = null; }
+      }
+      function refreshPolesAutoplay() {
+        if (!prefersReducedMotion && polesIsIntersecting && !polesIsPaused) startPolesAutoplay();
+        else stopPolesAutoplay();
+      }
+      // toute navigation manuelle réarme le délai complet plutôt que de
+      // laisser l'autoplay déclencher un changement juste après
+      function restartPolesAutoplay() {
+        stopPolesAutoplay();
+        refreshPolesAutoplay();
       }
 
-      var polesTicking = false;
-      updatePolesTransform();
-      window.addEventListener('scroll', function () {
-        if (!polesTicking) {
-          requestAnimationFrame(function () {
-            updatePolesTransform();
-            polesTicking = false;
+      if (!prefersReducedMotion) {
+        var polesObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            polesIsIntersecting = entry.isIntersecting;
+            refreshPolesAutoplay();
           });
-          polesTicking = true;
-        }
-      }, { passive: true });
-      window.addEventListener('resize', updatePolesTransform, { passive: true });
+        }, { threshold: 0.4 });
+        polesObserver.observe(polesCarousel);
 
-      // Le scroll natif (molette/trackpad) avance en continu avec le scrollY :
-      // un flick de trackpad avec inertie parcourt largement plus que
-      // POLE_STEP_PX en un seul geste, ce qui faisait sauter plusieurs
-      // panels d'un coup (voire sortir du rail direction "Sélection du
-      // moment" sans jamais s'arrêter sur le dernier panel) et cassait la
-      // transition douce (elle repartait de zéro à chaque frame de scroll).
-      // Tant que le rail est engagé, on intercepte la molette : un seul
-      // geste = un seul pas, animé par la transition CSS de chaque panel
-      // (scrollTo instantané en interne, pas de scroll animé natif en plus,
-      // pour ne pas cumuler deux animations différentes l'une sur l'autre).
-      // Un flick de trackpad avec inertie envoie des dizaines d'événements
-      // wheel étalés sur 1 à 2 secondes, avec des écarts irréguliers entre
-      // événements (l'inertie ralentit progressivement, les derniers
-      // événements peuvent être espacés de bien plus de 200ms alors que le
-      // doigt n'a pourtant jamais quitté le trackpad). Une détection basée
-      // sur "une pause de X ms = nouveau geste" s'est donc révélée trop
-      // fragile : un simple ralentissement de l'inertie en cours de route
-      // pouvait être pris pour un geste tout neuf et laisser passer un pas
-      // supplémentaire (voire une sortie du rail), rendant le scroll
-      // hypersensible malgré la protection.
-      // On verrouille donc simplement TOUT événement wheel pendant une durée
-      // fixe POLES_LOCK_MS après chaque pas, plutôt que de deviner où
-      // s'arrête le geste. Un seul pas (avancer d'un panel OU sortir du
-      // rail, jamais les deux) est autorisé par fenêtre de verrouillage.
-      // Cette durée doit rester proche de celle de la transition (1.2s) :
-      // trop courte, l'inertie d'un flick peut encore glisser un pas en
-      // trop ; trop longue (2200ms testé), un scroll suivant parfaitement
-      // normal et volontaire de l'utilisateur — pas juste de l'inertie
-      // résiduelle — tombe dans la fenêtre et ne fait plus rien, ce qui se
-      // lit comme "le scroll est bloqué, il faut forcer".
-      var POLES_LOCK_MS = 1300;
-      var polesLockedUntil = 0;
-      polesTrack.addEventListener('wheel', function (e) {
-        if (currentPoleIndex < 0) return; // pas encore plein écran : scroll normal
-        var trackRect = polesTrack.getBoundingClientRect();
-        if (trackRect.bottom <= 0 || trackRect.top >= window.innerHeight) return; // rail pas engagé
-        var scrollableDistance = getTrackScrollableDistance();
-        if (scrollableDistance <= 0) return;
+        // pas de pause au survol souris : après un scroll à la molette, le
+        // curseur reste souvent visuellement "sur" la section sans que
+        // l'utilisateur l'ait voulu, ce qui donnerait l'impression que le
+        // carrousel ne défile jamais tout seul. La pause au focus clavier
+        // suffit (accessibilité : on peut interagir avec les liens/flèches
+        // sans que le contenu change sous le focus).
+        polesCarousel.addEventListener('focusin', function () { polesIsPaused = true; refreshPolesAutoplay(); });
+        polesCarousel.addEventListener('focusout', function () { polesIsPaused = false; refreshPolesAutoplay(); });
+      }
 
-        if (Date.now() < polesLockedUntil) {
-          e.preventDefault(); // reste figé tant que la fenêtre de verrouillage n'est pas écoulée
-          return;
-        }
-
-        var scrolledSoFar = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
-        var scrollingDown = e.deltaY > 0;
-        // marge de 2px : les mesures de getBoundingClientRect() peuvent être
-        // sous-pixel (ex. 279.83 au lieu de 280), une comparaison stricte
-        // >=/<= pouvait ne jamais reconnaître qu'on était réellement à la
-        // frontière et bloquer indéfiniment la sortie du rail
-        var atStart = scrolledSoFar <= 2;
-        var atEnd = scrolledSoFar >= scrollableDistance - 2;
-        if ((scrollingDown && atEnd) || (!scrollingDown && atStart)) return; // laisse sortir du rail normalement
-        var nextIndex = Math.min(polePanels.length - 1, Math.max(0, currentPoleIndex + (scrollingDown ? 1 : -1)));
-        // filet de sécurité : si le pas calculé ne change rien, ne jamais
-        // verrouiller le scroll dans un cycle sans issue — on laisse sortir
-        // normalement plutôt que de bloquer la page.
-        if (nextIndex === currentPoleIndex) return;
-        e.preventDefault();
-        polesLockedUntil = Date.now() + POLES_LOCK_MS;
-        var trackTop = trackRect.top + window.scrollY;
-        window.scrollTo({ top: trackTop + nextIndex * POLE_STEP_PX, behavior: 'auto' });
-      }, { passive: false });
-
-      poleDots.forEach(function (dot, i) {
-        dot.addEventListener('click', function () {
-          var scrollableDistance = getTrackScrollableDistance();
-          if (scrollableDistance <= 0) return;
-          var targetProgress = i / (polePanels.length - 1);
-          var trackTop = polesTrack.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: trackTop + targetProgress * scrollableDistance, behavior: 'smooth' });
+      // Un clic laisse le bouton focus (comportement normal du navigateur),
+      // ce qui déclencherait la pause au focus clavier ci-dessus pour de bon
+      // (rien ne la lève tant qu'on ne retire pas le focus) : on le retire
+      // nous-mêmes juste après le clic pour ne pas figer l'autoplay en
+      // permanence après une simple interaction souris, tout en gardant la
+      // pause pour la vraie navigation au clavier (Tab).
+      if (polePrevBtn) {
+        polePrevBtn.addEventListener('click', function () {
+          goToPole(currentPoleIndex - 1);
+          restartPolesAutoplay();
+          polePrevBtn.blur();
         });
-      });
-    } else {
-      // prefers-reduced-motion : panels empilés verticalement (voir CSS), les
-      // points de navigation défilent simplement jusqu'au panel visé
+      }
+      if (poleNextBtn) {
+        poleNextBtn.addEventListener('click', function () {
+          goToPole(currentPoleIndex + 1);
+          restartPolesAutoplay();
+          poleNextBtn.blur();
+        });
+      }
       poleDots.forEach(function (dot, i) {
         dot.addEventListener('click', function () {
-          var target = polePanels[i];
-          if (target) target.scrollIntoView({ behavior: 'auto' });
+          goToPole(i);
+          restartPolesAutoplay();
+          dot.blur();
         });
       });
     }
@@ -514,7 +431,7 @@
       cursor.classList.remove('is-active');
     });
 
-    var hoverTargets = 'a, button, .btn, .fleet__card, .why__item, .poles-scroll-dot';
+    var hoverTargets = 'a, button, .btn, .fleet__card, .why__item, .poles-carousel-dot, .poles-carousel-arrow';
     document.addEventListener('mouseover', function (e) {
       if (e.target.closest(hoverTargets)) cursor.classList.add('is-hovering');
     });
