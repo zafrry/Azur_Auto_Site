@@ -327,8 +327,26 @@
           if (trackRect.top <= 1) {
             polesEverEngaged = true;
             var scrolledAtEntry = Math.min(Math.max(-trackRect.top, 0), scrollableDistance);
-            currentPoleIndex = Math.min(polePanels.length - 1, Math.round(scrolledAtEntry / POLE_STEP_PX));
+            // L'inertie d'un scroll normal dépasse fréquemment de peu le point
+            // d'entrée avant que ce handler ne s'exécute (rAF) : sans garde,
+            // ça arrondissait à l'index 1 et faisait sauter la première
+            // slide. On force donc le panel 0 pour un léger dépassement.
+            // Mais un très grand saut arrivé en un seul événement (ancre,
+            // barre de scroll tirée directement loin dans le rail) n'aura
+            // pas d'autre événement de scroll pour se corriger ensuite :
+            // dans ce cas on respecte la position réellement atteinte plutôt
+            // que de rester bloqué sur le panel 0 pour toujours.
+            currentPoleIndex = scrolledAtEntry <= POLE_STEP_PX * 1.5
+              ? 0
+              : Math.min(polePanels.length - 1, Math.round(scrolledAtEntry / POLE_STEP_PX));
             applyPoleIndex(currentPoleIndex);
+            // Si le geste qui vient de figer la section a encore de l'inertie
+            // (molette/trackpad), ses prochains événements wheel seraient
+            // sinon immédiatement traités comme un pas à part entière (plus
+            // rien ne les bloque puisque currentPoleIndex n'est plus -1) et
+            // feraient sauter à la slide suivante dans la foulée. On
+            // applique donc le même verrou que pour un pas normal dès l'entrée.
+            polesLockedUntil = Date.now() + POLES_LOCK_MS;
           }
           return;
         }
