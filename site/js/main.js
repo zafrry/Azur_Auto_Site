@@ -277,7 +277,12 @@
   // sautaient d'un coup avec l'inertie du trackpad, soit un scroll pourtant
   // volontaire ne faisait rien ("il faut forcer"). Un carrousel autonome,
   // indépendant du scroll de la page, élimine ce compromis.
-  var POLES_AUTOPLAY_MS = 3500;
+  // 6s plutôt que 3.5s : chaque panel a un titre + un paragraphe de
+  // description à lire, 3.5s ne laissait pas le temps de les lire
+  // confortablement avant que ça ne défile déjà. 5-7s est la fourchette
+  // généralement recommandée pour un carrousel avec du texte à lire (contre
+  // 3-4s pour de simples visuels sans texte).
+  var POLES_AUTOPLAY_MS = 6000;
   var polesCarousel = document.getElementById('poles-carousel');
   var polesTrack = document.getElementById('poles-carousel-track');
   if (polesCarousel && polesTrack) {
@@ -340,11 +345,9 @@
         }, { threshold: 0.4 });
         polesObserver.observe(polesCarousel);
 
-        // pause au survol souris (demandé explicitement) et au focus clavier
-        // (accessibilité : on peut interagir avec les liens/flèches sans que
-        // le contenu change sous le focus).
-        polesCarousel.addEventListener('mouseenter', function () { polesIsPaused = true; refreshPolesAutoplay(); });
-        polesCarousel.addEventListener('mouseleave', function () { polesIsPaused = false; refreshPolesAutoplay(); });
+        // pause au focus clavier seulement (accessibilité : on peut
+        // interagir avec les liens/flèches sans que le contenu change sous
+        // le focus). Pas de pause au survol souris : demandé explicitement.
         polesCarousel.addEventListener('focusin', function () { polesIsPaused = true; refreshPolesAutoplay(); });
         polesCarousel.addEventListener('focusout', function () { polesIsPaused = false; refreshPolesAutoplay(); });
       }
