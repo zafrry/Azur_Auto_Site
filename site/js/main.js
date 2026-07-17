@@ -399,12 +399,16 @@
       // supplémentaire (voire une sortie du rail), rendant le scroll
       // hypersensible malgré la protection.
       // On verrouille donc simplement TOUT événement wheel pendant une durée
-      // fixe POLES_LOCK_MS après chaque pas — largement supérieure à la durée
-      // de la transition (1.2s) et à l'inertie réelle d'un flick de trackpad
-      // — plutôt que de deviner où s'arrête le geste. Un seul pas (avancer
-      // d'un panel OU sortir du rail, jamais les deux) est autorisé par
-      // fenêtre de verrouillage.
-      var POLES_LOCK_MS = 2200;
+      // fixe POLES_LOCK_MS après chaque pas, plutôt que de deviner où
+      // s'arrête le geste. Un seul pas (avancer d'un panel OU sortir du
+      // rail, jamais les deux) est autorisé par fenêtre de verrouillage.
+      // Cette durée doit rester proche de celle de la transition (1.2s) :
+      // trop courte, l'inertie d'un flick peut encore glisser un pas en
+      // trop ; trop longue (2200ms testé), un scroll suivant parfaitement
+      // normal et volontaire de l'utilisateur — pas juste de l'inertie
+      // résiduelle — tombe dans la fenêtre et ne fait plus rien, ce qui se
+      // lit comme "le scroll est bloqué, il faut forcer".
+      var POLES_LOCK_MS = 1300;
       var polesLockedUntil = 0;
       polesTrack.addEventListener('wheel', function (e) {
         if (currentPoleIndex < 0) return; // pas encore plein écran : scroll normal
