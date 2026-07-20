@@ -906,14 +906,6 @@ section[data-reveal-variant="fade-up"].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-/* footer : simple fondu, pas de translation — zone utilitaire, pas de spectacle */
-[data-reveal-variant="fade-only"] {
-  opacity: 0;
-  transition: opacity 0.4s ease-out;
-}
-[data-reveal-variant="fade-only"].is-visible {
-  opacity: 1;
-}
 
 /* -------------------- la vision -------------------- */
 
