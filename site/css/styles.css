@@ -262,10 +262,9 @@ a { color: inherit; }
 
 /* Etat volontaire en attendant les vraies photos : dégradé sombre + nom de la
    marque en filigrane serif (plutôt qu'un hachurage qui lit comme une image
-   cassée), légende en bas façon cartel de musée. Le nom du modèle (variable
-   selon la carte, voir .img-placeholder__model) est affiché au premier plan
-   en serif italique : le placeholder identifie le véhicule en vitrine
-   plutôt que de se lire comme une zone générique "en construction". */
+   cassée), légende en bas façon cartel de musée. Générique à dessein (pas de
+   nom de modèle dans le placeholder lui-même) : le nom du véhicule figure
+   déjà dans le bloc texte sous l'image, l'y dupliquer était redondant. */
 .img-placeholder {
   position: absolute;
   inset: 0;
@@ -287,22 +286,6 @@ a { color: inherit; }
   white-space: nowrap;
   pointer-events: none;
 }
-.img-placeholder__model {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 0 var(--space-5);
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(17px, 4.2vw, 23px);
-  letter-spacing: 0.01em;
-  text-align: center;
-  color: var(--gold-light);
-}
 .img-placeholder::after {
   content: attr(data-caption);
   position: absolute;
@@ -322,7 +305,6 @@ a { color: inherit; }
 .img-placeholder--light { background: linear-gradient(160deg, #f2f1ee 0%, #e2e0da 100%); }
 .img-placeholder--light::before { color: rgba(10,10,10,0.05); }
 .img-placeholder--light::after { color: var(--gold-solid); }
-.img-placeholder--light .img-placeholder__model { color: var(--gold-solid); }
 
 /* -------------------- header -------------------- */
 
@@ -852,19 +834,14 @@ a { color: inherit; }
     grid-template-rows: repeat(2, 1fr);
     gap: 32px;
   }
-  .why__item:nth-child(1) {
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 48px 40px;
-  }
+  /* même padding, même taille d'icône et de titre que les 3 autres cartes
+     (voir .why__item / .why__icon svg / .why__title plus bas) : seule la
+     place occupée dans la grille change, pas le traitement interne de la
+     carte, pour que les 4 restent cohérentes entre elles. */
+  .why__item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
   .why__item:nth-child(2) { grid-column: 3 / 4; grid-row: 1; }
   .why__item:nth-child(3) { grid-column: 4 / 5; grid-row: 1; }
   .why__item:nth-child(4) { grid-column: 3 / 5; grid-row: 2; }
-  .why__item:nth-child(1) .why__icon svg { width: 52px; height: 52px; }
-  .why__item:nth-child(1) .why__title { font-size: 27px; }
 }
 
 .why__item {
@@ -1083,11 +1060,15 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 640px) {
   .club-teaser__avantages { grid-template-columns: repeat(3, 1fr); }
 }
+/* blanc cassé plutôt que doré : la section a déjà le badge "Azur Club" (kicker
+   doré) comme accent, et le CTA "Devenir membre" ; répéter le doré sur les 3
+   titres d'avantages en plus du sweep lumineux et de la carte membre diluait
+   l'accent au lieu de le renforcer. */
 .club-teaser__avantage h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 17px;
   font-weight: 500;
-  color: var(--gold-light);
+  color: #ededea;
   margin: 0 0 8px 0;
 }
 .club-teaser__avantage p {
@@ -1108,13 +1089,24 @@ section[data-reveal-variant="fade-up"].is-visible {
    interruption (un seul point de respiration, le FAQ). Coverage clair +
    FAQ clair juste après recréent un vrai palier clair entre les deux blocs
    sombres, avec deux vraies ruptures de ton dans le scroll (Club → Coverage,
-   FAQ → Contact) plutôt qu'une seule. */
+   FAQ → Contact) plutôt qu'une seule. La photo (déjà utilisée par la
+   section avant sa mise en clair) reste en toile de fond mais voilée par un
+   aplat --gray-bg-alt à forte opacité : la section garde sa profondeur/
+   texture sans redevenir une section sombre qui casserait à nouveau le
+   rythme corrigé. */
 .coverage {
-  background: var(--gray-bg-alt);
+  background-image: linear-gradient(rgba(228,226,220,0.94), rgba(228,226,220,0.94)), var(--grain), url('../assets/img/coverage-mobile.webp');
+  background-size: cover, 180px 180px, cover;
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-position: center;
   padding: 72px 20px;
 }
 @media (min-width: 901px) {
-  .coverage { padding: 140px 40px; }
+  .coverage {
+    background-image: linear-gradient(rgba(228,226,220,0.94), rgba(228,226,220,0.94)), var(--grain), url('../assets/img/coverage-desktop.webp');
+    background-size: cover, 180px 180px, cover;
+    padding: 140px 40px;
+  }
 }
 .coverage__groups {
   display: grid;
@@ -1125,8 +1117,9 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 @media (min-width: 701px) {
   .coverage__groups {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    max-width: 760px;
   }
 }
 .coverage__country {
@@ -1147,17 +1140,20 @@ section[data-reveal-variant="fade-up"].is-visible {
 /* point géolocalisé pulsé : transforme la simple liste de villes en un effet
    "réseau actif" façon carte de couverture, sans avoir à dessiner une vraie
    carte géographique (les villes ne sont pas positionnées les unes par
-   rapport aux autres dans ce layout en colonnes par pays). */
+   rapport aux autres dans ce layout en colonnes par pays). Le doré reste
+   uniquement sur le point pulsé et le libellé de pays (accent unique de la
+   section) : bordure et texte des 11 tags repassent en gris neutre plutôt
+   que doré partout, pour ne pas diluer cet accent sur toute la grille. */
 .coverage__tag {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 9px 22px;
-  border: 1px solid #7a5c1e;
+  border: 1px solid rgba(10,10,10,0.18);
   border-radius: 20px;
   font-size: 12px;
   letter-spacing: 0.04em;
-  color: #5a4416;
+  color: #3a3a3a;
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16,1,0.3,1);
@@ -2600,14 +2596,18 @@ section[data-reveal-variant="fade-up"].is-visible {
    badge "3 avantages". Au-dessus de 1150px (le vide à droite de l'image
    devient visible, surtout >1600px), .club-teaser__inner passe en flex pour
    poser la carte comme point focal dans l'espace vide, plutôt que de laisser
-   le texte seul plaqué à gauche sur l'image de fond. */
+   le texte seul plaqué à gauche sur l'image de fond. justify-content: center
+   (plutôt que space-between) : sur les très grands écrans, space-between
+   étirait tout l'espace restant entre les deux blocs et les plaquait chacun
+   sur un bord de la section, créant un vide au milieu — center + gap fixe
+   les garde proches l'un de l'autre comme un seul ensemble. */
 .club-teaser__card { display: none; }
 @media (min-width: 1150px) {
   .club-teaser__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 32px;
+    justify-content: center;
+    gap: 64px;
   }
   .club-teaser__text { flex-shrink: 0; }
   .club-teaser__card {
@@ -2659,7 +2659,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   }
 }
 @media (min-width: 1400px) {
-  .club-teaser__inner { gap: 56px; }
+  .club-teaser__inner { gap: 80px; }
   .club-teaser__card { width: 340px; height: 212px; }
 }
 
