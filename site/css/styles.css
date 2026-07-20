@@ -715,22 +715,6 @@ a { color: inherit; }
   background: var(--gray-bg);
   padding: 72px 20px;
 }
-/* jonction avec une section précédente en fond noir (ex. le dernier pôle sur
-   Import/Prestige Rent/Detailing Studio/Club) : pas de fond commun à fondre
-   dedans entre noir et --gray-bg — bande de transition dédiée, à n'ajouter
-   QUE si .fleet suit réellement une section noire (modificateur
-   .fleet--bridge), sinon elle peint une bande noire au-dessus d'une
-   jonction claire/claire qui n'en a pas besoin. Retiré sur l'accueil : la
-   section "Trois métiers" y est désormais un panel épinglé qui se termine
-   franchement, pas une section qui s'enchaîne en continu. */
-.fleet--bridge::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 120px;
-  background: linear-gradient(to bottom, var(--black) 0%, var(--gray-bg) 100%);
-  pointer-events: none;
-}
 @media (min-width: 901px) {
   .fleet { padding: 140px 40px; }
 }
