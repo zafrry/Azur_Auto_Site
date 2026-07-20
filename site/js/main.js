@@ -418,6 +418,29 @@
     }, { passive: true });
   }
 
+  // -------------------- club : carte membre, légère rotation au scroll --------------------
+  var clubCard = document.getElementById('club-teaser-card');
+  if (clubCard && clubSection && !prefersReducedMotion) {
+    var clubCardTicking = false;
+    function updateClubCardParallax() {
+      var rect = clubSection.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        var progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        progress = Math.min(1, Math.max(0, progress));
+        var rotate = -6 + progress * 4;
+        clubCard.style.transform = 'translateY(' + (rect.top * -0.05) + 'px) rotate(' + rotate + 'deg)';
+      }
+      clubCardTicking = false;
+    }
+    updateClubCardParallax();
+    window.addEventListener('scroll', function () {
+      if (!clubCardTicking) {
+        requestAnimationFrame(updateClubCardParallax);
+        clubCardTicking = true;
+      }
+    }, { passive: true });
+  }
+
   // -------------------- curseur personnalisé (souris fine uniquement) --------------------
   if (isHomePage && !prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var cursor = document.createElement('div');

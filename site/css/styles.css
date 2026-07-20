@@ -2487,9 +2487,79 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 .club-teaser__text { max-width: 560px; }
 
+/* -------------------- carte membre (mockup) --------------------
+   Sous 1150px la carte reste masquée : la composition texte seul suffit et
+   il n'y a pas la place d'ajouter un second bloc sans tasser le texte ou le
+   badge "3 avantages". Au-dessus de 1150px (le vide à droite de l'image
+   devient visible, surtout >1600px), .club-teaser__inner passe en flex pour
+   poser la carte comme point focal dans l'espace vide, plutôt que de laisser
+   le texte seul plaqué à gauche sur l'image de fond. */
+.club-teaser__card { display: none; }
+@media (min-width: 1150px) {
+  .club-teaser__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .club-teaser__text { flex-shrink: 0; }
+  .club-teaser__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 300px;
+    height: 190px;
+    padding: 24px 26px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #1c1c1c 0%, #0a0a0a 70%, #050505 100%);
+    border: 1px solid rgba(212,184,118,0.35);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+    transform: rotate(-6deg);
+    transition: transform 0.4s ease;
+  }
+  .club-teaser__card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+  }
+  .club-teaser__card-top svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .club-teaser__card-chip {
+    width: 42px;
+    height: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-solid) 100%);
+    opacity: 0.85;
+  }
+  .club-teaser__card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .club-teaser__card-brand {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: #ededea;
+  }
+  .club-teaser__card-tier {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: #9a9a9a;
+  }
+}
+@media (min-width: 1400px) {
+  .club-teaser__inner { gap: 56px; }
+  .club-teaser__card { width: 340px; height: 212px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .club-teaser__bg { transition: none !important; }
   .club-teaser__sweep::after { transition: none; left: 100%; }
+  .club-teaser__card { transition: none !important; }
 }
 
 /* -------------------- curseur personnalisé (desktop uniquement, JS) --------------------
