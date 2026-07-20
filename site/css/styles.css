@@ -2705,3 +2705,116 @@ section[data-reveal-variant="fade-up"].is-visible {
   background: rgba(212,184,118,0.18);
   transform: scale(1.7);
 }
+
+/* ==========================================================================
+   IMPORT — ajustements propres à la page (scopés .page-import)
+   ========================================================================== */
+
+/* -------------------- "Chiffres clés" + "Témoignages" : passage sombre --------------------
+   Sur l'accueil, Avis/Stats ont été fusionnés en un seul passage sombre
+   continu. Sur Import, les deux sections équivalentes (déjà adjacentes,
+   toutes deux .social-proof) étaient restées sur l'ancien traitement clair
+   avec des cartes blanches plates — incohérent avec l'accueil. Même
+   traitement ici, adapté au contexte : pas de photo de hero à faire fondre
+   en fond (contrairement à "La Vision" sur l'accueil), donc un aplat
+   --black uni sur les deux sections suffit pour une jonction invisible.
+   Scopé à .page-import pour ne pas toucher .social-proof sur Club/
+   Detailing-Studio/Prestige-Rent (mêmes classes, traitement clair conservé). */
+.page-import .social-proof { background: var(--black); }
+.page-import .social-proof__testimonial {
+  padding: 0;
+  background: none;
+  border: none;
+}
+.page-import .social-proof__testimonial p {
+  font-size: 19px;
+  line-height: 1.6;
+  color: #ededea;
+}
+.page-import .social-proof__testimonial cite {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9a;
+}
+.page-import .social-proof__testimonial cite::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-solid);
+  flex-shrink: 0;
+}
+.page-import .social-proof__stat-label { color: #9a9a9a; }
+
+/* -------------------- "Notre méthode" : combler le vide sous le titre --------------------
+   .model-intro est un composant partagé (Club/Detailing-Studio/La-Vision/
+   Prestige-Rent l'utilisent aussi) : la colonne de gauche (kicker + titre +
+   texte, largeur bridée à 420px) est bien plus courte que la liste de 3
+   points à droite, laissant un vide sous le texte sans élément pour le
+   justifier. Un chiffre clé mis en avant (repris des Chiffres clés plus
+   bas) comble cet espace intentionnellement plutôt que de le laisser vide. */
+.model-intro__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(10,10,10,0.1);
+  max-width: 260px;
+}
+.model-intro__stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--black);
+}
+.model-intro__stat-label {
+  font-size: 12.5px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: #8a8a8a;
+}
+
+/* -------------------- "Marques représentées" : traitement plus prestigieux --------------------
+   .tile-grid__logo est exclusif à Import (seule page qui l'utilise) : pas
+   besoin de scoper .page-import, mais la maquette du composant reste ici.
+   Majuscules espacées façon "wall of brands" plutôt que le serif discret
+   d'origine, avec une légère variation de lettrage + échelle au survol. */
+.tile-grid__logo {
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.25s ease, filter 0.25s ease, transform 0.25s ease, letter-spacing 0.25s ease;
+}
+.tile-grid__item:hover .tile-grid__logo {
+  transform: scale(1.06);
+  letter-spacing: 0.24em;
+}
+
+/* -------------------- "Le parcours" : numéros plus affirmés + ligne animée au scroll --------------------
+   .step-list est partagé (Club/Detailing-Studio/La-Vision/Prestige-Rent),
+   scopé à .page-import. Le numéro en grand serif italique devient l'élément
+   dominant de chaque étape (l'icône, plus petite, passe en support) ; la
+   ligne de connexion se remplit de gauche à droite au scroll plutôt que
+   d'être visible d'un bloc, via le système de reveal existant (data-reveal
+   sur la section #parcours). */
+.page-import .step-list__num {
+  font-size: 46px;
+  font-style: italic;
+  color: var(--gold-solid);
+}
+.page-import .step-list__icon svg { width: 22px; height: 22px; }
+@media (min-width: 901px) {
+  .page-import #parcours .step-list::before {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
+  }
+  .page-import #parcours.is-visible .step-list::before {
+    transform: scaleX(1);
+  }
+}
