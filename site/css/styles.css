@@ -1055,19 +1055,21 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 /* -------------------- zone de couverture -------------------- */
 
+/* Section volontairement claire (--gray-bg-alt, comme .why juste après
+   .fleet) plutôt que la photo sombre d'origine : Vision/Avis/Stats + Club
+   forment déjà un passage sombre continu juste avant, et Contact + Footer
+   enchaînent en sombre juste après le FAQ clair. Sans cette section claire,
+   la deuxième moitié de la page enchaînait 4 sections sombres quasi sans
+   interruption (un seul point de respiration, le FAQ). Coverage clair +
+   FAQ clair juste après recréent un vrai palier clair entre les deux blocs
+   sombres, avec deux vraies ruptures de ton dans le scroll (Club → Coverage,
+   FAQ → Contact) plutôt qu'une seule. */
 .coverage {
-  background-image: var(--grain), linear-gradient(0deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 100%), url('../assets/img/coverage-mobile.webp');
-  background-size: 180px 180px, cover, cover;
-  background-repeat: repeat, no-repeat, no-repeat;
-  background-position: center;
+  background: var(--gray-bg-alt);
   padding: 72px 20px;
 }
 @media (min-width: 901px) {
-  .coverage {
-    background-image: var(--grain), linear-gradient(0deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.75) 100%), url('../assets/img/coverage-desktop.webp');
-    background-size: 180px 180px, cover, cover;
-    padding: 140px 40px;
-  }
+  .coverage { padding: 140px 40px; }
 }
 .coverage__groups {
   display: grid;
@@ -1083,7 +1085,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   }
 }
 .coverage__country {
-  color: var(--gold-light);
+  color: #7a5c1e;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1099,11 +1101,11 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 .coverage__tag {
   padding: 9px 22px;
-  border: 1px solid var(--gold-light);
+  border: 1px solid #7a5c1e;
   border-radius: 20px;
   font-size: 12px;
   letter-spacing: 0.04em;
-  color: var(--gold-light);
+  color: #5a4416;
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16,1,0.3,1);
@@ -1263,6 +1265,40 @@ section[data-reveal-variant="fade-up"].is-visible {
   grid-column: 1 / -1;
 }
 .contact__form button[type="submit"] { justify-self: start; }
+
+/* -------------------- contact : regroupement visuel des champs --------------------
+   Nouvelle structure (.contact__group), additive : ces règles ne s'activent
+   que si des .contact__group existent dans le DOM, ce qui n'est le cas que
+   sur l'accueil. Le formulaire "à plat" (.contact__form > .form-group
+   directement, sans groupes) des autres pages n'est pas touché — leur
+   comportement reste régi par les règles ci-dessus, inchangées. Objectif :
+   remplacer un pavé de 7 champs sans hiérarchie par 2-3 groupes nommés,
+   avec plus d'air entre eux, plutôt qu'un simple redécoupage en étapes qui
+   aurait demandé de dupliquer la logique de validation JS existante. */
+.contact__form .contact__group {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 var(--space-5);
+  margin-bottom: var(--space-8);
+}
+@media (min-width: 1024px) {
+  .contact__form .contact__group { grid-template-columns: 1fr 1fr; }
+}
+.contact__form .contact__group:last-of-type { margin-bottom: var(--space-6); }
+.contact__form .contact__group .form-group.full-width { grid-column: 1 / -1; }
+.contact__group-title {
+  grid-column: 1 / -1;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin: 0 0 var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
 /* une seule valeur pour l'écart entre deux lignes de champs, portée par la
    marge du .form-group plutôt que cumulée avec le row-gap de la grille
