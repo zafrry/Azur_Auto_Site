@@ -1311,8 +1311,8 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 /* -------------------- contact : regroupement visuel des champs --------------------
    Nouvelle structure (.contact__group), additive : ces règles ne s'activent
-   que si des .contact__group existent dans le DOM, ce qui n'est le cas que
-   sur l'accueil. Le formulaire "à plat" (.contact__form > .form-group
+   que si des .contact__group existent dans le DOM (accueil et Import pour
+   l'instant). Le formulaire "à plat" (.contact__form > .form-group
    directement, sans groupes) des autres pages n'est pas touché — leur
    comportement reste régi par les règles ci-dessus, inchangées. Objectif :
    remplacer un pavé de 7 champs sans hiérarchie par 2-3 groupes nommés,
@@ -1342,6 +1342,55 @@ section[data-reveal-variant="fade-up"].is-visible {
   padding-bottom: var(--space-3);
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+
+/* -------------------- contact : champs secondaires repliables --------------------
+   <details> natif plutôt qu'un toggle JS : accessible par défaut (clavier,
+   lecteurs d'écran), pas de logique à dupliquer. Seuls des champs non
+   requis sont masqués derrière (critères, téléphone, échéance) — jamais un
+   champ required, pour ne pas piéger la validation JS existante sur un
+   champ invisible que l'utilisateur ne peut pas corriger. */
+.contact__form .contact__advanced {
+  grid-column: 1 / -1;
+  margin-bottom: var(--space-8);
+}
+.contact__advanced-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.contact__advanced-summary::-webkit-details-marker { display: none; }
+.contact__advanced-summary::before {
+  content: '+';
+  font-size: 14px;
+  color: var(--gold-light);
+}
+.contact__advanced[open] .contact__advanced-summary::before { content: '−'; }
+.contact__advanced-summary span {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 12px;
+  color: #9a9a9a;
+}
+.contact__advanced-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 var(--space-5);
+  padding-top: var(--space-5);
+}
+@media (min-width: 1024px) {
+  .contact__advanced-fields { grid-template-columns: 1fr 1fr; }
+}
+.contact__advanced-fields .form-group.full-width { grid-column: 1 / -1; }
 
 /* une seule valeur pour l'écart entre deux lignes de champs, portée par la
    marge du .form-group plutôt que cumulée avec le row-gap de la grille
@@ -2723,25 +2772,43 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 .page-import .social-proof__stat-label { color: #9a9a9a; }
 
-/* -------------------- "Notre méthode" : combler le vide sous le titre --------------------
-   .model-intro est un composant partagé (Club/Detailing-Studio/La-Vision/
-   Prestige-Rent l'utilisent aussi) : la colonne de gauche (kicker + titre +
-   texte, largeur bridée à 420px) est bien plus courte que la liste de 3
-   points à droite, laissant un vide sous le texte sans élément pour le
-   justifier. Un chiffre clé mis en avant (repris des Chiffres clés plus
-   bas) comble cet espace intentionnellement plutôt que de le laisser vide. */
+/* -------------------- "Notre méthode" : le chiffre clé ancré, pas flottant --------------------
+   Première version : le chiffre "150+" comblait le vide sous le texte mais
+   flottait seul, sans structure — la colonne de gauche (stretch par défaut
+   dans la grille .model-intro) a déjà la même hauteur que la colonne de
+   droite, mais son contenu ne remplissait que le haut. .model-intro__head
+   passe en colonne flex : le texte reste en haut, la carte-chiffre est
+   poussée en bas (margin-top: auto) pour s'aligner avec le bas de la liste
+   de droite — les deux colonnes se lisent comme un seul ensemble structuré,
+   pas comme un texte suivi d'un nombre isolé. Le chiffre est présenté dans
+   une vraie carte (fond blanc, bordure) plutôt qu'en texte nu, cohérent
+   avec .why__item sur l'accueil. .model-intro est partagé (Club/Detailing-
+   Studio/La-Vision/Prestige-Rent) : cette mise en colonne est scopée à
+   .page-import, ces pages n'ayant pas de .model-intro__stat dans leur DOM. */
+@media (min-width: 901px) {
+  .page-import .model-intro__head {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .model-intro__stat {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: var(--space-7);
-  padding-top: var(--space-5);
-  border-top: 1px solid rgba(10,10,10,0.1);
-  max-width: 260px;
+}
+@media (min-width: 901px) {
+  .page-import .model-intro__stat { margin-top: auto; }
+}
+.page-import .model-intro__stat {
+  padding: var(--space-6) var(--space-5);
+  background: #ffffff;
+  border: 1px solid rgba(10,10,10,0.08);
+  max-width: 320px;
 }
 .model-intro__stat-number {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 56px;
+  font-size: 48px;
   font-weight: 500;
   line-height: 1;
   color: var(--black);
@@ -2793,4 +2860,89 @@ section[data-reveal-variant="fade-up"].is-visible {
   .page-import #parcours.is-visible .step-list::before {
     transform: scaleX(1);
   }
+}
+
+/* -------------------- transitions douces entre sections claires/sombres --------------------
+   Les changements de fond se faisaient par un mur de couleur net à chaque
+   jonction (Parcours clair → Stats sombre, Témoignages sombre → FAQ clair,
+   FAQ clair → Formulaire sombre). Un court dégradé (40px) de la couleur de
+   la section qui se termine vers la couleur de celle qui suit adoucit le
+   passage au scroll, sans reproduire le bandeau de 120px retiré ailleurs
+   sur le site (ici la bande est courte et ne recouvre aucune carte/contenu
+   clair juste en dessous, contrairement au cas retiré). Scopé à
+   .page-import : chaque jonction dépend de deux couleurs précises propres
+   à l'enchaînement des sections de cette page. */
+.page-import #parcours { position: relative; }
+.page-import #parcours::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--black));
+  pointer-events: none;
+}
+.page-import #temoignages { position: relative; }
+.page-import #temoignages::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--gray-bg));
+  pointer-events: none;
+}
+.page-import #faq { position: relative; }
+.page-import #faq::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--black));
+  pointer-events: none;
+}
+
+/* -------------------- "Exprimer une recherche" : alléger le pavé --------------------
+   Fond en léger dégradé (même langage que .img-placeholder) plutôt qu'un
+   aplat --black uniforme, pour réduire le poids visuel du bloc. Espacement
+   entre groupes augmenté par rapport à la valeur par défaut de
+   .contact__form (var(--space-8), utilisée telle quelle sur l'accueil) :
+   scopé à .page-import pour ne pas changer le rythme du formulaire accueil. */
+.page-import #recherche {
+  background: linear-gradient(165deg, #1c1c1c 0%, #0a0a0a 100%);
+}
+.page-import .contact__form .contact__group,
+.page-import .contact__form .contact__advanced {
+  margin-bottom: 88px;
+}
+.page-import .contact__form .contact__group:last-of-type {
+  margin-bottom: var(--space-7);
+}
+
+/* -------------------- FAQ : numérotation discrète + survol --------------------
+   Numéro serif discret devant chaque question (cohérent avec le langage
+   numéroté déjà utilisé sur "Notre méthode" et "Le parcours"), et le texte
+   passe en doré au survol plutôt que de rester figé — un composant qui
+   reste par ailleurs volontairement simple (accordéon CSS Grid déjà fluide,
+   inchangé). Scopé à .page-import : .faq est un composant partagé par
+   Import/Club/Contact/l'accueil, ce traitement reste propre à Import pour
+   l'instant. */
+.page-import .faq__list { counter-reset: faq-count; }
+.page-import .faq__item {
+  counter-increment: faq-count;
+  position: relative;
+  padding-left: 44px;
+}
+.page-import .faq__item::before {
+  content: counter(faq-count, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: var(--gold-solid);
+}
+.page-import .faq__question {
+  transition: color 0.2s ease;
+}
+.page-import .faq__question:hover {
+  color: var(--gold-solid);
 }
