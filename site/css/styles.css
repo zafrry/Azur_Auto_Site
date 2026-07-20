@@ -262,7 +262,10 @@ a { color: inherit; }
 
 /* Etat volontaire en attendant les vraies photos : dégradé sombre + nom de la
    marque en filigrane serif (plutôt qu'un hachurage qui lit comme une image
-   cassée), légende en bas façon cartel de musée. */
+   cassée), légende en bas façon cartel de musée. Le nom du modèle (variable
+   selon la carte, voir .img-placeholder__model) est affiché au premier plan
+   en serif italique : le placeholder identifie le véhicule en vitrine
+   plutôt que de se lire comme une zone générique "en construction". */
 .img-placeholder {
   position: absolute;
   inset: 0;
@@ -284,10 +287,27 @@ a { color: inherit; }
   white-space: nowrap;
   pointer-events: none;
 }
+.img-placeholder__model {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 var(--space-5);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(17px, 4.2vw, 23px);
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--gold-light);
+}
 .img-placeholder::after {
   content: attr(data-caption);
   position: absolute;
   left: 0; right: 0; bottom: 0;
+  z-index: 1;
   padding: 14px 16px;
   text-align: center;
   font-family: 'Jost', sans-serif;
@@ -302,6 +322,7 @@ a { color: inherit; }
 .img-placeholder--light { background: linear-gradient(160deg, #f2f1ee 0%, #e2e0da 100%); }
 .img-placeholder--light::before { color: rgba(10,10,10,0.05); }
 .img-placeholder--light::after { color: var(--gold-solid); }
+.img-placeholder--light .img-placeholder__model { color: var(--gold-solid); }
 
 /* -------------------- header -------------------- */
 
@@ -818,8 +839,32 @@ a { color: inherit; }
   grid-template-columns: 1fr 1fr;
   gap: 36px 20px;
 }
+/* -------------------- rupture de composition : carte "Un seul univers" mise en avant --------------------
+   Sans ça, "Pourquoi choisir Azur Auto" reste une grille symétrique
+   classique alors que le scroll horizontal des Métiers et la carte Club en
+   diagonale cassent déjà la grille ailleurs sur la page — contraste trop
+   marqué. Le premier item (la promesse de marque la plus large : "un seul
+   univers" vente/location/entretien) occupe un bloc 2×2, les trois autres
+   se répartissent autour en bento plutôt qu'en 4 colonnes identiques. */
 @media (min-width: 901px) {
-  .why__grid { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .why__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .why__item:nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 40px;
+  }
+  .why__item:nth-child(2) { grid-column: 3 / 4; grid-row: 1; }
+  .why__item:nth-child(3) { grid-column: 4 / 5; grid-row: 1; }
+  .why__item:nth-child(4) { grid-column: 3 / 5; grid-row: 2; }
+  .why__item:nth-child(1) .why__icon svg { width: 52px; height: 52px; }
+  .why__item:nth-child(1) .why__title { font-size: 27px; }
 }
 
 .why__item {
@@ -1099,7 +1144,14 @@ section[data-reveal-variant="fade-up"].is-visible {
   flex-wrap: wrap;
   gap: 12px;
 }
+/* point géolocalisé pulsé : transforme la simple liste de villes en un effet
+   "réseau actif" façon carte de couverture, sans avoir à dessiner une vraie
+   carte géographique (les villes ne sont pas positionnées les unes par
+   rapport aux autres dans ce layout en colonnes par pays). */
 .coverage__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   padding: 9px 22px;
   border: 1px solid #7a5c1e;
   border-radius: 20px;
@@ -1116,6 +1168,25 @@ section[data-reveal-variant="fade-up"].is-visible {
 .coverage__tag:nth-child(3) { transition-delay: 0.14s; }
 .coverage__tag:nth-child(4) { transition-delay: 0.21s; }
 .coverage__tag:nth-child(5) { transition-delay: 0.28s; }
+.coverage__tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7a5c1e;
+  flex-shrink: 0;
+  animation: coverage-pulse 2.4s ease-in-out infinite;
+}
+.coverage__tag:nth-child(2)::before { animation-delay: 0.4s; }
+.coverage__tag:nth-child(3)::before { animation-delay: 0.8s; }
+.coverage__tag:nth-child(4)::before { animation-delay: 1.2s; }
+@keyframes coverage-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(122,92,30,0.45); }
+  50% { box-shadow: 0 0 0 4px rgba(122,92,30,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coverage__tag::before { animation: none; box-shadow: 0 0 0 2px rgba(122,92,30,0.25); }
+}
 
 /* -------------------- faq -------------------- */
 
@@ -2596,6 +2667,18 @@ section[data-reveal-variant="fade-up"].is-visible {
   .club-teaser__bg { transition: none !important; }
   .club-teaser__sweep::after { transition: none; left: 100%; }
   .club-teaser__card { transition: none !important; }
+}
+
+/* -------------------- fin de parcours : plus d'air entre FAQ, Contact et Footer --------------------
+   FAQ → Contact → Footer enchaînent beaucoup de texte/champs sur un espace
+   relativement court, alors que le haut de page (Hero, Métiers) est très
+   aéré — la fin du parcours se lisait comme dense après un début ample.
+   .faq/.contact sont des composants partagés par toutes les pages : scopé
+   à .page-home pour ne pas changer leur rythme vertical ailleurs. */
+@media (min-width: 901px) {
+  .page-home .faq { padding-top: 168px; padding-bottom: 168px; }
+  .page-home .contact { padding-top: 168px; padding-bottom: 168px; }
+  .page-home .site-footer { padding-top: 120px; }
 }
 
 /* -------------------- curseur personnalisé (desktop uniquement, JS) --------------------
