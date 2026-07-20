@@ -925,7 +925,10 @@ section[data-reveal-variant="fade-up"].is-visible {
 .vision-teaser .btn--tertiary:hover { color: var(--gold-light); }
 
 /* -------------------- preuve sociale -------------------- */
-
+/* Composant partagé par plusieurs pages (Import, Prestige Rent, Detailing
+   Studio, Club, La Vision, l'accueil) sur fond clair par défaut. La variante
+   sombre utilisée uniquement à l'accueil, à la suite de "La Vision", est
+   scopée sous .page-home (voir plus bas) plutôt que modifiée ici. */
 .social-proof {
   background: var(--gray-bg);
   padding: 72px 20px;
@@ -2258,6 +2261,78 @@ section[data-reveal-variant="fade-up"].is-visible {
 .page-home .social-proof__partner-tag:nth-child(2) { transition-delay: 0.13s; }
 .page-home .social-proof__partner-tag:nth-child(3) { transition-delay: 0.26s; }
 .page-home .social-proof__partner-tag:nth-child(4) { transition-delay: 0.39s; }
+
+/* -------------------- "La Vision" + "Avis" : un seul passage sombre continu --------------------
+   Uniquement à l'accueil : "La Vision" (fond photo cinématique) et "Avis"
+   (citations, badge, stats) qui la suit doivent se lire comme un seul
+   passage sombre du scroll plutôt que deux sections indépendantes qui se
+   coupent sur un retour brutal au fond clair. Le dégradé ajouté sur
+   .vision-teaser fond la photo jusqu'au noir plein (--black) en bas de
+   section — exactement le fond ci-dessous — donc la jonction entre les deux
+   sections est invisible, sans bande de transition à gérer. Scopé à
+   .page-home pour ne pas affecter .social-proof sur les autres pages
+   (Import, Prestige Rent, Detailing Studio, Club, La Vision), où le
+   composant reste sur son fond clair par défaut. */
+.page-home .vision-teaser {
+  background-image: linear-gradient(to bottom, transparent 0%, transparent 55%, var(--black) 100%), var(--grain), linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-mobile.webp');
+  background-size: cover, 180px 180px, cover, cover;
+  background-repeat: no-repeat, repeat, no-repeat, no-repeat;
+  background-position: center;
+}
+@media (min-width: 901px) {
+  .page-home .vision-teaser {
+    background-image: linear-gradient(to bottom, transparent 0%, transparent 55%, var(--black) 100%), var(--grain), linear-gradient(0deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.78) 100%), url('../assets/img/vision-desktop.webp');
+    background-size: cover, 180px 180px, cover, cover;
+  }
+}
+.page-home .social-proof { background: var(--black); }
+.page-home .social-proof__testimonials { gap: 48px; margin-bottom: 64px; }
+@media (min-width: 769px) {
+  .page-home .social-proof__testimonials { gap: 40px; }
+}
+/* citations posées à même le fond sombre, sans encadré ni fond de carte —
+   effet "carnet de bord" plutôt que widget marketing */
+.page-home .social-proof__testimonial {
+  padding: 0;
+  background: none;
+  border: none;
+}
+.page-home .social-proof__testimonial p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #ededea;
+}
+@media (min-width: 901px) {
+  .page-home .social-proof__testimonial p { font-size: 22px; }
+}
+/* petit marqueur rond doré devant les initiales : sépare/identifie chaque
+   citation, plutôt qu'un tiret cadratin générique */
+.page-home .social-proof__testimonial cite {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9a; /* AA sur fond noir (7.04:1), cf. .fleet__card .btn--tertiary */
+}
+.page-home .social-proof__testimonial cite::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-solid);
+  flex-shrink: 0;
+}
+.page-home .social-proof__partners { margin-bottom: 64px; }
+/* label doré discret plutôt qu'un cadre gris plat : cohérent avec le reste
+   du passage sombre, pas un badge séparé */
+.page-home .social-proof__partner-tag {
+  padding: 0;
+  border: none;
+  letter-spacing: 0.14em;
+  color: var(--gold-light);
+}
+.page-home .social-proof__stat-label {
+  color: #9a9a9a; /* AA sur fond noir (7.04:1) */
+}
 
 /* -------------------- "Trois métiers" : carrousel automatique, entrée droite -> gauche --------------------
    Section normale du flux de page (plus d'épinglage/scroll-jacking : elle
