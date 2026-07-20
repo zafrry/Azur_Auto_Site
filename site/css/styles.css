@@ -2905,11 +2905,10 @@ section[data-reveal-variant="fade-up"].is-visible {
   .page-import .hero--left .hero__subtitle { margin-bottom: 48px; }
 }
 
-/* -------------------- "Marques représentées" : logo image (Lamborghini) --------------------
-   .tile-grid__logo est exclusif à Import : le texte reste le traitement par
-   défaut pour les marques sans fichier logo fourni, .tile-grid__logo--img
-   s'applique uniquement là où une image existe (évite d'étirer un logo à la
-   taille du texte ou de casser l'alignement vertical des autres tuiles). */
+/* -------------------- "Marques représentées" : vrais logos --------------------
+   .tile-grid__logo--img remplace le libellé texte quand un fichier logo est
+   fourni (hauteur fixe + object-fit: contain plutôt que d'étirer l'image à
+   la taille du texte, pour garder l'alignement vertical des 6 tuiles). */
 .tile-grid__logo--img {
   height: 48px;
   filter: grayscale(1);
@@ -2921,3 +2920,13 @@ section[data-reveal-variant="fade-up"].is-visible {
   object-fit: contain;
 }
 .tile-grid__item:hover .tile-grid__logo--img { filter: grayscale(0); }
+
+/* drapeaux des pays de sourcing : image ronde plutôt que l'emoji drapeau
+   d'origine, même gabarit (20px) pour ne pas décaler la ligne de texte */
+.sourcing-countries__flag img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
