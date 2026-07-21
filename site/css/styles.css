@@ -3172,3 +3172,104 @@ section[data-reveal-variant="fade-up"].is-visible {
   flex-shrink: 0;
 }
 .page-prestige-rent .social-proof__stat-label { color: #9a9a9a; }
+
+/* -------------------- Detailing Studio : prestations (hiérarchie + visuel) --------------------
+   La grille plate à 8 cases identiques (icône + titre + texte, aucune image)
+   ne rendait pas justice à un métier ultra-visuel et traitait à égalité un
+   simple lavage et une protection céramique complète. Découpée en deux
+   niveaux : 3 cartes "signature" avec image (gabarit proche de .fleet__card,
+   même langage que les autres cartes du site), puis les 5 prestations
+   d'entretien courant dans le .tile-grid existant, avec reveal + stagger
+   + micro-interaction au survol ajoutés aux deux niveaux. */
+.services-signature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+@media (min-width: 769px) {
+  .services-signature { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+}
+.services-signature__card {
+  background: #ffffff;
+  border: 1px solid rgba(10,10,10,0.08);
+  padding-bottom: var(--space-5);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.services-signature[data-reveal].is-visible .services-signature__card { opacity: 1; transform: translateY(0); }
+.services-signature__card:nth-child(1) { transition-delay: 0s; }
+.services-signature__card:nth-child(2) { transition-delay: 0.12s; }
+.services-signature__card:nth-child(3) { transition-delay: 0.24s; }
+.services-signature__card:hover {
+  border-color: var(--gold-solid);
+  box-shadow: 0 10px 28px rgba(10,10,10,0.08);
+}
+.services-signature__image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+}
+.services-signature__image .img-placeholder { transition: transform 0.4s ease-out; }
+.services-signature__card:hover .services-signature__image .img-placeholder { transform: scale(1.05); }
+.services-signature__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold-solid);
+  padding: 4px 10px;
+}
+.services-signature__icon {
+  display: inline-flex;
+  color: var(--gold-solid);
+  margin: 20px var(--space-5) 0;
+}
+.services-signature__icon svg { width: 34px; height: 34px; }
+.services-signature__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin: var(--space-3) var(--space-5) var(--space-2);
+  color: var(--black);
+}
+.services-signature__desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #6b6b6b;
+  font-weight: 300;
+  margin: 0 var(--space-5);
+}
+
+/* prestations d'entretien courant : reveal + stagger (poursuit la
+   temporisation des 3 cartes signature ci-dessus) + légère élévation au
+   survol, en plus du fond doré déjà prévu par .tile-grid__item:hover.
+   5 étant impair, la grille à 2 colonnes par défaut de .tile-grid
+   laisserait une case vide sur mobile : 1 colonne en dessous de 601px. */
+@media (max-width: 600px) {
+  .tile-grid--services { grid-template-columns: 1fr; }
+}
+.tile-grid--services .tile-grid__item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.25s ease, background 0.2s ease;
+}
+.tile-grid--services[data-reveal].is-visible .tile-grid__item { opacity: 1; transform: translateY(0); }
+.tile-grid--services .tile-grid__item:nth-child(1) { transition-delay: 0.3s; }
+.tile-grid--services .tile-grid__item:nth-child(2) { transition-delay: 0.36s; }
+.tile-grid--services .tile-grid__item:nth-child(3) { transition-delay: 0.42s; }
+.tile-grid--services .tile-grid__item:nth-child(4) { transition-delay: 0.48s; }
+.tile-grid--services .tile-grid__item:nth-child(5) { transition-delay: 0.54s; }
+.tile-grid--services .tile-grid__item:hover {
+  box-shadow: 0 8px 20px rgba(10,10,10,0.08);
+  position: relative;
+  z-index: 1;
+}
