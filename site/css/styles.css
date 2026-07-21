@@ -1663,9 +1663,34 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 901px) { .hero--m { min-height: 70vh; } }
 .hero--s { min-height: 360px; }
 @media (min-width: 901px) { .hero--s { min-height: 52vh; } }
-/* variante sans image (Club, quand le visuel est la carte membre elle-même) */
+/* variante sans image (Club, quand le visuel est la carte membre elle-même) :
+   carte à droite, titre/description/CTA à gauche. row-reverse plutôt que
+   d'inverser l'ordre dans le HTML : la carte reste en premier dans le DOM
+   (et donc en haut sur mobile, où les deux colonnes s'empilent), mais
+   s'affiche visuellement à droite dès que la mise en page passe en ligne. */
 .hero--card { justify-content: center; }
-.hero--card .hero__content { max-width: 640px; }
+.hero--card .hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 1100px;
+  text-align: center;
+}
+@media (min-width: 901px) {
+  .hero--card .hero__content {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 64px;
+    text-align: left;
+  }
+}
+.hero--card .hero__text { min-width: 0; }
+@media (min-width: 901px) {
+  .hero--card .hero__text { flex: 1; }
+}
+.hero--card .club-card { flex-shrink: 0; margin: 0; }
 
 /* variante alignée à gauche (Import, Prestige Rent, Detailing Studio,
    Contact) : même conteneur que .pole__row plutôt que le centrage du hero
