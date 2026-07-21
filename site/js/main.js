@@ -13,6 +13,45 @@
     document.fonts.ready.then(updateHeaderHeight);
   }
 
+  // -------------------- Phase 5 du document de finalisation : événements dataLayer (GTM) --------------------
+  // GTM lui-même est un placeholder (voir <head>, ID GTM-XXXXXXX à remplacer) mais
+  // window.dataLayer existe déjà (posé par le snippet GTM) : on peut pousser ces
+  // événements dès maintenant, ils remonteront dans le conteneur réel une fois créé.
+  window.dataLayer = window.dataLayer || [];
+
+  // clics sur les CTA des 3 pôles (accueil, carrousel mobile ou grille desktop/tablette)
+  document.querySelectorAll('[data-gtm-cta="pole"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      window.dataLayer.push({ event: 'pole_cta_click', pole_label: el.getAttribute('data-gtm-pole') || '' });
+    });
+  });
+
+  // clics sur le CTA d'entrée vers la prise de RDV/réservation (Prestige Rent,
+  // Detailing Studio, Club) — pointe aujourd'hui vers le formulaire existant,
+  // vers le widget Cal.com une fois la Phase 8 mise en place, sans changement ici
+  document.querySelectorAll('[data-gtm-cta="rdv"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      window.dataLayer.push({ event: 'rdv_widget_click', page: el.getAttribute('data-gtm-page') || '' });
+    });
+  });
+
+  // clic sur le bouton WhatsApp flottant (présent sur les 7 pages principales)
+  var whatsappFloat = document.querySelector('.whatsapp-float');
+  if (whatsappFloat) {
+    whatsappFloat.addEventListener('click', function () {
+      window.dataLayer.push({ event: 'whatsapp_click' });
+    });
+  }
+
+  // inscription newsletter : composant pas encore posé (Phase 7 du document de
+  // finalisation), ce sélecteur ne matche donc rien pour l'instant — écouteur
+  // posé par anticipation, sans effet tant que .newsletter-form n'existe pas
+  document.querySelectorAll('.newsletter-form').forEach(function (form) {
+    form.addEventListener('submit', function () {
+      window.dataLayer.push({ event: 'newsletter_submit' });
+    });
+  });
+
   // -------------------- hero: entrance animation + scroll parallax --------------------
   var hero = document.getElementById('hero');
   var heroImg = hero ? hero.querySelector('.hero__img') : null;
