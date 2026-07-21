@@ -1690,7 +1690,6 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 901px) {
   .hero--card .hero__text { flex: 1; }
 }
-.hero--card .club-card { flex-shrink: 0; margin: 0; }
 
 /* variante alignée à gauche (Import, Prestige Rent, Detailing Studio,
    Contact) : même conteneur que .pole__row plutôt que le centrage du hero
@@ -1999,35 +1998,63 @@ section[data-reveal-variant="fade-up"].is-visible {
   margin: 0;
 }
 
-/* carte de membre (Club — hero) */
-.club-card {
-  aspect-ratio: 16 / 10;
-  width: 280px;
-  margin: 0 auto 30px;
-  background: linear-gradient(135deg, #2c2c2c 0%, #050505 55%, #1a1a1a 100%);
-  border: 1.5px solid var(--gold-solid);
+/* carte de membre (Club — hero) : même carte que .club-teaser__card de la
+   homepage (chip + ligne icône/label + brand/tier), redéfinie ici plutôt
+   que réutilisée telle quelle car .club-teaser__card est cachée sous
+   1150px sur la homepage (bonus décoratif quand l'espace le permet) — ici
+   la carte est l'élément visuel principal du hero, toujours visible. */
+.club-hero-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 26px;
+  flex-shrink: 0;
+  width: 280px;
+  height: 176px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1c1c1c 0%, #0a0a0a 70%, #050505 100%);
+  border: 1px solid rgba(212,184,118,0.35);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+  transform: rotate(-6deg);
 }
 @media (min-width: 901px) {
-  .club-card { width: 380px; }
+  .club-hero-card { width: 340px; height: 212px; padding: 24px 26px; }
 }
-.club-card__brand {
+.club-hero-card__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-light);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  letter-spacing: 0.15em;
-  color: #8a8a8a;
+  font-size: 16px;
+  letter-spacing: 0.04em;
 }
-.club-card__tier {
+.club-hero-card__top svg { width: 20px; height: 20px; flex-shrink: 0; }
+.club-hero-card__chip {
+  width: 42px;
+  height: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-solid) 100%);
+  opacity: 0.85;
+}
+.club-hero-card__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.club-hero-card__brand {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: #ededea;
+}
+.club-hero-card__tier {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 28px;
-  letter-spacing: 0.12em;
+  font-size: 22px;
+  letter-spacing: 0.1em;
   color: var(--gold-light);
 }
 @media (min-width: 901px) {
-  .club-card__tier { font-size: 36px; }
+  .club-hero-card__tier { font-size: 28px; }
 }
 
 /* piliers sur fond noir (La Vision) */
