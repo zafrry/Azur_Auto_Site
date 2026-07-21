@@ -2628,42 +2628,115 @@ section[data-reveal-variant="fade-up"].is-visible {
   color: var(--gray-3); /* AA sur fond noir (7.04:1) */
 }
 
-/* -------------------- "Trois métiers" : carrousel automatique, entrée droite -> gauche --------------------
-   Section normale du flux de page (plus d'épinglage/scroll-jacking : elle
-   défile comme n'importe quelle autre section). Les panels défilent tout
-   seuls toutes les 3.5s (voir main.js), avec des flèches et des points pour
-   naviguer manuellement à tout moment. Chaque panel est empilé (position:
-   absolute) plutôt qu'aligné en rangée : le panel actif est à translateX(0),
-   les suivants attendent hors-champ à droite (100%), les précédents sont
-   poussés hors-champ à gauche (-100%) — ça fait "entrer" chaque nouveau
-   panel depuis la droite, en douceur et lentement (1.2s). */
+/* -------------------- "Trois métiers" (Phase 3 du document de finalisation) --------------------
+   Desktop (>=1025px) : grille à 3 colonnes simultanée — les 3 métiers sont
+   visibles d'un seul coup d'œil au lieu d'attendre un défilement automatique
+   pour découvrir les deux autres. Cartes courtes (~520px) plutôt que plein
+   écran, même contenu/images/parallax par carte (voir .pole__bg dans
+   main.js). Tablette (601-1024px) : grille 2+1 (2 colonnes en première
+   rangée, 3e carte en pleine largeur juste dessous) plutôt qu'une vraie
+   grille 3 colonnes, trop étroite à cette largeur pour les paragraphes de
+   description (300-450 caractères). Mobile (<=600px) : le carrousel
+   horizontal auto-play d'origine est conservé tel quel (entrée droite ->
+   gauche, flèches + points, voir main.js) — un empilement simultané des 3
+   cartes en plein écran ferait défiler la page sur 3 écrans avant d'atteindre
+   la section suivante, ce que la grille évite justement sur desktop/tablette. */
 .poles-carousel {
-  position: relative; /* conteneur positionné pour .poles-carousel-dots (absolute), qui est en dehors du viewport */
+  position: relative; /* conteneur positionné pour .poles-carousel-dots (absolute) en mode mobile */
 }
 .poles-carousel-viewport {
   position: relative;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
   background: var(--black);
 }
 .poles-carousel-track {
   position: relative;
-  height: 100%;
 }
-.poles-carousel-track .pole {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  transform: translateX(100%);
-  /* easeInOutQuint (symétrique) plutôt que easeOutExpo : cette dernière
-     parcourt l'essentiel de la distance dans les 200 premières ms puis
-     ralentit à peine perceptiblement sur le reste de la durée, ce qui se
-     lit comme un "à-coup" suivi d'une pause plutôt que comme un mouvement
-     lent et régulier. */
-  transition: transform 1.2s cubic-bezier(0.83,0,0.17,1);
-  will-change: transform;
+
+/* ---- mobile (<=600px) : carrousel plein écran d'origine, panels empilés ---- */
+@media (max-width: 600px) {
+  .poles-carousel-viewport {
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .poles-carousel-track {
+    height: 100%;
+  }
+  .poles-carousel-track .pole {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    transform: translateX(100%);
+    /* easeInOutQuint (symétrique) plutôt que easeOutExpo : cette dernière
+       parcourt l'essentiel de la distance dans les 200 premières ms puis
+       ralentit à peine perceptiblement sur le reste de la durée, ce qui se
+       lit comme un "à-coup" suivi d'une pause plutôt que comme un mouvement
+       lent et régulier. */
+    transition: transform 1.2s cubic-bezier(0.83,0,0.17,1);
+    will-change: transform;
+  }
+  /* le carrousel ne défile plus jamais tout seul (voir matchMedia dans
+     main.js), et le changement de panel via les flèches/points devient
+     instantané plutôt qu'animé */
+  @media (prefers-reduced-motion: reduce) {
+    .poles-carousel-track .pole {
+      transition: none !important;
+    }
+  }
 }
+
+/* ---- tablette + desktop (>=601px) : grille simultanée, plus de carrousel ---- */
+@media (min-width: 601px) {
+  .poles-carousel-track {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+  .poles-carousel-track .pole {
+    height: 520px;
+  }
+  /* 3e carte ("Detailing Studio") en pleine largeur sous les 2 premières :
+     grille 2+1 propre à la tablette, voir commentaire plus haut */
+  .poles-carousel-track .pole:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  /* padding réduit par rapport au carrousel mobile : plus besoin de dégager
+     l'empreinte des flèches (masquées ci-dessous), et les cartes sont
+     désormais bien plus étroites qu'un panel plein écran */
+  .poles-carousel-track .pole__row {
+    padding: 0 32px;
+  }
+}
+@media (min-width: 1025px) {
+  .poles-carousel-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .poles-carousel-track .pole:nth-child(3) {
+    grid-column: auto;
+  }
+  /* colonnes ~3x plus étroites qu'en tablette (2 colonnes) : le texte le plus
+     long (Import, ~430 caractères) enchaîne alors trop de lignes pour tenir
+     dans une carte de 520px avec la taille de description standard — sans
+     ce resserrement, le contenu centré verticalement déborde de .pole
+     (overflow:hidden) et rogne le kicker en haut de carte plutôt que du
+     texte en bas, un défaut bien plus visible (la carte perd son étiquette
+     de catégorie). Carte légèrement plus haute (560px, toujours dans la
+     fourchette ~480-560px demandée) + description compactée : la marge
+     obtenue absorbe la carte la plus chargée sans effet perceptible sur les
+     deux autres, plus courtes. */
+  .poles-carousel-track .pole {
+    height: 560px;
+  }
+  .poles-carousel-track .pole__title {
+    margin-bottom: 16px;
+  }
+  .poles-carousel-track .pole__desc {
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+}
+
 .poles-carousel-arrow {
   position: absolute;
   top: 50%;
@@ -2714,13 +2787,14 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (max-width: 767px) {
   .poles-carousel-dots { bottom: 16px; }
 }
-
-/* prefers-reduced-motion : le carrousel ne défile plus jamais tout seul
-   (voir main.js), et le changement de panel via les flèches/points devient
-   instantané plutôt qu'animé */
-@media (prefers-reduced-motion: reduce) {
-  .poles-carousel-track .pole {
-    transition: none !important;
+/* flèches/points de navigation : plus de sens en grille tablette/desktop où
+   les 3 métiers sont déjà tous visibles simultanément — cette règle doit
+   rester après les déclarations de base ci-dessus (même spécificité) pour
+   l'emporter dans la cascade */
+@media (min-width: 601px) {
+  .poles-carousel-arrow,
+  .poles-carousel-dots {
+    display: none;
   }
 }
 
