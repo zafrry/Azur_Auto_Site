@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zafrry.github.io/Azur_Auto_Site/sitemap.xml
