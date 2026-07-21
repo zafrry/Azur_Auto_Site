@@ -2898,11 +2898,16 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 /* -------------------- hero : espace entre description et CTA --------------------
    .hero--left est partagé (Import/Prestige Rent/Detailing Studio/Contact) et
-   met sciemment le margin-bottom du sous-titre à 0. Restauré uniquement sur
-   Import : les deux blocs (texte, boutons) se touchaient sans air entre eux. */
-.page-import .hero--left .hero__subtitle { margin-bottom: 40px; }
+   met sciemment le margin-bottom du sous-titre à 0. Restauré sur Import,
+   Prestige Rent et Detailing Studio : les deux blocs (texte, boutons) se
+   touchaient sans air entre eux. */
+.page-import .hero--left .hero__subtitle,
+.page-prestige-rent .hero--left .hero__subtitle,
+.page-detailing-studio .hero--left .hero__subtitle { margin-bottom: 40px; }
 @media (min-width: 901px) {
-  .page-import .hero--left .hero__subtitle { margin-bottom: 48px; }
+  .page-import .hero--left .hero__subtitle,
+  .page-prestige-rent .hero--left .hero__subtitle,
+  .page-detailing-studio .hero--left .hero__subtitle { margin-bottom: 48px; }
 }
 
 /* -------------------- "Marques représentées" : vrais logos --------------------
