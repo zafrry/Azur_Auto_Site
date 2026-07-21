@@ -200,13 +200,21 @@
       return ((clientX - rect.left) / rect.width) * 100;
     }
 
+    // en version web (souris), le curseur suit le survol directement, sans
+    // clic ni maintien. Au tactile (pas de "survol"), il faut faire glisser
+    // le doigt : on garde donc le clic/maintien pour pointerType 'touch'/'pen'.
     var dragging = false;
     pair.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
       dragging = true;
       if (pair.setPointerCapture) pair.setPointerCapture(e.pointerId);
       setPos(percentFromClientX(e.clientX));
     });
     pair.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'mouse') {
+        setPos(percentFromClientX(e.clientX));
+        return;
+      }
       if (!dragging) return;
       setPos(percentFromClientX(e.clientX));
     });
