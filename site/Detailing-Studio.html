@@ -144,18 +144,62 @@
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title">Prestations</h2>
+        <p class="section-subtitle">Des gestes d'entretien courant aux protections les plus techniques, huit prestations pensées pour préserver et sublimer votre véhicule.</p>
       </div>
-      <div class="tile-grid tile-grid--4">
+
+      <!-- prestations signature : traitement plus large (image + gabarit fleet-card),
+           les 3 services à plus forte valeur plutôt qu'une grille strictement égalitaire -->
+      <div class="services-signature" data-reveal>
+        <div class="services-signature__card">
+          <div class="services-signature__image">
+            <!-- alt prévu une fois les photos intégrées : "Protection céramique, brillance sur carrosserie noire" -->
+            <div class="img-placeholder" data-caption="AVANT / APRÈS · PROTECTION CÉRAMIQUE"></div>
+            <span class="services-signature__badge">Signature</span>
+          </div>
+          <span class="services-signature__icon" role="img" aria-label="Protection céramique">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6.5v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5v-5Z"/></svg>
+          </span>
+          <h3 class="services-signature__title">Protection céramique</h3>
+          <p class="services-signature__desc">Une brillance durable et une protection contre les UV, la pluie acide et les rayures légères.</p>
+        </div>
+        <div class="services-signature__card">
+          <div class="services-signature__image">
+            <!-- alt prévu une fois les photos intégrées : "Pose de film de protection PPF sur bouclier avant" -->
+            <div class="img-placeholder" data-caption="AVANT / APRÈS · PPF"></div>
+            <span class="services-signature__badge">Signature</span>
+          </div>
+          <span class="services-signature__icon" role="img" aria-label="PPF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>
+          </span>
+          <h3 class="services-signature__title">PPF</h3>
+          <p class="services-signature__desc">Un film transparent qui absorbe les impacts et les éclats de gravillons.</p>
+        </div>
+        <div class="services-signature__card">
+          <div class="services-signature__image">
+            <!-- alt prévu une fois les photos intégrées : "Covering intégral d'un véhicule, teinte mate" -->
+            <div class="img-placeholder" data-caption="AVANT / APRÈS · COVERING"></div>
+            <span class="services-signature__badge">Signature</span>
+          </div>
+          <span class="services-signature__icon" role="img" aria-label="Covering">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><path d="M3 8 7 4h10l4 4"/></svg>
+          </span>
+          <h3 class="services-signature__title">Covering</h3>
+          <p class="services-signature__desc">Change ou protège la couleur de votre véhicule, sans toucher à la peinture d'origine.</p>
+        </div>
+      </div>
+
+      <!-- prestations d'entretien courant : gabarit plus compact, sans image -->
+      <div class="tile-grid tile-grid--5 tile-grid--services" data-reveal>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Lavage premium">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M4 12v6h16v-6"/><line x1="8" y1="18" x2="8" y2="21"/><line x1="16" y1="18" x2="16" y2="21"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-6 8-6 11.5A6 6 0 0 0 12 21a6 6 0 0 0 6-6.5C18 11 15 7 12 3Z"/></svg>
           </span>
           <div class="tile-grid__label">Lavage premium</div>
           <p class="tile-grid__desc">Un nettoyage intérieur et extérieur professionnel, avant toute autre prestation.</p>
         </div>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Polish">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 13.8 9.2 20 11 13.8 12.8 12 19 10.2 12.8 4 11 10.2 9.2 12 3Z"/></svg>
           </span>
           <div class="tile-grid__label">Polish</div>
           <p class="tile-grid__desc">Redonne éclat et profondeur à la peinture sans l'agresser.</p>
@@ -166,27 +210,6 @@
           </span>
           <div class="tile-grid__label">Correction de peinture</div>
           <p class="tile-grid__desc">Élimine les micro-rayures et défauts visibles de la carrosserie.</p>
-        </div>
-        <div class="tile-grid__item tile-grid__item--left">
-          <span class="numbered-list__icon" role="img" aria-label="Protection céramique">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6.5v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5v-5Z"/></svg>
-          </span>
-          <div class="tile-grid__label">Protection céramique</div>
-          <p class="tile-grid__desc">Une brillance durable et une protection contre les UV, la pluie acide et les rayures légères.</p>
-        </div>
-        <div class="tile-grid__item tile-grid__item--left">
-          <span class="numbered-list__icon" role="img" aria-label="PPF">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16"/></svg>
-          </span>
-          <div class="tile-grid__label">PPF</div>
-          <p class="tile-grid__desc">Un film transparent qui absorbe les impacts et les éclats de gravillons.</p>
-        </div>
-        <div class="tile-grid__item tile-grid__item--left">
-          <span class="numbered-list__icon" role="img" aria-label="Covering">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><path d="M3 8 7 4h10l4 4"/></svg>
-          </span>
-          <div class="tile-grid__label">Covering</div>
-          <p class="tile-grid__desc">Change ou protège la couleur de votre véhicule, sans toucher à la peinture d'origine.</p>
         </div>
         <div class="tile-grid__item tile-grid__item--left">
           <span class="numbered-list__icon" role="img" aria-label="Préparation avant-vente">
