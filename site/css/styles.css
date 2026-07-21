@@ -3207,14 +3207,11 @@ section[data-reveal-variant="fade-up"].is-visible {
   border-color: var(--gold-solid);
   box-shadow: 0 10px 28px rgba(10,10,10,0.08);
 }
-.services-signature__image {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  margin-bottom: var(--space-4);
-  overflow: hidden;
-}
-.services-signature__image .img-placeholder { transition: transform 0.4s ease-out; }
-.services-signature__card:hover .services-signature__image .img-placeholder { transform: scale(1.05); }
+/* le curseur avant/après (.before-after__pair, même composant que la
+   section "Avant / après" plus bas sur la page) définit lui-même son
+   aspect-ratio et son overflow : ce wrapper ne sert qu'à positionner le
+   badge "Signature" par-dessus. */
+.services-signature__image { position: relative; margin-bottom: var(--space-4); }
 .services-signature__badge {
   position: absolute;
   top: 12px;
