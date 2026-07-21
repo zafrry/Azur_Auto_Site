@@ -3003,6 +3003,51 @@ section[data-reveal-variant="fade-up"].is-visible {
   .destinations-tabs__grid > div { width: calc(25% - 15px); }
 }
 
+/* carrousel manuel (flèches, pas de défilement automatique) : uniquement
+   pour les onglets qui dépassent 4 destinations (France) — activé en JS
+   via .is-carousel sur .destinations-tabs__grid quand children.length > 4 */
+.destinations-tabs__carousel { position: relative; }
+.destinations-tabs__grid.is-carousel {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.destinations-tabs__grid.is-carousel::-webkit-scrollbar { display: none; }
+.destinations-tabs__grid.is-carousel > div {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+.destinations-tabs__arrow {
+  display: none;
+}
+@media (min-width: 901px) {
+  .destinations-tabs__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(10,10,10,0.15);
+    background: #ffffff;
+    color: var(--black);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    appearance: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .destinations-tabs__arrow:hover { border-color: var(--gold-solid); color: var(--gold-solid); }
+  .destinations-tabs__arrow--prev { left: -22px; }
+  .destinations-tabs__arrow--next { right: -22px; }
+}
+
 /* -------------------- "Une expérience sur-mesure" : retrait des numéros --------------------
    Sur-mesure / Présence internationale / Avec ou sans chauffeur sont 3
    caractéristiques indépendantes, pas des étapes séquentielles — les divs

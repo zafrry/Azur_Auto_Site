@@ -159,6 +159,33 @@
         });
       });
     });
+
+    // carrousel manuel (flèches) pour les onglets à plus de 4 destinations
+    destinationsTabs.querySelectorAll('.destinations-tabs__grid').forEach(function (grid) {
+      if (grid.children.length <= 4) return;
+      grid.classList.add('is-carousel');
+
+      var wrap = document.createElement('div');
+      wrap.className = 'destinations-tabs__carousel';
+      grid.parentNode.insertBefore(wrap, grid);
+      wrap.appendChild(grid);
+
+      ['prev', 'next'].forEach(function (dir) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'destinations-tabs__arrow destinations-tabs__arrow--' + dir;
+        btn.setAttribute('aria-label', dir === 'prev' ? 'Destination précédente' : 'Destination suivante');
+        btn.innerHTML = dir === 'prev' ? '&#8249;' : '&#8250;';
+        btn.addEventListener('click', function () {
+          var card = grid.querySelector(':scope > div');
+          if (!card) return;
+          var gap = parseFloat(getComputedStyle(grid).columnGap) || 20;
+          var step = card.getBoundingClientRect().width + gap;
+          grid.scrollBy({ left: dir === 'prev' ? -step : step, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        });
+        wrap.appendChild(btn);
+      });
+    });
   }
 
   // -------------------- stats: count-up au scroll --------------------
