@@ -28,8 +28,23 @@
   --black-alt: #1c1c1c; /* fusionne #1c1c1c/#1e1e1e (2 unités d'écart, imperceptible) */
   --gold-dark: #866824; /* état repos de .btn--primary, contraste 5.22:1 vérifié — ne pas fusionner avec le hover */
 
-  --header-nav-breakpoint: 1200px;
-  --layout-breakpoint: 900px;
+  /* Breakpoints du projet (Phase 2 du document de finalisation) — ne pas
+     introduire de nouvelle valeur de @media sans l'ajouter ici :
+       mobile   : max-width: 600px
+       tablette : 601px – 1024px
+       desktop  : min-width: 1025px
+     Les variables --header-nav-breakpoint/--layout-breakpoint qui existaient
+     ici ont été retirées : déclarées mais jamais consommées via var() (les
+     media queries ne peuvent pas interpoler une custom property), elles
+     n'avaient donc aucun effet réel — ce commentaire les remplace comme
+     unique source de vérité. La plupart des @media du fichier ont déjà été
+     consolidés sur ces 3 paliers (601px, 1024px/1025px, 600px). Quelques
+     valeurs restent volontairement en dehors du système : 901px/769px/767px
+     (paliers dominants utilisés par dizaines de règles de mise en page,
+     consolidation à fort risque de régression sans campagne de test dédiée),
+     1199px (bascule nav desktop → burger menu, idem), 1150px et 1400px
+     (seuils fins propres au club-teaser, déjà documentés sur place), 480px
+     (retouche fine mobile). */
 
   /* échelle de timing unique (Phase 2 du document de finalisation) : 4
      paliers de durée + la courbe déjà utilisée 23 fois dans le fichier,
@@ -1097,7 +1112,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   margin: 0 0 34px 0;
   max-width: 460px;
 }
-@media (min-width: 640px) {
+@media (min-width: 601px) {
   .club-teaser__avantages { grid-template-columns: repeat(3, 1fr); }
 }
 /* blanc cassé plutôt que doré : la section a déjà le badge "Azur Club" (kicker
@@ -1155,7 +1170,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   max-width: 960px;
   margin: 0 auto;
 }
-@media (min-width: 701px) {
+@media (min-width: 601px) {
   .coverage__groups {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
