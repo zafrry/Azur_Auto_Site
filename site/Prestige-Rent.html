@@ -57,7 +57,7 @@
 }
 </script>
 </head>
-<body>
+<body class="page-prestige-rent">
 
 <!-- HEADER -->
 <header class="site-header" id="site-header">
@@ -143,99 +143,108 @@
   </nav>
 
   <!-- DESTINATIONS -->
+  <!-- TODO: descriptions des destinations à valider avec le client (copywriting provisoire) -->
   <section class="page-section" id="destinations">
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title">Destinations</h2>
+        <p class="section-subtitle">13 villes, 4 pays : sélectionnez une destination pour découvrir l'expérience Azur Prestige Rent sur place.</p>
       </div>
-      <!-- TODO: descriptions des 6 nouvelles destinations à valider avec le client (copywriting provisoire) -->
-      <div class="destinations__group">
-        <h3 class="kicker kicker--gray destinations__country">France</h3>
-        <div class="gallery-grid gallery-grid--4">
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · CANNES, PROMENADE"></div>
+      <div class="destinations-tabs">
+        <div class="destinations-tabs__nav" role="tablist" aria-label="Filtrer les destinations par pays">
+          <button type="button" class="destinations-tabs__btn is-active" role="tab" aria-selected="true" aria-controls="dest-france" id="tab-france">France <span class="destinations-tabs__count">5</span></button>
+          <button type="button" class="destinations-tabs__btn" role="tab" aria-selected="false" aria-controls="dest-maroc" id="tab-maroc" tabindex="-1">Maroc <span class="destinations-tabs__count">3</span></button>
+          <button type="button" class="destinations-tabs__btn" role="tab" aria-selected="false" aria-controls="dest-suisse" id="tab-suisse" tabindex="-1">Suisse <span class="destinations-tabs__count">1</span></button>
+          <button type="button" class="destinations-tabs__btn" role="tab" aria-selected="false" aria-controls="dest-espagne" id="tab-espagne" tabindex="-1">Espagne <span class="destinations-tabs__count">1</span></button>
+        </div>
+
+        <div class="destinations-tabs__panel is-active" id="dest-france" role="tabpanel" aria-labelledby="tab-france">
+          <div class="gallery-grid gallery-grid--4 destinations-tabs__grid">
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · CANNES, PROMENADE"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Cannes</h3>
+              <p class="gallery-grid__desc">Festival, Croisette, soirées de gala : une arrivée à la hauteur de l'événement.</p>
             </div>
-            <h3 class="gallery-grid__caption">Cannes</h3>
-            <p class="gallery-grid__desc">Festival, Croisette, soirées de gala : une arrivée à la hauteur de l'événement.</p>
-          </div>
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · MONACO, PORT"></div>
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · MONACO, PORT"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Monaco</h3>
+              <p class="gallery-grid__desc">Casino, Grand Prix, port Hercule : le prestige comme standard.</p>
             </div>
-            <h3 class="gallery-grid__caption">Monaco</h3>
-            <p class="gallery-grid__desc">Casino, Grand Prix, port Hercule : le prestige comme standard.</p>
-          </div>
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · SAINT-TROPEZ"></div>
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · SAINT-TROPEZ"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Saint-Tropez</h3>
+              <p class="gallery-grid__desc">Plages, marina, vie nocturne : l'élégance décontractée du Golfe.</p>
             </div>
-            <h3 class="gallery-grid__caption">Saint-Tropez</h3>
-            <p class="gallery-grid__desc">Plages, marina, vie nocturne : l'élégance décontractée du Golfe.</p>
-          </div>
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · COURCHEVEL, NEIGE"></div>
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · COURCHEVEL, NEIGE"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Courchevel</h3>
+              <p class="gallery-grid__desc">Montagne, chalets, conduite hivernale : chauffeur privé recommandé sur place.</p>
             </div>
-            <h3 class="gallery-grid__caption">Courchevel</h3>
-            <p class="gallery-grid__desc">Montagne, chalets, conduite hivernale : chauffeur privé recommandé sur place.</p>
-          </div>
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · AIX-EN-PROVENCE"></div>
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · AIX-EN-PROVENCE"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Aix-en-Provence</h3>
+              <p class="gallery-grid__desc">Le charme provençal, à deux pas de la Côte d'Azur.</p>
             </div>
-            <h3 class="gallery-grid__caption">Aix-en-Provence</h3>
-            <p class="gallery-grid__desc">Le charme provençal, à deux pas de la Côte d'Azur.</p>
           </div>
         </div>
-      </div>
-      <div class="destinations__group">
-        <h3 class="kicker kicker--gray destinations__country">Maroc</h3>
-        <div class="gallery-grid gallery-grid--4">
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · RABAT"></div>
+
+        <div class="destinations-tabs__panel" id="dest-maroc" role="tabpanel" aria-labelledby="tab-maroc" hidden>
+          <div class="gallery-grid gallery-grid--4 destinations-tabs__grid">
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · RABAT"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Rabat</h3>
+              <p class="gallery-grid__desc">Capitale du Royaume, entre institutions et art de vivre.</p>
             </div>
-            <h3 class="gallery-grid__caption">Rabat</h3>
-            <p class="gallery-grid__desc">Capitale du Royaume, entre institutions et art de vivre.</p>
-          </div>
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · CASABLANCA"></div>
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · CASABLANCA"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Casablanca</h3>
+              <p class="gallery-grid__desc">Métropole économique et vie nocturne, pour vos déplacements d'affaires ou de prestige.</p>
             </div>
-            <h3 class="gallery-grid__caption">Casablanca</h3>
-            <p class="gallery-grid__desc">Métropole économique et vie nocturne, pour vos déplacements d'affaires ou de prestige.</p>
-          </div>
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · MARRAKECH"></div>
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · MARRAKECH"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Marrakech</h3>
+              <p class="gallery-grid__desc">Palaces, golfs et médina : une arrivée à la hauteur de la ville ocre.</p>
             </div>
-            <h3 class="gallery-grid__caption">Marrakech</h3>
-            <p class="gallery-grid__desc">Palaces, golfs et médina : une arrivée à la hauteur de la ville ocre.</p>
-          </div>
-        </div>
-      </div>
-      <div class="destinations__group">
-        <h3 class="kicker kicker--gray destinations__country">Suisse</h3>
-        <div class="gallery-grid gallery-grid--4">
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · GENÈVE"></div>
-            </div>
-            <h3 class="gallery-grid__caption">Genève</h3>
-            <p class="gallery-grid__desc">Diplomatie, horlogerie et lac Léman : l'élégance suisse par excellence.</p>
           </div>
         </div>
-      </div>
-      <div class="destinations__group">
-        <h3 class="kicker kicker--gray destinations__country">Espagne</h3>
-        <div class="gallery-grid gallery-grid--4">
-          <div>
-            <div class="gallery-grid__image gallery-grid__image--wide">
-              <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · MARBELLA"></div>
+
+        <div class="destinations-tabs__panel" id="dest-suisse" role="tabpanel" aria-labelledby="tab-suisse" hidden>
+          <div class="gallery-grid gallery-grid--4 destinations-tabs__grid">
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · GENÈVE"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Genève</h3>
+              <p class="gallery-grid__desc">Diplomatie, horlogerie et lac Léman : l'élégance suisse par excellence.</p>
             </div>
-            <h3 class="gallery-grid__caption">Marbella</h3>
-            <p class="gallery-grid__desc">Puerto Banús, plages et vie nocturne : le glamour de la Costa del Sol.</p>
+          </div>
+        </div>
+
+        <div class="destinations-tabs__panel" id="dest-espagne" role="tabpanel" aria-labelledby="tab-espagne" hidden>
+          <div class="gallery-grid gallery-grid--4 destinations-tabs__grid">
+            <div>
+              <div class="gallery-grid__image gallery-grid__image--wide">
+                <div class="img-placeholder img-placeholder--light" data-caption="PHOTO · MARBELLA"></div>
+              </div>
+              <h3 class="gallery-grid__caption">Marbella</h3>
+              <p class="gallery-grid__desc">Puerto Banús, plages et vie nocturne : le glamour de la Costa del Sol.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -257,7 +266,6 @@
             <span class="numbered-list__icon" role="img" aria-label="Sur-mesure">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="7" cy="18" r="2" fill="currentColor" stroke="none"/></svg>
             </span>
-            <div class="numbered-list__num">01</div>
           </div>
           <div>
             <h3 class="numbered-list__title">Sur-mesure</h3>
@@ -269,7 +277,6 @@
             <span class="numbered-list__icon" role="img" aria-label="Présence internationale">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg>
             </span>
-            <div class="numbered-list__num">02</div>
           </div>
           <div>
             <h3 class="numbered-list__title">Présence internationale</h3>
@@ -281,7 +288,6 @@
             <span class="numbered-list__icon" role="img" aria-label="Avec ou sans chauffeur">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="4" x2="12" y2="10"/><line x1="6.3" y1="16" x2="10.5" y2="13.2"/><line x1="17.7" y1="16" x2="13.5" y2="13.2"/></svg>
             </span>
-            <div class="numbered-list__num">03</div>
           </div>
           <div>
             <h3 class="numbered-list__title">Avec ou sans chauffeur</h3>
@@ -427,7 +433,7 @@
   </section>
 
   <!-- CHIFFRES CLÉS -->
-  <section class="social-proof page-section--alt" data-reveal data-reveal-variant="fade-up">
+  <section class="social-proof" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="social-proof__stats">
         <div class="social-proof__stat">
@@ -455,20 +461,20 @@
     <div class="section-inner">
       <div class="section-head">
         <div class="kicker kicker--gray">Témoignages</div>
-        <h2 class="section-title">Ils nous ont fait confiance</h2>
+        <h2 class="section-title section-title--light">Ils nous ont fait confiance</h2>
       </div>
       <div class="social-proof__testimonials">
         <blockquote class="social-proof__testimonial">
-          <p>« [Témoignage client sur une expérience de location : mariage, tournage, ou soirée.] »</p>
-          <cite>— [Prénom], [Occasion], [Destination]</cite>
+          <p>« Le véhicule est arrivé exactement à l'heure convenue, chauffeur impeccable : une vraie tranquillité d'esprit le jour de notre mariage. »</p>
+          <cite>C. D., Mariage, Saint-Tropez</cite>
         </blockquote>
         <blockquote class="social-proof__testimonial">
-          <p>« [Témoignage client sur une expérience de location : mariage, tournage, ou soirée.] »</p>
-          <cite>— [Prénom], [Occasion], [Destination]</cite>
+          <p>« Disponibilité totale pour notre tournage, un changement de dernière minute géré sans aucun souci. »</p>
+          <cite>P. M., Tournage, Monaco</cite>
         </blockquote>
         <blockquote class="social-proof__testimonial">
-          <p>« [Témoignage client sur une expérience de location : mariage, tournage, ou soirée.] »</p>
-          <cite>— [Prénom], [Occasion], [Destination]</cite>
+          <p>« Une arrivée remarquée pour notre soirée privée à Marrakech, un service haut de gamme du début à la fin. »</p>
+          <cite>L. R., Soirée privée, Marrakech</cite>
         </blockquote>
       </div>
     </div>

@@ -136,6 +136,31 @@
     });
   });
 
+  // -------------------- Prestige Rent : onglets destinations --------------------
+  var destinationsTabs = document.querySelector('.destinations-tabs');
+  if (destinationsTabs) {
+    var destTabButtons = destinationsTabs.querySelectorAll('.destinations-tabs__btn');
+    destTabButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.classList.contains('is-active')) return;
+        destTabButtons.forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+          b.setAttribute('tabindex', '-1');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('tabindex', '0');
+
+        destinationsTabs.querySelectorAll('.destinations-tabs__panel').forEach(function (panel) {
+          var isTarget = panel.id === btn.getAttribute('aria-controls');
+          panel.hidden = !isTarget;
+          panel.classList.toggle('is-active', isTarget);
+        });
+      });
+    });
+  }
+
   // -------------------- stats: count-up au scroll --------------------
   function countUp(el, target, duration) {
     if (prefersReducedMotion) { el.textContent = target + '+'; return; }

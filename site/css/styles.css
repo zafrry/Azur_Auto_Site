@@ -2930,3 +2930,104 @@ section[data-reveal-variant="fade-up"].is-visible {
   object-fit: cover;
   display: block;
 }
+
+/* ==========================================================================
+   PRESTIGE RENT — ajustements propres à la page (scopés .page-prestige-rent
+   sauf .destinations-tabs, exclusif à cette page)
+   ========================================================================== */
+
+/* -------------------- "Destinations" : onglets par pays + destination phare --------------------
+   9 cartes identiques empilées sous 4 groupes pays (France/Maroc/Suisse/
+   Espagne) lisaient plat et répétitif. Un système d'onglets affiche un seul
+   pays à la fois (plus de 4 groupes empilés verticalement), et dans chaque
+   panneau la première destination (ou l'unique, pour Suisse/Espagne) est
+   mise en avant en grand format plutôt que des cartes toutes identiques —
+   les deux pistes proposées combinées plutôt qu'un choix exclusif. Pas de
+   JS custom : main.js gère le show/hide (voir "Prestige Rent : onglets
+   destinations"), sur le même principe que l'accordéon FAQ déjà en place. */
+.destinations-tabs__nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  border-bottom: 1px solid rgba(10,10,10,0.1);
+  margin-bottom: var(--space-7);
+}
+.destinations-tabs__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  padding: 0 0 var(--space-4);
+  margin-bottom: -1px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.destinations-tabs__btn:hover { color: var(--black); }
+.destinations-tabs__btn.is-active {
+  color: var(--black);
+  border-bottom-color: var(--gold-solid);
+}
+.destinations-tabs__count {
+  font-size: 10px;
+  color: #b0b0b0;
+  margin-left: 2px;
+}
+.destinations-tabs__btn.is-active .destinations-tabs__count { color: var(--gold-solid); }
+.destinations-tabs__panel[hidden] { display: none; }
+
+.destinations-tabs__grid > div:first-child {
+  grid-column: span 2;
+}
+.destinations-tabs__grid > div:only-child {
+  grid-column: 1 / -1;
+}
+@media (min-width: 901px) {
+  .destinations-tabs__grid > div:only-child .gallery-grid__image--wide { aspect-ratio: 21 / 9; }
+}
+
+/* -------------------- "Une expérience sur-mesure" : retrait des numéros --------------------
+   Sur-mesure / Présence internationale / Avec ou sans chauffeur sont 3
+   caractéristiques indépendantes, pas des étapes séquentielles — les divs
+   .numbered-list__num (01/02/03) ont été retirées du HTML ; l'icône seule
+   suffit à identifier chaque point. */
+
+/* -------------------- "Chiffres clés" + "Témoignages" : passage sombre --------------------
+   Même traitement que l'accueil (Vision/Avis/Stats) et Import (Chiffres
+   clés/Témoignages) : les deux sections, déjà adjacentes et déjà toutes
+   deux .social-proof, passent sur un même aplat noir plutôt que deux blocs
+   visuellement déconnectés (l'un clair, l'autre par-dessus). Scopé à
+   .page-prestige-rent pour ne pas toucher .social-proof sur les autres
+   pages qui partagent la classe. */
+.page-prestige-rent .social-proof { background: var(--black); }
+.page-prestige-rent .social-proof__testimonial {
+  padding: 0;
+  background: none;
+  border: none;
+}
+.page-prestige-rent .social-proof__testimonial p {
+  font-size: 19px;
+  line-height: 1.6;
+  color: #ededea;
+}
+.page-prestige-rent .social-proof__testimonial cite {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9a;
+}
+.page-prestige-rent .social-proof__testimonial cite::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-solid);
+  flex-shrink: 0;
+}
+.page-prestige-rent .social-proof__stat-label { color: #9a9a9a; }
