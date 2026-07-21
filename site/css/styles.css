@@ -2207,6 +2207,7 @@ section[data-reveal-variant="fade-up"].is-visible {
 .step-list__item { position: relative; z-index: 1; }
 .step-list__icon {
   display: inline-flex;
+  align-self: center;
   color: var(--gold-solid);
   margin-bottom: var(--space-2);
 }
