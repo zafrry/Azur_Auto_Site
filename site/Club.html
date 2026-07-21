@@ -140,12 +140,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <h1 class="hero__title">Un statut, pas une carte de fidélité</h1>
         <p class="hero__subtitle">Le programme de fidélité automobile de luxe d'Azur Auto : chaque achat, chaque prestation, chaque location cumule des points, utilisables sur l'ensemble des pôles AZUR.</p>
         <div class="hero__cta-group">
-          <a href="#devenir-membre" class="btn btn--primary" data-gtm-cta="rdv" data-gtm-page="Club">Devenir membre</a>
+          <a href="#devenir-membre" class="btn btn--primary" data-gtm-cta="rdv" data-gtm-page="Club" data-cal-link="azurauto/devenir-membre" data-cal-namespace="devenir-membre" data-cal-config='{"layout":"month_view"}'>Devenir membre</a>
           <a href="https://wa.me/33600000000" class="btn btn--outline-gold">Appeler / WhatsApp</a>
         </div>
+        <!-- repli si JS désactivé (widget Cal.com inopérant sans JS) : même
+             style de bouton que "Devenir membre", vers un contact direct -->
+        <noscript>
+          <div class="hero__cta-group">
+            <a href="mailto:conciergerie@azurauto.com" class="btn btn--primary">Nous écrire pour devenir membre</a>
+          </div>
+        </noscript>
       </div>
     </div>
   </section>
+
+  <!-- TODO (Phase 8, widget de prise de RDV) : dé-commenter l'init Cal.com
+       ci-dessous une fois un compte réel créé (remplacer "azurauto/devenir-
+       membre" ci-dessus et "devenir-membre" ci-dessous par le vrai calLink).
+       Le bouton "Devenir membre" porte déjà les attributs data-cal-*
+       nécessaires : tant que ce script reste commenté, le bouton continue de
+       fonctionner exactement comme aujourd'hui (ancre vers le formulaire
+       existant plus bas sur la page) — ce comportement sert volontairement
+       de repli, pas seulement en <noscript>, le temps que Cal.com ne soit
+       pas branché. -->
+  <!--
+  <script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "devenir-membre", {origin:"https://cal.com"});
+    Cal.ns["devenir-membre"]("ui", {"styles":{"branding":{"brandColor":"#A8832E"}},"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+  -->
 
   <!-- RÉASSURANCE -->
   <section class="reassurance">
