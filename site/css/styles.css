@@ -2047,15 +2047,6 @@ section[data-reveal-variant="fade-up"].is-visible {
   letter-spacing: 0.16em;
   color: #ededea;
 }
-.club-hero-card__tier {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  letter-spacing: 0.1em;
-  color: var(--gold-light);
-}
-@media (min-width: 901px) {
-  .club-hero-card__tier { font-size: 28px; }
-}
 
 /* piliers sur fond noir (La Vision) */
 .pillars {
