@@ -355,6 +355,39 @@
     subnavPairs.forEach(function (pair) { subnavObserver.observe(pair.target); });
   }
 
+  // -------------------- sous-navigation : masquée au scroll vers le bas --------------------
+  // le header fixe + la sous-navigation sticky empilés grignotent une hauteur
+  // importante au-dessus du contenu (ex. carrousel "Trois métiers" juste
+  // après) ; masquer la sous-nav dès qu'on scrolle vers le bas ne laisse plus
+  // que le header, et la faire réapparaître au premier scroll vers le haut
+  // la garde accessible sans revenir tout en haut de la page.
+  var subnavEl = document.querySelector('.subnav');
+  if (subnavEl) {
+    // capturé une seule fois, avant que l'élément ne devienne "stuck" : une
+    // fois épinglé par position:sticky, offsetTop suit la position de scroll
+    // au lieu de rester sa position d'origine dans le flux (comportement de
+    // Chromium), donc le relire à chaque scroll casserait la comparaison.
+    var subnavFlowOffsetTop = subnavEl.offsetTop;
+    var subnavLastY = window.scrollY;
+    var subnavTicking = false;
+    function updateSubnavVisibility() {
+      var currentY = window.scrollY;
+      if (currentY > subnavLastY && currentY > subnavFlowOffsetTop) {
+        subnavEl.classList.add('is-hidden');
+      } else {
+        subnavEl.classList.remove('is-hidden');
+      }
+      subnavLastY = currentY;
+      subnavTicking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!subnavTicking) {
+        requestAnimationFrame(updateSubnavVisibility);
+        subnavTicking = true;
+      }
+    }, { passive: true });
+  }
+
   // -------------------- bouton WhatsApp flottant : masqué tant que le hero est visible --------------------
   // évite le chevauchement avec le CTA "Appeler / WhatsApp" du hero et la barre de
   // réassurance juste en dessous, surtout marqué sur les petits viewports (hauteur courte)
