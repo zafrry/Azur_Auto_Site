@@ -1816,7 +1816,13 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 901px) {
   .step-list { grid-template-columns: repeat(5, 1fr); gap: 24px; }
 }
-.step-list__item { text-align: center; }
+/* display:flex column : sans lien, chaque .step-list__item se comporte
+   exactement comme avant (empilement du haut vers le bas). Avec un lien
+   (La Vision — "Notre modèle"), le comble via margin-top:auto ci-dessous
+   pousse le lien en bas de la colonne, aligné avec les autres colonnes
+   quelle que soit la longueur de la description au-dessus. */
+.step-list__item { display: flex; flex-direction: column; text-align: center; }
+.step-list__item .link-underline { margin-top: auto; padding-top: var(--space-3); }
 .step-list__num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 30px;
