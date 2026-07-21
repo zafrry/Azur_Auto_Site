@@ -1863,18 +1863,28 @@ section[data-reveal-variant="fade-up"].is-visible {
 @media (min-width: 901px) {
   .before-after { grid-template-columns: repeat(3, 1fr); }
 }
+/* curseur de comparaison avant/après : deux calques photo superposés,
+   celui du dessus (après) rogné via clip-path selon --pos (0-100%),
+   piloté au pointeur/tactile/clavier en JS (main.js) — pas de défilement
+   automatique, l'utilisateur fait glisser lui-même le curseur. */
 .before-after__pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  position: relative;
   aspect-ratio: 16 / 10;
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: none;
+  --pos: 50%;
 }
-.before-after__half { position: relative; overflow: hidden; }
+.before-after__img { position: absolute; inset: 0; }
+.before-after__img--after { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+/* étiquettes fixes dans les coins, au-dessus des deux calques : elles ne
+   doivent pas se déplacer ni disparaître quand le curseur glisse, donc
+   posées sur .before-after__pair plutôt que sur un des deux calques
+   (un calque rogné par clip-path emporterait son étiquette avec lui). */
 .before-after__tag {
   position: absolute;
   bottom: 8px;
-  left: 8px;
-  z-index: 1;
+  z-index: 2;
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1882,6 +1892,34 @@ section[data-reveal-variant="fade-up"].is-visible {
   background: rgba(10,10,10,0.65);
   padding: 3px 8px;
 }
+.before-after__tag--before { left: 8px; }
+.before-after__tag--after { right: 8px; }
+.before-after__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: #ffffff;
+  pointer-events: none;
+}
+.before-after__handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(10,10,10,0.3);
+}
+.before-after__handle svg { width: 18px; height: 18px; }
 .before-after__caption {
   font-size: 13px;
   color: #6b6b6b;

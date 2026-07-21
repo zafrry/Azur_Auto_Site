@@ -188,6 +188,52 @@
     });
   }
 
+  // -------------------- Detailing Studio : curseur avant/après --------------------
+  document.querySelectorAll('.before-after__pair[data-compare]').forEach(function (pair) {
+    function setPos(percent) {
+      var clamped = Math.min(100, Math.max(0, percent));
+      pair.style.setProperty('--pos', clamped + '%');
+      pair.setAttribute('aria-valuenow', Math.round(clamped));
+    }
+    function percentFromClientX(clientX) {
+      var rect = pair.getBoundingClientRect();
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    var dragging = false;
+    pair.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      if (pair.setPointerCapture) pair.setPointerCapture(e.pointerId);
+      setPos(percentFromClientX(e.clientX));
+    });
+    pair.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      setPos(percentFromClientX(e.clientX));
+    });
+    ['pointerup', 'pointercancel'].forEach(function (evt) {
+      pair.addEventListener(evt, function () { dragging = false; });
+    });
+
+    // secours tactile (certains navigateurs/versions ne remontent pas les
+    // events pointer depuis un touch) : mêmes gestes en touchstart/move.
+    pair.addEventListener('touchstart', function (e) {
+      dragging = true;
+      setPos(percentFromClientX(e.touches[0].clientX));
+    }, { passive: true });
+    pair.addEventListener('touchmove', function (e) {
+      if (!dragging) return;
+      setPos(percentFromClientX(e.touches[0].clientX));
+    }, { passive: true });
+    ['touchend', 'touchcancel'].forEach(function (evt) {
+      pair.addEventListener(evt, function () { dragging = false; });
+    });
+    pair.addEventListener('keydown', function (e) {
+      var current = parseFloat(pair.style.getPropertyValue('--pos')) || 50;
+      if (e.key === 'ArrowLeft') { setPos(current - 5); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { setPos(current + 5); e.preventDefault(); }
+    });
+  });
+
   // -------------------- stats: count-up au scroll --------------------
   function countUp(el, target, duration) {
     if (prefersReducedMotion) { el.textContent = target + '+'; return; }
