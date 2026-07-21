@@ -92,18 +92,24 @@
     <div class="hero__scrim"></div>
     <div class="hero__content">
       <h1 class="hero__title">La référence automobile premium</h1>
+      <p class="hero__subtitle">AZUR est né d'une conviction : l'automobile de prestige mérite un écosystème complet, cohérent et exigeant, pas une juxtaposition de prestataires.</p>
+      <div class="hero__cta-group">
+        <a href="#poles" class="btn btn--primary">Découvrir nos pôles</a>
+        <a href="./Contact.html" class="btn btn--outline-gold">Nous contacter</a>
+      </div>
     </div>
   </section>
 
-  <!-- MANIFESTE -->
-  <section class="page-section">
-    <div class="section-inner section-inner--narrow manifesto manifesto--wide">
-      <p class="manifesto__text">AZUR est né d'une conviction : l'automobile de prestige mérite un écosystème complet, cohérent et exigeant, pas une juxtaposition de prestataires.</p>
-      <p class="manifesto__body">De l'import d'une supercar à son entretien quotidien, de sa protection à sa conduite lors d'un événement, jusqu'à son intégration dans une collection suivie par notre club, chaque étape porte la même signature.</p>
-      <p class="manifesto__body">Notre ambition : devenir la référence automobile premium en France, en Suisse et au Maroc.</p>
-      <div class="btn-group">
-        <a href="#poles" class="btn btn--primary">Découvrir nos pôles</a>
-        <a href="./Contact.html" class="btn btn--outline-dark">Nous contacter</a>
+  <!-- NOTRE PHILOSOPHIE -->
+  <section class="page-section" id="philosophie">
+    <div class="section-inner model-intro">
+      <div class="model-intro__head">
+        <div class="kicker kicker--gray">Notre philosophie</div>
+        <h2 class="section-title">Un écosystème, pas une juxtaposition</h2>
+      </div>
+      <div>
+        <p class="manifesto__body">De l'import d'une supercar à son entretien quotidien, de sa protection à sa conduite lors d'un événement, jusqu'à son intégration dans une collection suivie par notre club, chaque étape porte la même signature.</p>
+        <p class="manifesto__body">Notre ambition : devenir la référence automobile premium en France, en Suisse et au Maroc.</p>
       </div>
     </div>
   </section>
@@ -122,10 +128,12 @@
   <!-- SOUS-NAVIGATION -->
   <nav class="subnav" aria-label="Navigation de la page La Vision">
     <div class="subnav__list">
+      <a href="#philosophie" class="subnav__link">Notre philosophie</a>
+      <span class="subnav__sep" aria-hidden="true">·</span>
       <a href="#valeurs" class="subnav__link">Nos valeurs</a>
       <span class="subnav__sep" aria-hidden="true">·</span>
       <!-- liens "Notre histoire" et "L'équipe" masqués avec leurs sections, en attente de données réelles -->
-      <a href="#poles" class="subnav__link">Nos pôles</a>
+      <a href="#poles" class="subnav__link">Notre modèle</a>
       <span class="subnav__sep" aria-hidden="true">·</span>
       <a href="#chiffres" class="subnav__link">Chiffres</a>
       <span class="subnav__sep" aria-hidden="true">·</span>
@@ -138,6 +146,7 @@
     <div class="section-inner model-intro">
       <div class="model-intro__head">
         <h2 class="section-title">Nos valeurs</h2>
+        <p class="model-intro__text">Une même exigence déclinée sur chaque pôle : la philosophie de marque avant la liste de services.</p>
       </div>
       <div class="numbered-list">
         <div class="numbered-list__item">
@@ -145,7 +154,6 @@
             <span class="numbered-list__icon" role="img" aria-label="Un seul univers">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></svg>
             </span>
-            <div class="numbered-list__num">01</div>
           </div>
           <div>
             <h3 class="numbered-list__title">Un seul univers</h3>
@@ -157,7 +165,6 @@
             <span class="numbered-list__icon" role="img" aria-label="Sélection rigoureuse">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
             </span>
-            <div class="numbered-list__num">02</div>
           </div>
           <div>
             <h3 class="numbered-list__title">Sélection rigoureuse</h3>
@@ -169,7 +176,6 @@
             <span class="numbered-list__icon" role="img" aria-label="Discrétion">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
             </span>
-            <div class="numbered-list__num">03</div>
           </div>
           <div>
             <h3 class="numbered-list__title">Discrétion</h3>
@@ -233,93 +239,74 @@
   </section>
   -->
 
-  <!-- NOS PÔLES -->
-  <section class="fleet page-section--alt" id="poles" data-reveal data-reveal-variant="fade-up">
+  <!-- NOTRE MODÈLE -->
+  <!-- Volontairement différent de la homepage ("Trois métiers") : pas une
+       liste de 4 services, mais le parcours concret d'un même véhicule (et
+       d'un même client) à travers les 4 pôles, pour expliquer comment ils
+       s'articulent entre eux plutôt que de reformuler ce qu'ils sont. -->
+  <section class="page-section" id="poles" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
       <div class="section-head">
-        <div class="kicker kicker--gray">L'écosystème</div>
-        <h2 class="section-title">Nos pôles</h2>
-        <p class="contact__subtitle">Quatre métiers, une seule exigence.</p>
+        <div class="kicker kicker--gray">Notre modèle</div>
+        <h2 class="section-title">Comment nos pôles s'articulent</h2>
+        <p class="contact__subtitle">Un même véhicule, un même client, quatre pôles qui se relaient sans jamais changer d'exigence.</p>
       </div>
-      <div class="fleet__grid fleet__grid--4">
-        <div class="fleet__card">
-          <div class="fleet__image fleet__image--wide">
-            <picture>
-              <img src="./assets/img/import-desktop.webp" alt="AZUR Import" loading="lazy">
-            </picture>
-          </div>
-          <h3 class="fleet__title">AZUR Import</h3>
-          <p class="fleet__desc">Sourcing sur mesure de véhicules d'exception.</p>
-          <a href="./Import.html" class="btn--tertiary">Découvrir Import</a>
+      <div class="step-list step-list--4">
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">01</div>
+          <h3 class="step-list__label">Import</h3>
+          <p class="step-list__desc">Le véhicule est sourcé sur mesure, en France, en Suisse ou au Maroc.</p>
+          <a href="./Import.html" class="link-underline link-underline--dark">Découvrir Import →</a>
         </div>
-        <div class="fleet__card">
-          <div class="fleet__image fleet__image--wide">
-            <picture>
-              <img src="./assets/img/prestige-rent-desktop.webp" alt="AZUR Prestige Rent" loading="lazy">
-            </picture>
-          </div>
-          <h3 class="fleet__title">AZUR Prestige Rent</h3>
-          <p class="fleet__desc">Location de prestige pour vos événements.</p>
-          <a href="./Prestige-Rent.html" class="btn--tertiary">Découvrir Prestige Rent</a>
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Detailing Studio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4L14.7 12l-3-3Z"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">02</div>
+          <h3 class="step-list__label">Detailing Studio</h3>
+          <p class="step-list__desc">Avant sa livraison, chaque véhicule importé passe par le studio : préparation, protection, présentation.</p>
+          <a href="./Detailing-Studio.html" class="link-underline link-underline--dark">Découvrir Detailing Studio →</a>
         </div>
-        <div class="fleet__card">
-          <div class="fleet__image fleet__image--wide">
-            <picture>
-              <img src="./assets/img/detailing-desktop.webp" alt="AZUR Detailing Studio" loading="lazy">
-            </picture>
-          </div>
-          <h3 class="fleet__title">AZUR Detailing Studio</h3>
-          <p class="fleet__desc">Finition et protection longue durée.</p>
-          <a href="./Detailing-Studio.html" class="btn--tertiary">Découvrir Detailing Studio</a>
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Prestige Rent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13l2-5a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 5"/><rect x="2" y="13" width="20" height="5" rx="1.5"/><circle cx="7" cy="18.5" r="1.3"/><circle cx="17" cy="18.5" r="1.3"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">03</div>
+          <h3 class="step-list__label">Prestige Rent</h3>
+          <p class="step-list__desc">Le même niveau d'exigence se retrouve à la location, pour un événement ou un besoin ponctuel.</p>
+          <a href="./Prestige-Rent.html" class="link-underline link-underline--dark">Découvrir Prestige Rent →</a>
         </div>
-        <div class="fleet__card">
-          <div class="fleet__image fleet__image--wide">
-            <picture>
-              <img src="./assets/img/club-titanium-desktop.webp" alt="AZUR Club" loading="lazy">
-            </picture>
-          </div>
-          <h3 class="fleet__title">AZUR Club</h3>
-          <p class="fleet__desc">Un statut, pas une carte de fidélité.</p>
-          <a href="./Club.html" class="btn--tertiary">Découvrir Club</a>
+        <div class="step-list__item">
+          <span class="step-list__icon" role="img" aria-label="Club">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></svg>
+          </span>
+          <div class="step-list__dot"></div>
+          <div class="step-list__num">04</div>
+          <h3 class="step-list__label">Club</h3>
+          <p class="step-list__desc">Chaque interaction, sur n'importe quel pôle, alimente un seul et même statut.</p>
+          <a href="./Club.html" class="link-underline link-underline--dark">Découvrir Club →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CHIFFRES CLÉS -->
-  <!-- Échelle de la marque (tous pôles confondus), pas d'un seul service. Seul le premier chiffre
-       ("5 pôles") est un fait déjà vrai et publiable. Les 3 autres (véhicules accompagnés, ans
-       d'exigence, villes couvertes) restent masqués : ne jamais publier de valeur inventée, même à
-       titre de placeholder illustratif — un chiffre agrégé faux serait vite contredit par les
-       chiffres réels des pages pôles individuelles. Restaurer dès réception des données réelles. -->
-  <section class="social-proof" id="chiffres" data-reveal data-reveal-variant="fade-up">
+  <!-- CHIFFRE CLÉ -->
+  <!-- Échelle de la marque (tous pôles confondus), pas d'un seul service. Seul ce chiffre
+       ("4 pôles") est un fait déjà vrai et publiable — ne jamais en ajouter d'autres tant qu'ils
+       ne sont pas confirmés : un chiffre agrégé inventé serait vite contredit par les chiffres
+       réels des pages pôles individuelles. Un seul chiffre distinctif ne justifie pas le format
+       pleine hauteur de .social-proof (pensé pour 3-4 stats côte à côte) : bande compacte dédiée
+       (.stat-highlight) plutôt qu'un grand espace vide autour d'un seul chiffre. -->
+  <section class="page-section--alt stat-highlight" id="chiffres" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
-      <div class="section-head">
-        <h2 class="section-title">Azur Auto en chiffres</h2>
-      </div>
-      <div class="social-proof__stats">
-        <!-- pas de data-target/compteur animé ici : "4 pôles" est un fait exact et fixe, pas une
-             métrique approximative (le composant count-up, qui ajoute toujours un "+", impliquerait
-             à tort "plus de 4 pôles") -->
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number">4</span>
-          <span class="social-proof__stat-label">pôles réunis sous une même vision</span>
-        </div>
-        <!--
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number" data-target="0">0+</span>
-          <span class="social-proof__stat-label">véhicules accompagnés, tous pôles confondus</span>
-        </div>
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number" data-target="0">0</span>
-          <span class="social-proof__stat-label">ans d'exigence</span>
-        </div>
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number" data-target="0">0</span>
-          <span class="social-proof__stat-label">villes couvertes</span>
-        </div>
-        -->
-      </div>
+      <div class="stat-highlight__number">4</div>
+      <p class="stat-highlight__label">pôles réunis sous une même vision</p>
     </div>
   </section>
 

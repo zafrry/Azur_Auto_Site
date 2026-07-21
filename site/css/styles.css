@@ -3328,3 +3328,34 @@ section[data-reveal-variant="fade-up"].is-visible {
   position: relative;
   z-index: 1;
 }
+
+/* -------------------- La Vision : bande chiffre unique -------------------- */
+/* .social-proof est pensé pour 3-4 stats côte à côte (padding 72-140px) ;
+   un seul chiffre distinctif ("4 pôles") n'y justifie pas cette hauteur,
+   d'où ce composant dédié bien plus compact. */
+.stat-highlight {
+  padding: 56px 20px;
+  text-align: center;
+}
+@media (min-width: 901px) {
+  .stat-highlight { padding: 64px 40px; }
+}
+.stat-highlight__number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  font-weight: 500;
+  color: var(--gold-solid);
+  line-height: 1;
+  margin: 0;
+}
+@media (min-width: 901px) {
+  .stat-highlight__number { font-size: 72px; }
+}
+.stat-highlight__label {
+  margin: 10px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  font-weight: 300;
+}
