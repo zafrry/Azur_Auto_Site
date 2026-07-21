@@ -45,4 +45,14 @@
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+  <!-- Blog (Phase 6) : seule la page d'index est listée, scaffolding uniquement,
+       aucun article n'est encore publié. article-template.html n'est qu'un
+       modèle (balise noindex) et ne doit jamais être ajouté ici. À étendre
+       article par article au fur et à mesure des publications réelles. -->
+  <url>
+    <loc>https://zafrry.github.io/Azur_Auto_Site/blog/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
