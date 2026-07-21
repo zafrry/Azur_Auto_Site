@@ -862,6 +862,27 @@ a { color: inherit; }
   margin-left: var(--space-5);
 }
 
+/* -------------------- blog : scaffolding (Phase 6 du document de finalisation) --------------------
+   Étiquette "à venir" posée sur les cartes placeholder du blog (pilier/
+   satellite), tant qu'aucun article n'est rédigé — voir site/blog/. */
+.blog-status {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-solid);
+  border: 1px solid var(--gold-solid);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin: 0 var(--space-5) var(--space-2) var(--space-5);
+}
+.blog-status--pillar {
+  color: var(--white);
+  background: var(--gold-solid);
+}
+
 /* -------------------- pourquoi azur -------------------- */
 
 /* fond légèrement différencié de --gray-bg (identique à .fleet juste avant et
