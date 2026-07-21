@@ -421,10 +421,20 @@
   // confortablement avant que ça ne défile déjà. 5-7s est la fourchette
   // généralement recommandée pour un carrousel avec du texte à lire (contre
   // 3-4s pour de simples visuels sans texte).
+  //
+  // Phase 3 du document de finalisation : ce carrousel ne reste actif qu'en
+  // mobile (<=600px, voir styles.css) — tablette et desktop affichent
+  // désormais les 3 métiers simultanément dans une grille statique, sans
+  // navigation à piloter. On vérifie donc la largeur d'écran une seule fois
+  // au chargement avant d'initialiser toute la logique ci-dessous plutôt que
+  // de la réécrire : pas d'écouteur resize pour rebasculer dynamiquement
+  // entre grille et carrousel en direct, un changement d'orientation/largeur
+  // qui traverserait le seuil resterait sur le mode déterminé au chargement
+  // jusqu'au prochain rechargement de la page.
   var POLES_AUTOPLAY_MS = 6000;
   var polesCarousel = document.getElementById('poles-carousel');
   var polesTrack = document.getElementById('poles-carousel-track');
-  if (polesCarousel && polesTrack) {
+  if (polesCarousel && polesTrack && window.matchMedia('(max-width: 600px)').matches) {
     var poleDots = Array.prototype.slice.call(document.querySelectorAll('.poles-carousel-dot'));
     var polePanels = Array.prototype.slice.call(polesTrack.querySelectorAll('.pole'));
     var polePrevBtn = polesCarousel.querySelector('.poles-carousel-arrow--prev');
