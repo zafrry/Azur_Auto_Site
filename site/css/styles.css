@@ -93,7 +93,11 @@ a { color: inherit; }
   color: #6b6b6b;
   font-weight: 300;
   max-width: 560px;
-  margin: var(--space-4) 0 0;
+  /* margin auto : sans ça, le paragraphe (largeur bridée à 560px) reste
+     collé au bord gauche de .section-head au lieu d'être centré sous le
+     titre, alors que .section-head force déjà text-align:center — même
+     centrage que .contact__subtitle, qui l'a déjà. */
+  margin: var(--space-4) auto 0;
 }
 
 @media (min-width: 901px) {
