@@ -426,13 +426,20 @@ a { color: inherit; }
 
 .hero {
   position: relative;
-  height: 100vh; /* repli si 100svh non supporté */
-  height: 100svh;
+  min-height: 100vh; /* repli si 100svh non supporté */
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--black);
   overflow: hidden;
+  /* garantit un dégagement sous le header fixe : sur un écran à faible
+     hauteur de viewport, un contenu de hero un peu long (Club : kicker +
+     carte membre + titre + sous-titre) peut sinon passer sous le header
+     au lieu d'au-dessus, puisque le centrage vertical ne réserve par
+     défaut aucun espace pour lui. */
+  padding-top: 96px;
+  box-sizing: border-box;
 }
 .hero__bg {
   position: absolute;
@@ -1644,14 +1651,18 @@ section[data-reveal-variant="fade-up"].is-visible {
 /* hauteurs de hero secondaire : la page d'accueil garde .hero (100svh) pour
    elle seule, ces paliers évitent qu'une page de contenu secondaire n'impose
    un plein écran comme le hero principal */
-.hero--xl { height: 620px; }
-@media (min-width: 901px) { .hero--xl { height: 92vh; } }
-.hero--l { height: 560px; }
-@media (min-width: 901px) { .hero--l { height: 86vh; } }
-.hero--m { height: 460px; }
-@media (min-width: 901px) { .hero--m { height: 70vh; } }
-.hero--s { height: 360px; }
-@media (min-width: 901px) { .hero--s { height: 52vh; } }
+/* min-height plutôt que height : si le contenu (ex. Club et sa carte membre)
+   dépasse la hauteur cible sur un écran à faible hauteur de viewport, le
+   hero s'agrandit pour rester entièrement visible plutôt que de chevaucher
+   le header fixe ou de rogner le contenu. */
+.hero--xl { min-height: 620px; }
+@media (min-width: 901px) { .hero--xl { min-height: 92vh; } }
+.hero--l { min-height: 560px; }
+@media (min-width: 901px) { .hero--l { min-height: 86vh; } }
+.hero--m { min-height: 460px; }
+@media (min-width: 901px) { .hero--m { min-height: 70vh; } }
+.hero--s { min-height: 360px; }
+@media (min-width: 901px) { .hero--s { min-height: 52vh; } }
 /* variante sans image (Club, quand le visuel est la carte membre elle-même) */
 .hero--card { justify-content: center; }
 .hero--card .hero__content { max-width: 640px; }
