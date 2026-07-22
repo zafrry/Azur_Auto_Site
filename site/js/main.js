@@ -80,9 +80,8 @@
     });
   }
 
-  // inscription newsletter : composant pas encore posé (Phase 7 du document de
-  // finalisation), ce sélecteur ne matche donc rien pour l'instant — écouteur
-  // posé par anticipation, sans effet tant que .newsletter-form n'existe pas
+  // inscription newsletter : suivi de conversion, un seul écouteur centralisé
+  // pour les formulaires .newsletter-form posés sur toutes les pages
   document.querySelectorAll('.newsletter-form').forEach(function (form) {
     form.addEventListener('submit', function () {
       window.dataLayer.push({ event: 'newsletter_submit' });

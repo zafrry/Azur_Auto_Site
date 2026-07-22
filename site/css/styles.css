@@ -1559,13 +1559,19 @@ section[data-reveal-variant="fade-up"].is-visible {
 }
 
 /* -------------------- newsletter (Phase 7 du document de finalisation) --------------------
-   Composant réutilisé sur le blog et juste avant le footer des 4 pages
-   métier (jamais dans le footer lui-même). Le snippet Brevo réel viendra
-   remplacer ce formulaire de démonstration (voir TODO à chaque usage) —
+   Composant réutilisé en fin de page, juste avant le footer, sur
+   l'ensemble des pages du site. Le snippet Brevo réel viendra remplacer
+   ce formulaire de démonstration (voir TODO à chaque usage) —
    volontairement réduit à un champ email + un bouton, sans nom/téléphone,
    pour rester simple avant l'intégration réelle. Réutilise le style
    .form-group existant (pensé pour un fond sombre, cohérent avec
    page-section--dark) plutôt que d'en recréer un. */
+/* Sur "La Vision", la newsletter suit directement le bandeau CTA sombre
+   "Nous rencontrer" (au lieu d'une section claire comme sur les autres
+   pages) : sans séparation les deux passages noirs se liraient comme un
+   seul aplat. Même technique que .site-footer__bottom (bordure fine
+   --black-alt) plutôt qu'une rupture de couleur. */
+.page-la-vision .newsletter { border-top: 1px solid var(--black-alt); }
 .newsletter-form {
   display: flex;
   flex-wrap: wrap;
