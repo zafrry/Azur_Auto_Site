@@ -1,6 +1,42 @@
 (function () {
   'use strict';
 
+  // -------------------- newsletter : composant centralisé --------------------
+  // Même section (kicker, titre, sous-titre, formulaire) reprise à l'identique
+  // sur toutes les pages : plutôt que de dupliquer ce bloc dans chaque fichier
+  // HTML, il est défini une seule fois ici et injecté en fin de <main>. Posé
+  // en tout premier dans ce script (qui s'exécute en synchrone, <script> placé
+  // juste avant </body>) pour que le nœud existe déjà dans le DOM avant que
+  // le reste du fichier n'interroge [data-reveal] (animation d'apparition) et
+  // .newsletter-form (suivi de conversion) plus bas. Exclue des pages portant
+  // data-no-newsletter sur <body> (mentions-legales.html : page légale, hors
+  // périmètre d'un formulaire d'inscription marketing).
+  var newsletterHost = document.querySelector('main');
+  if (newsletterHost && !document.body.hasAttribute('data-no-newsletter')) {
+    var newsletterSlug = (location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '').toLowerCase()) || 'home';
+    var newsletterEmailId = 'newsletter-email-' + newsletterSlug;
+    var newsletterSection = document.createElement('section');
+    newsletterSection.className = 'newsletter page-section page-section--dark';
+    newsletterSection.setAttribute('data-reveal', '');
+    newsletterSection.setAttribute('data-reveal-variant', 'fade-up');
+    newsletterSection.innerHTML =
+      '<div class="section-inner section-inner--narrow">' +
+        '<div class="section-head">' +
+          '<div class="kicker kicker--gray">Newsletter</div>' +
+          '<h2 class="section-title section-title--light">Recevez nos actualités</h2>' +
+          '<p class="contact__subtitle">Import, location, detailing : les nouveautés Azur Auto directement dans votre boîte mail.</p>' +
+        '</div>' +
+        '<form class="newsletter-form">' +
+          '<div class="form-group">' +
+            '<label for="' + newsletterEmailId + '">Email</label>' +
+            '<input type="email" id="' + newsletterEmailId + '" name="email" placeholder="vous@exemple.com" required>' +
+          '</div>' +
+          '<button type="submit" class="btn btn--outline-gold">S\'inscrire</button>' +
+        '</form>' +
+      '</div>';
+    newsletterHost.appendChild(newsletterSection);
+  }
+
   // -------------------- Calendly : chargement paresseux du widget (performance) --------------------
   // Le script officiel Calendly (widget.js) charge un iframe assez lourd (polices,
   // JS de leur propre application) ; le poser en dur sur chaque page payait ce
