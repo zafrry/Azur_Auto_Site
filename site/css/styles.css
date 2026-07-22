@@ -1414,6 +1414,18 @@ section[data-reveal-variant="fade-up"].is-visible {
   gap: 0 var(--space-5);
   align-items: start;
 }
+
+/* widget de prise de RDV embarqué (Google Calendar Appointment Scheduling,
+   Detailing Studio) — cadre discret cohérent avec les champs de formulaire
+   du même fond sombre (.form-group input), iframe déjà responsive
+   (width="100%") sans besoin d'ajustement supplémentaire */
+.calendar-embed {
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+.calendar-embed iframe { display: block; }
 @media (min-width: 1024px) {
   .contact__form { grid-template-columns: 1fr 1fr; }
 }
