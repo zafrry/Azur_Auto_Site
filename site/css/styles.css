@@ -4,6 +4,58 @@
    Typo : Cormorant Garamond (titres) + Jost (texte, nav)
    ========================================================================== */
 
+/* Polices hébergées localement (site/assets/fonts/) plutôt que chargées
+   depuis fonts.googleapis.com/fonts.gstatic.com : supprime le transfert d'IP
+   vers Google au chargement des polices et les allers-retours DNS/TLS vers
+   un tiers, sans dépendre d'un consentement cookies pour ça (ce n'est pas un
+   traceur). Seul le sous-ensemble "latin" est inclus (couvre les caractères
+   accentués français, U+0000-00FF) : les autres écritures (cyrillique, grec,
+   vietnamien...) ne sont pas utilisées sur ce site. font-display: swap
+   affiche le texte avec une police système le temps du chargement, jamais de
+   texte invisible (FOIT). */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/cormorant-garamond-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/cormorant-garamond-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/cormorant-garamond-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/jost-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/jost-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/jost-500.woff2') format('woff2');
+}
+
 :root {
   --black: #0a0a0a;
   --gray-bg: #EFEDE9;
