@@ -440,7 +440,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <!-- Calendly inline widget begin — widget.js chargé paresseusement au scroll,
            voir la section "Calendly" de main.js (performance) -->
-      <div class="calendly-inline-widget" data-url="https://calendly.com/azurautogestion/des-questions?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=efede9&primary_color=a8832e" style="min-width:320px;height:700px;"></div>
+      <!-- TODO: remplace "des-questions" par un type d'événement dédié
+           (ex. "club-membership") une fois créé côté Calendly, comme pour
+           Import/Prestige Rent/Detailing Studio — en attendant, le
+           paramètre utm_campaign=club permet de distinguer la source côté
+           Calendly même en partageant le même type d'événement -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/azurautogestion/des-questions?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=efede9&primary_color=a8832e&utm_source=site&utm_medium=widget&utm_campaign=club" style="min-width:320px;height:700px;"></div>
       <!-- Calendly inline widget end -->
 
       <div class="cta-link-wrap">
