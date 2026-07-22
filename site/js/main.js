@@ -15,6 +15,11 @@
   // bas. Exclue des pages portant data-no-newsletter sur <body>
   // (mentions-legales.html : page légale, hors périmètre d'un formulaire
   // d'inscription marketing).
+  // Le formulaire poste réellement vers Brevo (action + name="EMAIL" + les 3
+  // champs cachés requis par leur snippet officiel), mais reprend le design
+  // du site plutôt que le widget Brevo tel quel (fond clair, police
+  // Helvetica) : les deux ne s'accordaient pas avec le thème sombre du site,
+  // et le kicker/titre/sous-titre étaient déjà couverts par cette section.
   var newsletterHost = document.querySelector('main');
   if (newsletterHost && !document.body.hasAttribute('data-no-newsletter')) {
     var newsletterSection = document.createElement('section');
@@ -28,12 +33,15 @@
           '<h2 class="section-title section-title--light">Recevez nos actualités</h2>' +
           '<p class="contact__subtitle">Import, location, detailing : les nouveautés Azur Auto directement dans votre boîte mail.</p>' +
         '</div>' +
-        '<form class="newsletter-form">' +
+        '<form class="newsletter-form" method="POST" action="https://3aa7ac24.sibforms.com/serve/MUIFAMUemiI1KZUBjmvXV06kgkeCZDJRv9qryRZ8PR3CmR-iD5xrd8o35L8FACPxq7r3yseyPesH6GRNHbO-brqu2LY_7vMIhrXJ1_RSOuKkFlg1ZAa3Ko3s9QULVp3CaotHzCBjCtDvGzOTRfMJNgr8_aodZuYPkbc7Hp-5v5dX9ub2ggmpBfrIirZXC3pnzGYgR9ozDWca_AGtMw==">' +
           '<div class="form-group">' +
             '<label for="newsletter-email">Email</label>' +
-            '<input type="email" id="newsletter-email" name="email" placeholder="vous@exemple.com" required>' +
+            '<input type="email" id="newsletter-email" name="EMAIL" placeholder="vous@exemple.com" required>' +
           '</div>' +
           '<button type="submit" class="btn btn--outline-gold">S\'inscrire</button>' +
+          '<input type="text" name="email_address_check" value="" style="display:none" tabindex="-1" autocomplete="off">' +
+          '<input type="hidden" name="locale" value="fr">' +
+          '<input type="hidden" name="html_type" value="simple">' +
         '</form>' +
       '</div>';
     newsletterHost.appendChild(newsletterSection);
