@@ -3629,10 +3629,18 @@ section[data-reveal-variant="fade-up"].is-visible {
    or) plutôt que de garder un popup qui jure avec le reste des pages ; les
    boutons "Tout accepter"/"Tout refuser" restent de même taille/poids
    (héritage du CSS de la bibliothèque), seule la couleur change. */
+/* la bibliothèque impose color:#333 à tous les descendants via un sélecteur
+   universel (#tarteaucitronRoot *), plus spécifique qu'un héritage depuis
+   #tarteaucitronAlertBig : le texte du bandeau (span, p...) doit être
+   reciblé explicitement, sans quoi il reste noir sur le fond noir ci-dessous
+   (texte illisible, bug constaté en production). */
 #tarteaucitronRoot #tarteaucitronAlertBig {
   background: var(--black) !important;
   color: #ededea !important;
   border-top: 1px solid var(--black-alt);
+}
+#tarteaucitronRoot #tarteaucitronAlertBig * {
+  color: #ededea !important;
 }
 #tarteaucitronRoot .tarteaucitronCTAButton,
 #tarteaucitronRoot .tarteaucitronAllow,
@@ -3640,6 +3648,11 @@ section[data-reveal-variant="fade-up"].is-visible {
   background: var(--gold-solid) !important;
   color: var(--black) !important;
   border-radius: 2px;
+}
+#tarteaucitronRoot .tarteaucitronCTAButton *,
+#tarteaucitronRoot .tarteaucitronAllow *,
+#tarteaucitronRoot .tarteaucitronDeny * {
+  color: var(--black) !important;
 }
 #tarteaucitronRoot #tarteaucitronCloseAlert,
 #tarteaucitronRoot #tarteaucitronPrivacyUrl {
