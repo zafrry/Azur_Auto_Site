@@ -551,7 +551,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="section-inner section-inner--narrow">
       <div class="section-head">
         <h2 class="section-title section-title--light">Prendre rendez-vous</h2>
-        <p class="contact__subtitle">Choisissez directement un créneau ci-dessous, ou décrivez votre besoin via le formulaire : notre équipe vous recontacte pour convenir d'un rendez-vous.</p>
+        <p class="contact__subtitle">Choisissez directement un créneau ci-dessous, notre équipe vous accueille à l'heure convenue.</p>
       </div>
 
       <!-- Google Calendar Appointment Scheduling begin -->
@@ -559,51 +559,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wc2FC7v7Nm5obN0uVRcL4X3I3o17sGdQfUluR41yHVSrdcBSBpvGkbiy4HFVCY5HFZWzwB-wG?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
       </div>
       <!-- end Google Calendar Appointment Scheduling -->
-
-      <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-        <div class="form-group">
-          <label for="prestation">Prestation souhaitée</label>
-          <select id="prestation" name="prestation" required>
-            <option value="" disabled selected>Sélectionnez une option</option>
-            <option value="lavage-premium">Lavage premium</option>
-            <option value="polish">Polish</option>
-            <option value="correction-peinture">Correction de peinture</option>
-            <option value="protection-ceramique">Protection céramique</option>
-            <option value="ppf">PPF</option>
-            <option value="covering">Covering</option>
-            <option value="preparation-avant-vente">Préparation avant-vente</option>
-            <option value="preparation-avant-livraison">Préparation avant-livraison</option>
-            <option value="autre">Autre</option>
-          </select>
-          <span class="error-message" data-error-for="prestation"></span>
-        </div>
-        <div class="form-group">
-          <label for="nom">Nom</label>
-          <input type="text" id="nom" name="nom" placeholder="ex. Jean Dupont" required>
-          <span class="error-message" data-error-for="nom"></span>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
-          <span class="error-message" data-error-for="email"></span>
-        </div>
-        <div class="form-group">
-          <label for="telephone">Téléphone</label>
-          <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78">
-        </div>
-        <div class="form-group full-width">
-          <label for="message">Message <em>(optionnel)</em></label>
-          <textarea id="message" name="message" rows="4" placeholder="Précisez ici le véhicule et son état..."></textarea>
-        </div>
-        <div class="form-group form-group--checkbox full-width">
-          <input type="checkbox" id="rgpd" name="rgpd" required>
-          <label for="rgpd">J'accepte d'être recontacté par Azur Auto au sujet de ma demande.</label>
-          <span class="error-message" data-error-for="rgpd"></span>
-        </div>
-        <button type="submit" class="btn btn--outline-gold full-width">Envoyer ma demande</button>
-        <div id="form-success" class="contact__success" hidden>Merci, votre demande a bien été transmise. Notre équipe revient vers vous rapidement.</div>
-        <div id="form-error" class="contact__error" hidden>Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement.</div>
-      </form>
 
       <div class="cta-link-wrap">
         <a href="./Contact.html" class="link-underline link-underline--dark">Pour une demande plus complexe, contactez-nous →</a>
