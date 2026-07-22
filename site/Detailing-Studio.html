@@ -29,9 +29,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 
+<!-- préconnexion Calendly : le widget de prise de RDV plus bas sur la page
+     est chargé paresseusement (voir main.js), mais établir la connexion tôt
+     réduit la latence perçue au moment où il se charge réellement -->
+<link rel="preconnect" href="https://assets.calendly.com">
+<link rel="preconnect" href="https://calendly.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="./css/styles.css">
 <!-- TODO: remplacer par le vrai domaine, le vrai téléphone, sameAs (Google Business Profile, LinkedIn, Instagram), et migrer areaServed vers LocalBusiness (address + geo) dès que la ville/adresse du studio est connue -->
 <script type="application/ld+json">
@@ -487,9 +494,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <p class="contact__subtitle">Choisissez directement un créneau ci-dessous, notre équipe vous accueille à l'heure convenue.</p>
       </div>
 
-      <!-- Calendly inline widget begin -->
+      <!-- Calendly inline widget begin — widget.js chargé paresseusement au scroll,
+           voir la section "Calendly" de main.js (performance) -->
       <div class="calendly-inline-widget" data-url="https://calendly.com/azurautogestion/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=efede9&primary_color=a8832e" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       <!-- Calendly inline widget end -->
 
       <div class="cta-link-wrap">
