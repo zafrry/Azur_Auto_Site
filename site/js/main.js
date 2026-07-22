@@ -1,6 +1,43 @@
 (function () {
   'use strict';
 
+  // -------------------- Calendly : chargement paresseux du widget (performance) --------------------
+  // Le script officiel Calendly (widget.js) charge un iframe assez lourd (polices,
+  // JS de leur propre application) ; le poser en dur sur chaque page payait ce
+  // coût à chaque chargement, même pour les visiteurs qui ne descendent jamais
+  // jusqu'à la section de prise de RDV. On ne charge donc widget.js que lorsque
+  // le conteneur .calendly-inline-widget approche du viewport (rootMargin
+  // avant qu'il soit visible, pour qu'il soit prêt au moment où on l'atteint).
+  // Calendly scanne le DOM à son chargement pour initialiser tout élément
+  // .calendly-inline-widget déjà présent : retarder uniquement le script,
+  // sans toucher au marquage HTML (déjà dans le DOM), suffit.
+  var calendlyWidgets = document.querySelectorAll('.calendly-inline-widget');
+  if (calendlyWidgets.length) {
+    var calendlyScriptLoaded = false;
+    function loadCalendlyScript() {
+      if (calendlyScriptLoaded) return;
+      calendlyScriptLoaded = true;
+      var script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    if ('IntersectionObserver' in window) {
+      var calendlyObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            loadCalendlyScript();
+            calendlyObserver.disconnect();
+          }
+        });
+      }, { rootMargin: '600px 0px' });
+      calendlyWidgets.forEach(function (el) { calendlyObserver.observe(el); });
+    } else {
+      // repli pour les navigateurs très anciens sans IntersectionObserver
+      loadCalendlyScript();
+    }
+  }
+
   // -------------------- header: hauteur réelle mesurée (pour le menu mobile) --------------------
   var siteHeader = document.getElementById('site-header');
   function updateHeaderHeight() {
