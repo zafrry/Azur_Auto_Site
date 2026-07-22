@@ -2,19 +2,21 @@
   'use strict';
 
   // -------------------- newsletter : composant centralisé --------------------
-  // Même section (kicker, titre, sous-titre, formulaire) reprise à l'identique
-  // sur toutes les pages : plutôt que de dupliquer ce bloc dans chaque fichier
-  // HTML, il est défini une seule fois ici et injecté en fin de <main>. Posé
-  // en tout premier dans ce script (qui s'exécute en synchrone, <script> placé
-  // juste avant </body>) pour que le nœud existe déjà dans le DOM avant que
-  // le reste du fichier n'interroge [data-reveal] (animation d'apparition) et
-  // .newsletter-form (suivi de conversion) plus bas. Exclue des pages portant
-  // data-no-newsletter sur <body> (mentions-legales.html : page légale, hors
-  // périmètre d'un formulaire d'inscription marketing).
+  // Même section (kicker, titre, sous-titre, champ email, bouton d'inscription)
+  // reprise strictement à l'identique sur toutes les pages, id du champ email
+  // compris : rien ne varie plus par page. Plutôt que de dupliquer ce bloc
+  // dans chaque fichier HTML, il est défini une seule fois ici et injecté en
+  // fin de <main>. L'id fixe ne pose pas de risque de collision : chaque page
+  // est un document séparé, l'unicité d'un id s'apprécie par document, pas
+  // site-wide. Posé en tout premier dans ce script (qui s'exécute en
+  // synchrone, <script> placé juste avant </body>) pour que le nœud existe
+  // déjà dans le DOM avant que le reste du fichier n'interroge [data-reveal]
+  // (animation d'apparition) et .newsletter-form (suivi de conversion) plus
+  // bas. Exclue des pages portant data-no-newsletter sur <body>
+  // (mentions-legales.html : page légale, hors périmètre d'un formulaire
+  // d'inscription marketing).
   var newsletterHost = document.querySelector('main');
   if (newsletterHost && !document.body.hasAttribute('data-no-newsletter')) {
-    var newsletterSlug = (location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '').toLowerCase()) || 'home';
-    var newsletterEmailId = 'newsletter-email-' + newsletterSlug;
     var newsletterSection = document.createElement('section');
     newsletterSection.className = 'newsletter page-section page-section--dark';
     newsletterSection.setAttribute('data-reveal', '');
@@ -28,8 +30,8 @@
         '</div>' +
         '<form class="newsletter-form">' +
           '<div class="form-group">' +
-            '<label for="' + newsletterEmailId + '">Email</label>' +
-            '<input type="email" id="' + newsletterEmailId + '" name="email" placeholder="vous@exemple.com" required>' +
+            '<label for="newsletter-email">Email</label>' +
+            '<input type="email" id="newsletter-email" name="email" placeholder="vous@exemple.com" required>' +
           '</div>' +
           '<button type="submit" class="btn btn--outline-gold">S\'inscrire</button>' +
         '</form>' +
