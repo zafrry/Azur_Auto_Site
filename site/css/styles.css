@@ -1578,6 +1578,8 @@ section[data-reveal-variant="fade-up"].is-visible {
   align-items: flex-end;
   gap: var(--space-4);
   max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
 }
 .newsletter-form .form-group {
   flex: 1 1 240px;
