@@ -3387,10 +3387,13 @@ section[data-reveal-variant="fade-up"].is-visible {
    fusionnés dans une seule section (.social-proof__combined) : les 4
    chiffres forment une colonne étroite à côté des citations plutôt qu'une
    rangée au-dessus — les deux types de preuve sociale sont donc visibles
-   ensemble, dans le même cadre. Scopé à .page-prestige-rent pour ne pas
-   toucher .social-proof sur les autres pages qui partagent la classe. */
+   ensemble, dans le même cadre. Règles structurelles non scopées à une
+   page : réutilisées telles quelles partout où le balisage
+   .social-proof__combined est présent (Prestige Rent, Import, l'accueil) ;
+   la couleur des citations reste gérée par les règles .page-xxx propres
+   à chaque page, déjà en place avant l'introduction de cette mise en page. */
 .page-prestige-rent .social-proof { background: var(--black); }
-.page-prestige-rent .social-proof__combined {
+.social-proof__combined {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
@@ -3398,13 +3401,13 @@ section[data-reveal-variant="fade-up"].is-visible {
   margin: 0 auto;
 }
 @media (min-width: 901px) {
-  .page-prestige-rent .social-proof__combined {
+  .social-proof__combined {
     grid-template-columns: 200px 1fr;
     gap: 64px;
     align-items: center;
   }
 }
-.page-prestige-rent .social-proof__stats-col {
+.social-proof__stats-col {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -3412,7 +3415,7 @@ section[data-reveal-variant="fade-up"].is-visible {
   text-align: center;
 }
 @media (min-width: 901px) {
-  .page-prestige-rent .social-proof__stats-col {
+  .social-proof__stats-col {
     flex-direction: column;
     justify-content: center;
     gap: 40px;
@@ -3421,11 +3424,11 @@ section[data-reveal-variant="fade-up"].is-visible {
     padding-right: 40px;
   }
 }
-.page-prestige-rent .social-proof__quotes-col .section-head { text-align: center; margin-bottom: 32px; }
+.social-proof__quotes-col .section-head { text-align: center; margin-bottom: 32px; }
 @media (min-width: 901px) {
-  .page-prestige-rent .social-proof__quotes-col .section-head { text-align: left; }
+  .social-proof__quotes-col .section-head { text-align: left; }
 }
-.page-prestige-rent .social-proof__testimonials {
+.social-proof__combined .social-proof__testimonials {
   grid-template-columns: 1fr;
   max-width: none;
   margin: 0;

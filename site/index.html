@@ -381,37 +381,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- TODO: témoignages, logos partenaires et chiffres clés sont des placeholders, à remplacer par les vrais éléments -->
   <section class="social-proof" id="avis" data-reveal data-reveal-variant="fade-up">
     <div class="section-inner">
-      <div class="social-proof__testimonials">
-        <blockquote class="social-proof__testimonial">
-          <p>« Un accompagnement sans faille, de la recherche du véhicule à la livraison. Rien n'a été laissé au hasard. »</p>
-          <cite>M. R.</cite>
-        </blockquote>
-        <blockquote class="social-proof__testimonial">
-          <p>« Le sérieux que je recherchais, avec un vrai gain de temps sur toutes les démarches. »</p>
-          <cite>A. B.</cite>
-        </blockquote>
-        <blockquote class="social-proof__testimonial">
-          <p>« Le studio detailing a rendu à ma voiture son éclat d'origine, en mieux. »</p>
-          <cite>S. K.</cite>
-        </blockquote>
-      </div>
-
       <div class="social-proof__partners">
         <span class="social-proof__partner-tag">Réputation internationale</span>
       </div>
 
-      <div class="social-proof__stats">
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number" data-target="150">0+</span>
-          <span class="social-proof__stat-label">véhicules importés</span>
+      <div class="social-proof__combined">
+        <div class="social-proof__stats-col">
+          <div class="social-proof__stat">
+            <span class="social-proof__stat-number" data-target="150">0+</span>
+            <span class="social-proof__stat-label">véhicules importés</span>
+          </div>
+          <div class="social-proof__stat">
+            <span class="social-proof__stat-number" data-target="10">0+</span>
+            <span class="social-proof__stat-label">ans d'existence</span>
+          </div>
+          <div class="social-proof__stat">
+            <span class="social-proof__stat-number" data-target="30">0+</span>
+            <span class="social-proof__stat-label">partenaires en Europe</span>
+          </div>
         </div>
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number" data-target="10">0+</span>
-          <span class="social-proof__stat-label">ans d'existence</span>
-        </div>
-        <div class="social-proof__stat">
-          <span class="social-proof__stat-number" data-target="30">0+</span>
-          <span class="social-proof__stat-label">partenaires en Europe</span>
+        <div class="social-proof__quotes-col">
+          <div class="section-head">
+            <div class="kicker kicker--gray">Témoignages</div>
+            <h2 class="section-title section-title--light">Ils nous ont fait confiance</h2>
+          </div>
+          <div class="social-proof__testimonials">
+            <blockquote class="social-proof__testimonial">
+              <p>« Un accompagnement sans faille, de la recherche du véhicule à la livraison. Rien n'a été laissé au hasard. »</p>
+              <cite>M. R.</cite>
+            </blockquote>
+            <blockquote class="social-proof__testimonial">
+              <p>« Le sérieux que je recherchais, avec un vrai gain de temps sur toutes les démarches. »</p>
+              <cite>A. B.</cite>
+            </blockquote>
+            <blockquote class="social-proof__testimonial">
+              <p>« Le studio detailing a rendu à ma voiture son éclat d'origine, en mieux. »</p>
+              <cite>S. K.</cite>
+            </blockquote>
+          </div>
         </div>
       </div>
     </div>
@@ -532,24 +539,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- CONTACT -->
   <!-- TODO: brancher form.action sur un vrai endpoint Formspree (compte à créer côté client) -->
   <section class="contact" id="contact" data-reveal data-reveal-variant="fade-up">
-    <div class="section-inner">
+    <div class="section-inner section-inner--narrow">
       <div class="section-head">
         <h2 class="section-title section-title--light">Une demande sur mesure</h2>
         <p class="contact__subtitle">Choisissez directement un créneau ci-dessous, notre équipe vous répond en visio ou par téléphone.</p>
       </div>
 
-      <div class="contact__layout">
-        <!-- Calendly inline widget begin — widget.js chargé paresseusement au scroll,
+      <!-- Calendly inline widget begin — widget.js chargé paresseusement au scroll,
            voir la section "Calendly" de main.js (performance) -->
-        <div class="calendly-inline-widget" data-url="https://calendly.com/azurautogestion/des-questions?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=efede9&primary_color=a8832e&utm_source=site&utm_medium=widget&utm_campaign=home" style="min-width:320px;height:700px;"></div>
-        <!-- Calendly inline widget end -->
-
-        <div class="contact__direct">
-          <p><strong>Téléphone</strong><br><a href="tel:+33442862517">+33 4 42 86 25 17</a></p>
-          <p><strong>Email</strong><br><a href="mailto:gestion@azurlink.fr">gestion@azurlink.fr</a></p>
-          <p><strong>WhatsApp</strong><br><a href="https://wa.me/message/52FBS44XYKP5H1">Écrire sur WhatsApp</a></p>
-        </div>
-      </div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/azurautogestion/des-questions?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=efede9&primary_color=a8832e&utm_source=site&utm_medium=widget&utm_campaign=home" style="min-width:320px;height:700px;"></div>
+      <!-- Calendly inline widget end -->
     </div>
   </section>
 
