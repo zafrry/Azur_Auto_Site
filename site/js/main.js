@@ -1,6 +1,27 @@
 (function () {
   'use strict';
 
+  // -------------------- services tiers soumis à consentement (RGPD) --------------------
+  // 3 services sont conditionnés au consentement Tarteaucitron (voir
+  // tarteaucitron-config.js, chargé juste avant ce fichier) : chaque prochaine
+  // intégration tierce (ex. pixel Meta) doit suivre le même schéma —
+  // déclarer un service dans tarteaucitron-config.js, puis soit laisser
+  // Tarteaucitron charger le script lui-même (cas simple), soit, comme ici,
+  // garder un chargement paresseux existant et le conditionner en plus au
+  // consentement (cas où la performance impose de ne charger qu'au scroll).
+  //   - gtmazur       (catégorie "analytic") : Google Tag Manager, chargé
+  //     par tarteaucitron-config.js lui-même, rien à faire ici.
+  //   - calendly      (catégorie "other") : widget de prise de rendez-vous,
+  //     voir loadCalendlyScript() plus bas — lazy-load au scroll ET
+  //     consentement requis ; message de repli avec coordonnées directes si
+  //     refusé, jamais de blocage total de la prise de contact.
+  //   - recaptchaazur (catégorie "api") : protection anti-spam du
+  //     formulaire newsletter, voir loadRecaptchaScript() plus bas —
+  //     lazy-load au scroll ET consentement requis ; si refusé, le
+  //     formulaire reste utilisable sans protection anti-spam (le
+  //     reCAPTCHA protège Brevo, pas le visiteur, la friction ne doit pas
+  //     retomber sur lui).
+
   // -------------------- newsletter : composant centralisé --------------------
   // Même section (kicker, titre, sous-titre, champ email, bouton d'inscription)
   // reprise strictement à l'identique sur toutes les pages, id du champ email
@@ -54,10 +75,25 @@
     // Google (recaptcha/api.js) ne se charge que lorsque la section
     // newsletter approche du viewport, pour ne pas payer son coût sur
     // chaque page alors qu'une partie des visiteurs ne scrolle jamais
-    // jusqu'en bas.
+    // jusqu'en bas. Conditionné en plus au consentement RGPD (catégorie
+    // "recaptchaazur", voir tarteaucitron-config.js) : si refusé, on ne
+    // charge simplement pas le script et le formulaire reste utilisable
+    // sans protection anti-spam — le reCAPTCHA protège Brevo contre le
+    // spam, pas le visiteur, la friction n'a pas à retomber sur lui.
     var recaptchaScriptLoaded = false;
+    var recaptchaInViewport = false;
+    function hasRecaptchaConsent() {
+      return typeof tarteaucitron !== 'undefined' && tarteaucitron.state && tarteaucitron.state.recaptchaazur === true;
+    }
     function loadRecaptchaScript() {
-      if (recaptchaScriptLoaded) return;
+      if (recaptchaScriptLoaded || !recaptchaInViewport || !hasRecaptchaConsent()) return;
+      // garde supplémentaire au niveau du DOM, voir le commentaire équivalent
+      // dans loadCalendlyScript() : l'évènement de consentement et
+      // l'IntersectionObserver peuvent chacun redéclencher cette fonction.
+      if (document.querySelector('script[src="https://www.google.com/recaptcha/api.js"]')) {
+        recaptchaScriptLoaded = true;
+        return;
+      }
       recaptchaScriptLoaded = true;
       var script = document.createElement('script');
       script.src = 'https://www.google.com/recaptcha/api.js';
@@ -65,10 +101,12 @@
       script.defer = true;
       document.body.appendChild(script);
     }
+    document.addEventListener('recaptchaazur_allowed', loadRecaptchaScript);
     if ('IntersectionObserver' in window) {
       var recaptchaObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
+            recaptchaInViewport = true;
             loadRecaptchaScript();
             recaptchaObserver.disconnect();
           }
@@ -76,6 +114,7 @@
       }, { rootMargin: '600px 0px' });
       recaptchaObserver.observe(newsletterSection);
     } else {
+      recaptchaInViewport = true;
       loadRecaptchaScript();
     }
   }
@@ -90,21 +129,70 @@
   // Calendly scanne le DOM à son chargement pour initialiser tout élément
   // .calendly-inline-widget déjà présent : retarder uniquement le script,
   // sans toucher au marquage HTML (déjà dans le DOM), suffit.
+  // Conditionné en plus au consentement RGPD (catégorie "calendly", voir
+  // tarteaucitron-config.js) : si refusé, chaque widget est remplacé par un
+  // message de repli + les coordonnées directes (téléphone/WhatsApp), pour
+  // ne jamais bloquer complètement la prise de contact.
   var calendlyWidgets = document.querySelectorAll('.calendly-inline-widget');
   if (calendlyWidgets.length) {
     var calendlyScriptLoaded = false;
+    var calendlyInViewport = false;
+    function hasCalendlyConsent() {
+      return typeof tarteaucitron !== 'undefined' && tarteaucitron.state && tarteaucitron.state.calendly === true;
+    }
+    function showCalendlyFallback() {
+      calendlyWidgets.forEach(function (el) {
+        if (el.hasAttribute('data-tac-fallback-shown')) return;
+        el.setAttribute('data-tac-fallback-shown', '1');
+        el.style.display = 'none';
+        var fallback = document.createElement('div');
+        fallback.className = 'calendly-consent-fallback';
+        fallback.innerHTML =
+          '<p>La prise de rendez-vous en ligne nécessite l’acceptation des cookies tiers Calendly.</p>' +
+          '<div class="btn-group">' +
+            '<button type="button" class="btn btn--outline-gold tac-manage-cookies">Gérer mes cookies</button>' +
+            '<a href="tel:+33442862517" class="btn btn--primary">+33 4 42 86 25 17</a>' +
+            '<a href="https://wa.me/message/52FBS44XYKP5H1" class="btn btn--whatsapp">WhatsApp</a>' +
+          '</div>';
+        el.insertAdjacentElement('afterend', fallback);
+      });
+    }
+    function hideCalendlyFallback() {
+      document.querySelectorAll('.calendly-consent-fallback').forEach(function (el) { el.remove(); });
+      calendlyWidgets.forEach(function (el) {
+        el.style.display = '';
+        el.removeAttribute('data-tac-fallback-shown');
+      });
+    }
     function loadCalendlyScript() {
-      if (calendlyScriptLoaded) return;
+      if (calendlyScriptLoaded || !calendlyInViewport) return;
+      if (!hasCalendlyConsent()) {
+        showCalendlyFallback();
+        return;
+      }
+      // garde supplémentaire au niveau du DOM : le drapeau ci-dessus suffit en
+      // théorie, mais l'évènement "calendly_allowed" et l'IntersectionObserver
+      // peuvent chacun redéclencher cette fonction à quelques instants
+      // d'écart — vérifier qu'aucun <script> vers cette URL n'est déjà
+      // présent évite un double chargement du widget dans ce cas.
+      if (document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')) {
+        calendlyScriptLoaded = true;
+        hideCalendlyFallback();
+        return;
+      }
       calendlyScriptLoaded = true;
+      hideCalendlyFallback();
       var script = document.createElement('script');
       script.src = 'https://assets.calendly.com/assets/external/widget.js';
       script.async = true;
       document.body.appendChild(script);
     }
+    document.addEventListener('calendly_allowed', loadCalendlyScript);
     if ('IntersectionObserver' in window) {
       var calendlyObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
+            calendlyInViewport = true;
             loadCalendlyScript();
             calendlyObserver.disconnect();
           }
@@ -113,6 +201,7 @@
       calendlyWidgets.forEach(function (el) { calendlyObserver.observe(el); });
     } else {
       // repli pour les navigateurs très anciens sans IntersectionObserver
+      calendlyInViewport = true;
       loadCalendlyScript();
     }
   }
