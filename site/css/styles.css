@@ -1585,6 +1585,14 @@ section[data-reveal-variant="fade-up"].is-visible {
   flex: 1 1 240px;
   margin-bottom: 0;
 }
+/* le widget reCAPTCHA (304px de large) ne s'accorde pas avec le champ email
+   flexible juste au-dessus : flex-basis 100% le force sur sa propre ligne
+   dans ce conteneur flex-wrap, centré comme le reste du formulaire */
+.newsletter-form .newsletter-recaptcha {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+}
 .newsletter-form button[type="submit"] {
   flex-shrink: 0;
 }

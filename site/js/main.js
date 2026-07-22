@@ -38,6 +38,9 @@
             '<label for="newsletter-email">Email</label>' +
             '<input type="email" id="newsletter-email" name="EMAIL" placeholder="vous@exemple.com" required>' +
           '</div>' +
+          '<div class="newsletter-recaptcha">' +
+            '<div class="g-recaptcha" data-sitekey="6LctEmAtAAAAAAyqHQac1WjeTzmL29ApoevQYm0Q"></div>' +
+          '</div>' +
           '<button type="submit" class="btn btn--outline-gold">S\'inscrire</button>' +
           '<input type="text" name="email_address_check" value="" style="display:none" tabindex="-1" autocomplete="off">' +
           '<input type="hidden" name="locale" value="fr">' +
@@ -45,6 +48,36 @@
         '</form>' +
       '</div>';
     newsletterHost.appendChild(newsletterSection);
+
+    // reCAPTCHA (protection anti-spam Brevo) : même logique de chargement
+    // paresseux que le widget Calendly plus bas dans ce fichier — le script
+    // Google (recaptcha/api.js) ne se charge que lorsque la section
+    // newsletter approche du viewport, pour ne pas payer son coût sur
+    // chaque page alors qu'une partie des visiteurs ne scrolle jamais
+    // jusqu'en bas.
+    var recaptchaScriptLoaded = false;
+    function loadRecaptchaScript() {
+      if (recaptchaScriptLoaded) return;
+      recaptchaScriptLoaded = true;
+      var script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+    if ('IntersectionObserver' in window) {
+      var recaptchaObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            loadRecaptchaScript();
+            recaptchaObserver.disconnect();
+          }
+        });
+      }, { rootMargin: '600px 0px' });
+      recaptchaObserver.observe(newsletterSection);
+    } else {
+      loadRecaptchaScript();
+    }
   }
 
   // -------------------- Calendly : chargement paresseux du widget (performance) --------------------
