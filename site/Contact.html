@@ -33,10 +33,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/styles.css">
-<!-- TODO: remplacer par le vrai domaine une fois acquis. `telephone` et `address` sont volontairement
-     omis du schema ContactPage/Organization ci-dessous tant que les vraies coordonnées ne sont pas
-     connues — mieux vaut les omettre qu'y laisser le numéro placeholder +33 6 00 00 00 00, qu'une IA
-     pourrait recommander à un client comme s'il était réel. -->
+<!-- TODO: remplacer par le vrai domaine une fois acquis. `address` reste volontairement
+     omis du schema ContactPage/Organization ci-dessous tant que l'adresse d'accueil du public
+     n'est pas confirmée (le siège légal figure dans les mentions légales, mais ce n'est pas
+     nécessairement une adresse à communiquer comme point de contact). -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -48,7 +48,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "mainEntity": {
         "@type": "Organization",
         "name": "Azur Auto",
-        "email": "conciergerie@azurauto.com",
+        "telephone": "+33442862517",
+        "email": "gestion@azurlink.fr",
         "sameAs": [],
         "areaServed": [
           { "@type": "Country", "name": "France" },
@@ -145,13 +146,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="contact__direct">
         <p><strong>Siège</strong>Paris</p>
         <p><strong>Zone d'intervention</strong>France : Paris · Cannes · Aix-en-Provence<br>Maroc : Rabat · Casablanca · Marrakech<br>Suisse : Genève · Zurich · Zoug</p>
-        <p><strong>Téléphone</strong><a href="tel:+33600000000">+33 6 00 00 00 00</a></p>
-        <p><strong>Email</strong><a href="mailto:conciergerie@azurauto.com">conciergerie@azurauto.com</a></p>
+        <p><strong>Téléphone</strong><a href="tel:+33442862517">+33 4 42 86 25 17</a></p>
+        <p><strong>Email</strong><a href="mailto:gestion@azurlink.fr">gestion@azurlink.fr</a></p>
       </div>
       <!-- .contact__direct affiche déjà strong en display:block, donc le libellé passe naturellement
            à la ligne au-dessus de la valeur, sans <br> nécessaire (cf. styles.css) -->
       <div class="btn-group">
-        <a href="https://wa.me/33600000000" class="btn btn--outline-gold">WhatsApp Azur Auto</a>
+        <a href="https://wa.me/33617836732" class="btn btn--outline-gold">WhatsApp Azur Auto</a>
       </div>
     </div>
   </section>
@@ -328,9 +329,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="site-footer__contact">
         <div>Siège : Paris</div>
         <div>Zone d'intervention : France, Suisse, Maroc</div>
-        <div>+33 6 00 00 00 00</div>
-        <div>conciergerie@azurauto.com</div>
-        <a href="https://wa.me/33600000000" class="btn btn--outline-gold site-footer__whatsapp">WhatsApp Azur Auto</a>
+        <div>+33 4 42 86 25 17</div>
+        <div>gestion@azurlink.fr</div>
+        <a href="https://wa.me/33617836732" class="btn btn--outline-gold site-footer__whatsapp">WhatsApp Azur Auto</a>
       </div>
     </div>
   </div>
@@ -343,7 +344,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </footer>
 
 <!-- CONTACT RAPIDE FLOTTANT -->
-<a href="https://wa.me/33600000000" class="whatsapp-float" aria-label="Discuter maintenant sur WhatsApp">
+<a href="https://wa.me/33617836732" class="whatsapp-float" aria-label="Discuter maintenant sur WhatsApp">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10h.01M12 10h.01M16 10h.01"/><path d="M4 20l1.6-4A8 8 0 1 1 9 19l-5 1Z"/></svg>
   <span class="whatsapp-float__label">Discuter maintenant</span>
 </a>
