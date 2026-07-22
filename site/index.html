@@ -528,82 +528,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="section-inner">
       <div class="section-head">
         <h2 class="section-title section-title--light">Une demande sur mesure</h2>
-        <p class="contact__subtitle">Notre conciergerie vous répond sous 24h. Précisez votre besoin, nous nous chargeons du reste.</p>
+        <p class="contact__subtitle">Choisissez directement un créneau ci-dessous, notre équipe vous répond en visio ou par téléphone.</p>
       </div>
 
       <div class="contact__layout">
-        <form id="contact-form" class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-
-          <div class="contact__group">
-            <p class="contact__group-title">Vos coordonnées</p>
-            <div class="form-group">
-              <label for="nom">Nom et prénom</label>
-              <input type="text" id="nom" name="nom" placeholder="ex. Jean Dupont" required>
-              <span class="error-message" data-error-for="nom"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="telephone">Téléphone</label>
-              <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" required>
-              <span class="error-message" data-error-for="telephone"></span>
-            </div>
-
-            <div class="form-group full-width">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
-              <span class="error-message" data-error-for="email"></span>
-            </div>
-          </div>
-
-          <div class="contact__group">
-            <p class="contact__group-title">Votre projet</p>
-            <div class="form-group full-width">
-              <label for="service">Quel service vous intéresse ?</label>
-              <select id="service" name="service" required>
-                <option value="" disabled selected>Sélectionnez une option</option>
-                <option value="import">Importer un véhicule</option>
-                <option value="location">Louer un véhicule (Prestige Rent)</option>
-                <option value="detailing">Faire détailer mon véhicule</option>
-                <option value="club">Rejoindre le Club</option>
-                <option value="autre">Autre demande</option>
-              </select>
-              <span class="error-message" data-error-for="service"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="budget">Budget indicatif</label>
-              <select id="budget" name="budget">
-                <option value="" disabled selected>Sélectionnez une option</option>
-                <option value="moins-50k">Moins de 50 000 €</option>
-                <option value="50k-150k">50 000 – 150 000 €</option>
-                <option value="plus-150k">Plus de 150 000 €</option>
-                <option value="a-discuter">À discuter</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="echeance">Échéance souhaitée</label>
-              <select id="echeance" name="echeance">
-                <option value="" disabled selected>Sélectionnez une option</option>
-                <option value="mois">Dans le mois</option>
-                <option value="3-mois">Dans les 3 mois</option>
-                <option value="renseigne">Je me renseigne</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="contact__group contact__group--message">
-            <div class="form-group full-width">
-              <label for="message">Votre demande <em>(optionnel)</em></label>
-              <textarea id="message" name="message" rows="4" placeholder="Précisez ici tout élément utile à votre demande..."></textarea>
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn--outline-gold full-width">Envoyer ma demande</button>
-
-          <div id="form-success" class="contact__success" hidden>Demande bien reçue. Un membre de notre conciergerie vous recontacte sous 24h ouvrées.</div>
-          <div id="form-error" class="contact__error" hidden>Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement ci-contre.</div>
-        </form>
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/azurautogestion/des-questions?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=efede9&primary_color=a8832e" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly inline widget end -->
 
         <div class="contact__direct">
           <p><strong>Téléphone</strong><br><a href="tel:+33442862517">+33 4 42 86 25 17</a></p>

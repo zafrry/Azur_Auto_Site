@@ -1415,18 +1415,11 @@ section[data-reveal-variant="fade-up"].is-visible {
   align-items: start;
 }
 
-/* widget de prise de RDV embarqué (Google Calendar Appointment Scheduling,
-   Detailing Studio) — fond blanc explicite : l'interface Google Calendar est
-   conçue pour un fond clair (texte sombre), la poser telle quelle sur
-   page-section--dark (fond noir) sans fond propre rendait le texte illisible
-   pendant le chargement/sur les zones transparentes de l'iframe. */
-.calendar-embed {
-  background: var(--white);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: var(--space-6);
-}
-.calendar-embed iframe { display: block; }
+/* widget de prise de RDV embarqué (Calendly) : la couleur de fond/texte/accent
+   est déjà pilotée par les paramètres d'URL du widget lui-même
+   (background_color/text_color/primary_color, alignés sur la charte Azur
+   Auto), pas besoin de styliser le conteneur ici. */
+.calendly-inline-widget { margin-bottom: var(--space-6); }
 @media (min-width: 1024px) {
   .contact__form { grid-template-columns: 1fr 1fr; }
 }
