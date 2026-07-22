@@ -1705,11 +1705,11 @@ section[data-reveal-variant="fade-up"].is-visible {
   background: var(--black);
   color: var(--white);
   font-family: 'Jost', sans-serif;
-  padding: 56px 20px;
+  padding: 56px 20px 28px;
   border-top: 1px solid var(--black-alt);
 }
 @media (min-width: 901px) {
-  .site-footer { padding: 90px 40px; }
+  .site-footer { padding: 90px 40px 32px; }
 }
 
 .site-footer__grid {

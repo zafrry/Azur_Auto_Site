@@ -631,17 +631,39 @@
     }, { passive: true });
   }
 
-  // -------------------- bouton WhatsApp flottant : masqué tant que le hero est visible --------------------
-  // évite le chevauchement avec le CTA "Appeler / WhatsApp" du hero et la barre de
-  // réassurance juste en dessous, surtout marqué sur les petits viewports (hauteur courte)
+  // -------------------- bouton WhatsApp flottant : masqué tant que le hero ou le footer sont visibles --------------------
+  // Masqué sur le hero : évite le chevauchement avec le CTA "Appeler / WhatsApp"
+  // du hero et la barre de réassurance juste en dessous, surtout marqué sur les
+  // petits viewports (hauteur courte). Masqué sur le footer : le bouton fixe
+  // chevauchait sinon la ligne de bas de page (mentions légales, crédit) une
+  // fois cette dernière resserrée — le footer affiche déjà son propre bouton
+  // WhatsApp juste au-dessus, la version flottante y est redondante.
   var whatsappFloat = document.querySelector('.whatsapp-float');
-  if (whatsappFloat && hero) {
-    var whatsappObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        whatsappFloat.classList.toggle('is-hidden', entry.isIntersecting);
+  var siteFooterEl = document.querySelector('.site-footer');
+  if (whatsappFloat && (hero || siteFooterEl)) {
+    var heroIntersecting = false;
+    var footerIntersecting = false;
+    function updateWhatsappFloatVisibility() {
+      whatsappFloat.classList.toggle('is-hidden', heroIntersecting || footerIntersecting);
+    }
+    if (hero) {
+      var whatsappHeroObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          heroIntersecting = entry.isIntersecting;
+          updateWhatsappFloatVisibility();
+        });
       });
-    });
-    whatsappObserver.observe(hero);
+      whatsappHeroObserver.observe(hero);
+    }
+    if (siteFooterEl) {
+      var whatsappFooterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          footerIntersecting = entry.isIntersecting;
+          updateWhatsappFloatVisibility();
+        });
+      });
+      whatsappFooterObserver.observe(siteFooterEl);
+    }
   }
 
   // ==========================================================================
