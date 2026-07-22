@@ -1779,21 +1779,21 @@ section[data-reveal-variant="fade-up"].is-visible {
 
 .site-footer__bottom {
   max-width: 1520px;
-  margin: 56px auto 0;
+  margin: 32px auto 0;
   border-top: 1px solid var(--black-alt);
-  padding-top: 26px;
+  padding-top: 18px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
 }
 @media (min-width: 901px) {
-  .site-footer__bottom { margin-top: 90px; }
+  .site-footer__bottom { margin-top: 40px; }
 }
 .site-footer__bottom div,
 .site-footer__bottom a {
-  font-size: 11.5px;
-  color: var(--gray-1);
+  font-size: 13px;
+  color: var(--gray-3);
   font-weight: 300;
   text-decoration: none;
 }
