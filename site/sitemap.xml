@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 7 pages actives du site (Care.html est volontairement exclu : masquée de la
-     navigation en attente de contenu final, pas encore une page à indexer).
+<!-- 7 pages actives du site.
      À régénérer/étendre à chaque article de blog publié (voir site/blog/). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
