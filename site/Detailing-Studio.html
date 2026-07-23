@@ -8,22 +8,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Detailing Automobile de Luxe International | Azur Auto</title>
-<meta name="description" content="Studio de detailing automobile en France, en Suisse et au Maroc : polish, correction de peinture, protection céramique, PPF, covering et préparation avant-vente ou avant-livraison.">
+<meta name="description" content="Studio de detailing automobile de luxe : polish, correction de peinture, protection céramique, PPF et covering en France, en Suisse et au Maroc.">
 <link rel="canonical" href="https://zafrry.github.io/Azur_Auto_Site/Detailing-Studio.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Detailing Automobile de Luxe International | Azur Auto">
-<meta property="og:description" content="Studio de detailing automobile en France, en Suisse et au Maroc : polish, correction de peinture, protection céramique, PPF, covering et préparation avant-vente ou avant-livraison.">
+<meta property="og:description" content="Studio de detailing automobile de luxe : polish, correction de peinture, protection céramique, PPF et covering en France, en Suisse et au Maroc.">
 <meta property="og:url" content="https://zafrry.github.io/Azur_Auto_Site/Detailing-Studio.html">
 <!-- TODO: remplacer par le vrai visuel une fois disponible -->
 <meta property="og:image" content="https://zafrry.github.io/Azur_Auto_Site/assets/img/og-cover.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Detailing Automobile de Luxe International | Azur Auto">
-<meta name="twitter:description" content="Studio de detailing automobile en France, en Suisse et au Maroc : polish, correction de peinture, protection céramique, PPF, covering et préparation avant-vente ou avant-livraison.">
+<meta name="twitter:description" content="Studio de detailing automobile de luxe : polish, correction de peinture, protection céramique, PPF et covering en France, en Suisse et au Maroc.">
 <meta name="twitter:image" content="https://zafrry.github.io/Azur_Auto_Site/assets/img/og-cover.webp">
 <link rel="icon" href="./favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+
+<!-- Préchargement de l'image hero (LCP) : ne précharge que la variante réellement
+     affichée, via des media queries mutuellement exclusives calquées sur le
+     <picture> du hero plus bas -->
+<link rel="preload" as="image" media="(max-width: 767px)" href="./assets/img/detailing-mobile.webp" fetchpriority="high">
+<link rel="preload" as="image" media="(min-width: 768px)" href="./assets/img/detailing-desktop.webp" fetchpriority="high">
 
 <!-- préconnexion Calendly : le widget de prise de RDV plus bas sur la page
      est chargé paresseusement (voir main.js), mais établir la connexion tôt
@@ -117,7 +123,7 @@
     <div class="hero__bg">
       <picture>
         <source media="(max-width: 767px)" srcset="./assets/img/detailing-mobile.webp">
-        <img src="./assets/img/detailing-desktop.webp" alt="Polissage et protection céramique d'une carrosserie noire au Detailing Studio Azur Auto" class="hero__img">
+        <img src="./assets/img/detailing-desktop.webp" alt="Polissage et protection céramique d'une carrosserie noire au Detailing Studio Azur Auto" class="hero__img" fetchpriority="high">
       </picture>
     </div>
     <div class="hero__scrim"></div>

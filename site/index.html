@@ -26,6 +26,13 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 
+<!-- Préchargement de l'image hero (LCP) : ne précharge que la variante réellement
+     affichée, via des media queries mutuellement exclusives calquées sur le
+     <picture> du hero plus bas -->
+<link rel="preload" as="image" media="(max-width: 767px)" href="./assets/img/hero-mobile.webp" fetchpriority="high">
+<link rel="preload" as="image" media="(min-width: 768px) and (max-width: 1439px)" href="./assets/img/hero-tablet.webp" fetchpriority="high">
+<link rel="preload" as="image" media="(min-width: 1440px)" href="./assets/img/hero-desktop.webp" fetchpriority="high">
+
 <!-- préconnexion Calendly : le widget de prise de RDV plus bas sur la page
      est chargé paresseusement (voir main.js), mais établir la connexion tôt
      réduit la latence perçue au moment où il se charge réellement -->
@@ -141,7 +148,7 @@
       <picture>
         <source media="(max-width: 767px)" srcset="./assets/img/hero-mobile.webp">
         <source media="(max-width: 1439px)" srcset="./assets/img/hero-tablet.webp">
-        <img src="./assets/img/hero-desktop.webp" alt="Supercar sur une route côtière au coucher du soleil, Côte d'Azur" class="hero__img">
+        <img src="./assets/img/hero-desktop.webp" alt="Supercar sur une route côtière au coucher du soleil, Côte d'Azur" class="hero__img" fetchpriority="high">
       </picture>
     </div>
     <div class="hero__scrim"></div>
@@ -394,7 +401,7 @@
         <div class="social-proof__quotes-col">
           <div class="section-head">
             <div class="kicker kicker--gray">Témoignages</div>
-            <h2 class="section-title section-title--light">Ils nous ont fait confiance</h2>
+            <h2 class="section-title section-title--light">Ce qu'en disent nos clients</h2>
           </div>
           <div class="social-proof__testimonials">
             <blockquote class="social-proof__testimonial">

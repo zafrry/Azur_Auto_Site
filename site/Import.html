@@ -8,22 +8,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mandataire Automobile de Luxe International | Azur Import</title>
-<meta name="description" content="Sourcing sur mesure de supercars (Ferrari, Porsche, Lamborghini...) en Europe. Accompagnement complet, de la recherche à la livraison en France, en Suisse et au Maroc.">
+<meta name="description" content="Sourcing sur mesure de supercars (Ferrari, Porsche, Lamborghini...) en Europe : accompagnement de la recherche à la livraison, France, Suisse, Maroc.">
 <link rel="canonical" href="https://zafrry.github.io/Azur_Auto_Site/Import.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mandataire Automobile de Luxe International | Azur Import">
-<meta property="og:description" content="Sourcing sur mesure de supercars (Ferrari, Porsche, Lamborghini...) en Europe. Accompagnement complet, de la recherche à la livraison en France, en Suisse et au Maroc.">
+<meta property="og:description" content="Sourcing sur mesure de supercars (Ferrari, Porsche, Lamborghini...) en Europe : accompagnement de la recherche à la livraison, France, Suisse, Maroc.">
 <meta property="og:url" content="https://zafrry.github.io/Azur_Auto_Site/Import.html">
 <!-- TODO: remplacer par le vrai visuel une fois disponible -->
 <meta property="og:image" content="https://zafrry.github.io/Azur_Auto_Site/assets/img/og-cover.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mandataire Automobile de Luxe International | Azur Import">
-<meta name="twitter:description" content="Sourcing sur mesure de supercars (Ferrari, Porsche, Lamborghini...) en Europe. Accompagnement complet, de la recherche à la livraison en France, en Suisse et au Maroc.">
+<meta name="twitter:description" content="Sourcing sur mesure de supercars (Ferrari, Porsche, Lamborghini...) en Europe : accompagnement de la recherche à la livraison, France, Suisse, Maroc.">
 <meta name="twitter:image" content="https://zafrry.github.io/Azur_Auto_Site/assets/img/og-cover.webp">
 <link rel="icon" href="./favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+
+<!-- Préchargement de l'image hero (LCP) : ne précharge que la variante réellement
+     affichée, via des media queries mutuellement exclusives calquées sur le
+     <picture> du hero plus bas -->
+<link rel="preload" as="image" media="(max-width: 767px)" href="./assets/img/import-mobile.webp" fetchpriority="high">
+<link rel="preload" as="image" media="(min-width: 768px)" href="./assets/img/import-desktop.webp" fetchpriority="high">
 
 <!-- préconnexion Calendly : le widget de prise de RDV plus bas sur la page
      est chargé paresseusement (voir main.js), mais établir la connexion tôt
@@ -145,7 +151,7 @@
     <div class="hero__bg">
       <picture>
         <source media="(max-width: 767px)" srcset="./assets/img/import-mobile.webp">
-        <img src="./assets/img/import-desktop.webp" alt="Supercar sous housse dans un showroom d'import Azur Auto" class="hero__img">
+        <img src="./assets/img/import-desktop.webp" alt="Supercar sous housse dans un showroom d'import Azur Auto" class="hero__img" fetchpriority="high">
       </picture>
     </div>
     <div class="hero__scrim"></div>
@@ -377,7 +383,7 @@
         <div class="social-proof__quotes-col">
           <div class="section-head">
             <div class="kicker kicker--gray">Témoignages</div>
-            <h2 class="section-title section-title--light">Ils nous ont fait confiance</h2>
+            <h2 class="section-title section-title--light">Ils ont importé avec nous</h2>
           </div>
           <div class="social-proof__testimonials">
             <blockquote class="social-proof__testimonial">
