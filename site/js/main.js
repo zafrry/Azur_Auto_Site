@@ -143,8 +143,12 @@
   if (calendlyWidgets.length) {
     var calendlyScriptLoaded = false;
     var calendlyInViewport = false;
-    function hasCalendlyConsent() {
-      return typeof tarteaucitron !== 'undefined' && tarteaucitron.state && tarteaucitron.state.calendly === true;
+    var calendlyConsentPolls = 0;
+    // état du consentement Calendly : true = accepté, false = refusé,
+    // undefined = pas encore décidé (bannière encore ouverte).
+    function calendlyConsentState() {
+      if (typeof tarteaucitron === 'undefined' || !tarteaucitron.state) return undefined;
+      return tarteaucitron.state.calendly;
     }
     function showCalendlyFallback() {
       calendlyWidgets.forEach(function (el) {
@@ -171,16 +175,35 @@
       });
     }
     function loadCalendlyScript() {
-      if (calendlyScriptLoaded || !calendlyInViewport) return;
-      if (!hasCalendlyConsent()) {
+      if (!calendlyInViewport) return;
+      var consent = calendlyConsentState();
+      if (consent === false) {
+        // refus explicite -> message de repli + coordonnées directes
         showCalendlyFallback();
         return;
       }
-      // garde supplémentaire au niveau du DOM : le drapeau ci-dessus suffit en
-      // théorie, mais l'évènement "calendly_allowed" et l'IntersectionObserver
-      // peuvent chacun redéclencher cette fonction à quelques instants
-      // d'écart — vérifier qu'aucun <script> vers cette URL n'est déjà
-      // présent évite un double chargement du widget dans ce cas.
+      if (consent !== true) {
+        // décision inconnue à cet instant. Deux cas indistinguables ici :
+        //  - tarteaucitron n'a pas encore fini de lire le cookie (init async) :
+        //    on re-teste quelques fois, le temps qu'un éventuel choix déjà
+        //    stocké soit appliqué (un REFUS stocké ne ré-émet AUCUN événement,
+        //    contrairement à une acceptation, d'où ce poll borné) ;
+        //  - le visiteur n'a tout simplement pas encore répondu à la bannière :
+        //    on attend alors son clic (événements calendly_allowed/_disallowed).
+        // Surtout : ne PAS afficher le repli tant que la décision est en attente,
+        // sinon le message "acceptez les cookies" remplace le calendrier avant
+        // même que le visiteur ait répondu (visible sur Contact, widget haut
+        // dans la page donc dans le viewport dès le chargement).
+        if (calendlyConsentPolls < 15) { // ~3 s max (15 × 200 ms), couvre l'init
+          calendlyConsentPolls++;
+          setTimeout(loadCalendlyScript, 200);
+        }
+        return;
+      }
+      if (calendlyScriptLoaded) return;
+      // consentement accordé -> charger le widget. Garde anti double-injection :
+      // calendly_allowed et l'IntersectionObserver peuvent déclencher cette
+      // fonction à quelques instants d'écart.
       if (document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')) {
         calendlyScriptLoaded = true;
         hideCalendlyFallback();
@@ -194,6 +217,9 @@
       document.body.appendChild(script);
     }
     document.addEventListener('calendly_allowed', loadCalendlyScript);
+    document.addEventListener('calendly_disallowed', function () {
+      if (calendlyInViewport) showCalendlyFallback();
+    });
     if ('IntersectionObserver' in window) {
       var calendlyObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
