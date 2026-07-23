@@ -25,6 +25,12 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 
+<!-- Préchargement de l'image hero (LCP) : ne précharge que la variante réellement
+     affichée, via des media queries mutuellement exclusives calquées sur le
+     <picture> du hero plus bas -->
+<link rel="preload" as="image" media="(max-width: 767px)" href="./assets/img/prestige-rent-mobile.webp" fetchpriority="high">
+<link rel="preload" as="image" media="(min-width: 768px)" href="./assets/img/prestige-rent-desktop.webp" fetchpriority="high">
+
 <!-- préconnexion Calendly : le widget de prise de RDV plus bas sur la page
      est chargé paresseusement (voir main.js), mais établir la connexion tôt
      réduit la latence perçue au moment où il se charge réellement -->
@@ -117,7 +123,7 @@
     <div class="hero__bg">
       <picture>
         <source media="(max-width: 767px)" srcset="./assets/img/prestige-rent-mobile.webp">
-        <img src="./assets/img/prestige-rent-desktop.webp" alt="Voiturier ouvrant la portière d'une berline de luxe devant un hôtel" class="hero__img">
+        <img src="./assets/img/prestige-rent-desktop.webp" alt="Voiturier ouvrant la portière d'une berline de luxe devant un hôtel" class="hero__img" fetchpriority="high">
       </picture>
     </div>
     <div class="hero__scrim"></div>

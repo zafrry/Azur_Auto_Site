@@ -1,3 +1,9 @@
+/*
+ * NB : le <header>/<nav> et le <footer> de chaque page sont générés depuis une
+ * source unique (partials/header.html, partials/footer.html) par
+ * scripts/sync-partials.js — ne pas les éditer inline dans les fichiers HTML,
+ * ils seraient écrasés au prochain sync. Voir scripts/README.md.
+ */
 (function () {
   'use strict';
 
@@ -261,24 +267,37 @@
   var heroImg = hero ? hero.querySelector('.hero__img') : null;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // -------------------- parallax : un seul listener scroll partagé (performance) --------------------
+  // Les effets de parallax (hero, pôles, fond Club, carte Club) s'enregistrent
+  // dans parallaxUpdaters ; un unique listener scroll passif + un unique rAF les
+  // met tous à jour ensemble (pattern "ticking" mutualisé), au lieu de 4 couples
+  // listener/rAF concurrents. Chaque effet ne s'enregistre que s'il est présent
+  // sur la page ET si prefers-reduced-motion n'est pas actif (le respect de
+  // cette préférence reste géré individuellement à chaque enregistrement plus bas).
+  var parallaxUpdaters = [];
+  var parallaxTicking = false;
+  function runParallaxUpdaters() {
+    for (var i = 0; i < parallaxUpdaters.length; i++) parallaxUpdaters[i]();
+    parallaxTicking = false;
+  }
+  function onParallaxScroll() {
+    if (!parallaxTicking) {
+      parallaxTicking = true;
+      requestAnimationFrame(runParallaxUpdaters);
+    }
+  }
+  window.addEventListener('scroll', onParallaxScroll, { passive: true });
+
   if (hero) {
     requestAnimationFrame(function () { hero.classList.add('is-loaded'); });
 
     if (heroImg && !prefersReducedMotion) {
-      var ticking = false;
-      function updateParallax() {
+      parallaxUpdaters.push(function () {
         var offset = window.scrollY;
         if (offset < hero.offsetHeight) {
           heroImg.style.transform = 'translateY(' + (offset * 0.4) + 'px)';
         }
-        ticking = false;
-      }
-      window.addEventListener('scroll', function () {
-        if (!ticking) {
-          requestAnimationFrame(updateParallax);
-          ticking = true;
-        }
-      }, { passive: true });
+      });
     }
   }
 
@@ -348,7 +367,6 @@
       var poleBgs = Array.prototype.map.call(poles, function (p) {
         return p.querySelector('.pole__bg');
       });
-      var poleTicking = false;
       function updatePoleParallax() {
         poles.forEach(function (p, i) {
           var bg = poleBgs[i];
@@ -358,15 +376,9 @@
             bg.style.transform = 'translateY(' + (rect.top * -0.1) + 'px)';
           }
         });
-        poleTicking = false;
       }
       updatePoleParallax();
-      window.addEventListener('scroll', function () {
-        if (!poleTicking) {
-          requestAnimationFrame(updatePoleParallax);
-          poleTicking = true;
-        }
-      }, { passive: true });
+      parallaxUpdaters.push(updatePoleParallax);
     }
   }
 
@@ -815,27 +827,19 @@
   var clubBg = document.getElementById('club-teaser-bg');
   var clubSection = document.getElementById('club');
   if (clubBg && clubSection && !prefersReducedMotion) {
-    var clubTicking = false;
     function updateClubParallax() {
       var rect = clubSection.getBoundingClientRect();
       if (rect.bottom > 0 && rect.top < window.innerHeight) {
         clubBg.style.transform = 'translateY(' + (rect.top * -0.15) + 'px)';
       }
-      clubTicking = false;
     }
     updateClubParallax();
-    window.addEventListener('scroll', function () {
-      if (!clubTicking) {
-        requestAnimationFrame(updateClubParallax);
-        clubTicking = true;
-      }
-    }, { passive: true });
+    parallaxUpdaters.push(updateClubParallax);
   }
 
   // -------------------- club : carte membre, légère rotation au scroll --------------------
   var clubCard = document.getElementById('club-teaser-card');
   if (clubCard && clubSection && !prefersReducedMotion) {
-    var clubCardTicking = false;
     function updateClubCardParallax() {
       var rect = clubSection.getBoundingClientRect();
       if (rect.bottom > 0 && rect.top < window.innerHeight) {
@@ -844,15 +848,9 @@
         var rotate = -6 + progress * 4;
         clubCard.style.transform = 'translateY(' + (rect.top * -0.05) + 'px) rotate(' + rotate + 'deg)';
       }
-      clubCardTicking = false;
     }
     updateClubCardParallax();
-    window.addEventListener('scroll', function () {
-      if (!clubCardTicking) {
-        requestAnimationFrame(updateClubCardParallax);
-        clubCardTicking = true;
-      }
-    }, { passive: true });
+    parallaxUpdaters.push(updateClubCardParallax);
   }
 
   // -------------------- curseur personnalisé (souris fine uniquement) --------------------
